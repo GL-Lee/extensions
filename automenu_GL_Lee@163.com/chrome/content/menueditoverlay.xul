@@ -38,10 +38,7 @@
    -
    - ***** END LICENSE BLOCK ***** -->
 
-<?xml-stylesheet href="chrome://global/skin/customizeToolbar.css" type="text/css"?>
-<?xml-stylesheet href="chrome://automenu_GL/content/autoMenuPopup.css"?>
-<?xml-stylesheet href="chrome://automenu_GL/content/tree.css"?>
-<?xml-stylesheet href="chrome://automenu_GL/content/customizeToolbar.css"?>
+<?xml-stylesheet href="chrome://automenu_GL/content/css/tt.css"?>
 <!DOCTYPE overlay [
   <!ENTITY % commonDTD SYSTEM "chrome://automenu_GL/locale/menuedittext.dtd">
   %commonDTD;
@@ -51,5 +48,6 @@
 <overlay id="menueditOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="jquery/jquery-1.10.2.js"/>
   <script src="tt.js"/>
+  <style type="text/css" src="css/tt.css"></style>
 </overlay>
 

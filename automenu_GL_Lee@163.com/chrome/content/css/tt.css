@@ -1,0 +1,7 @@
+#am_tip{
+	position: fixed;
+	left: 10px;
+	top: 10px;
+	border: solid 1px;
+	background-color: white;
+}
