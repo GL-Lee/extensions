@@ -20,28 +20,26 @@ var am={
 		am.bindAmEvent();
 	},
 	bindImgEvent: function(){
-		var $imgs = $("img",am.$doc);
-		$imgs.hover(function(){
-			clearTimeout(am.timer);
-			var _this = this;
-			var _mposition;
-			am.imgTarget=this;
-			am.timer = setTimeout(function(){
-				// am.show();
-				var position = am.getPosition(15,-15);
-				am.$tip.css({left:position.left,top:position.top}).text(_this.src);
-				am.$tip.css("display","block");
-				// am.$tip.show();
-			},300)
-		},function(){
-			clearTimeout(am.timer);
-			setTimeout(function(){
-				if (!am.intip) {
-					am.$tip.css("display","none");
-				};
-			},100);
-		});
+		am.$doc[0].body.addEventListener("mouseover",am.imgMouseover,false);
+		am.$doc[0].body.addEventListener("mouseout",am.imgMouseout,false);
 		am.$tip.hover(function(){am.intip = 1;},function(){am.intip = 0;})
+	},
+	imgMouseover:function(){
+		var event = arguments[0];
+			am.$tip.text(event.target.tagName.toLowerCase);
+		if(event.target.tagName.toLowerCase == "img"){
+			alert()
+			am.imgTarget=this;
+			var position = am.getPosition(15,-15);
+			am.$tip.css({left:position.left,top:position.top}).text(_this.src);
+			am.$tip.css("display","block");
+		}
+	},
+	imgMouseout: function(){
+		var event = arguments[0];
+		if(event.target.tagName.toLowerCase == "img"){
+			am.$tip.hide();
+		}
 	},
 	bindMouseEvent: function(){
 		am.$doc.bind("mousemove",function(event){
