@@ -6,11 +6,7 @@ var am={
 	imgTarget:null,
 	intip:0,
 	init: function(){
-		am.$doc = $($("#content")[0].contentDocument);//获得网页对应的document
-		if($("#am_tip",am.$doc).length == 0){
-			var amHtml="<div id='am_tip' style='position:fixed;left:0px;top:0px;border:solid thin;'>tip</div>";
-			am.$tip=$(amHtml).appendTo($("body",am.$doc));
-		}
+		am.$tip = $("#am_tip");
 		am.bindEvents();
 	},
 	bindEvents: function(){
@@ -20,27 +16,32 @@ var am={
 		am.bindAmEvent();
 	},
 	bindImgEvent: function(){
-		window.addEventListener("mouseover",am.imgMouseover,false);
-		am.$doc[0].body.addEventListener("mouseout",am.imgMouseout,false);
+		$(window).bind("mouseover",am.imgMouseover);
+		$(window).bind("mouseout",am.imgMouseout);
 		am.$tip.hover(function(){am.intip = 1;},function(){am.intip = 0;})
 	},
 	imgMouseover:function(){
 		var target = arguments[0].target;
 		if(target.tagName.toLowerCase() == "img"){
-			am.imgTarget=this;
-			var position = am.getPosition(15,-15);
-			am.$tip.css({left:position.left,top:position.top}).text(target.src);
-			am.$tip.show();
+			if(am.timer)clearTimeout(am.timer);
+			am.timer = setTimeout(function(){
+				am.imgTarget=target;
+				var position = am.getPosition(15,-15);
+				am.$tip.css({left:position.left,top:position.top}).text(target.src);
+				am.$tip.show();
+			},300)
 		}
 	},
 	imgMouseout: function(){
 		var event = arguments[0];
 		if(event.target.tagName.toLowerCase() == "img"){
-			am.$tip.hide();
+			setTimeout(function(){
+				if (!am.intip) am.$tip.hide();
+			},100);
 		}
 	},
 	bindMouseEvent: function(){
-		am.$doc.bind("mousemove",function(event){
+		$(window).bind("mousemove",function(event){
 			am.mposition.left = event.clientX;
 			am.mposition.top = event.clientY;
 		})
@@ -66,10 +67,11 @@ var am={
 		return position;
 	},
 	doCommand: function(contextMenuitemId,target) {
-	    var fun = document.getElementById(contextMenuitemId).getAttribute("oncommand");
+		id="#"+contextMenuitemId;
+	    var fun = $(id).attr("oncommand");
 	    if(!fun){
-	    	var commandId = document.getElementById(id).getAttribute("command");
-	    	fun = document.getElementById(commandId).getAttribute("oncommand");
+	    	var commandId = $(id).attr("command");
+	    	fun = $(commandId).attr("oncommand");
 	    }
 	    document.popupNode = target;/*
 	    							 * 解决error
@@ -80,8 +82,4 @@ var am={
 		eval(fun);
 	},
 }
-window.addEventListener("DOMContentLoaded",am.init,false);
-window.addEventListener("TabSelect",function(){
-		am.$doc = $($("#content")[0].contentDocument);
-		am.$tip = $("#am_tip",am.$doc);
-	},false);
+$(window).bind("load",am.init);

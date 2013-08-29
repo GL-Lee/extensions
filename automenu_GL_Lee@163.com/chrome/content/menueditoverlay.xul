@@ -49,5 +49,8 @@
   <script src="jquery/jquery-1.10.2.js"/>
   <script src="tt.js"/>
   <style type="text/css" src="css/tt.css"></style>
+  <window id="main-window">
+    <box id="am_tip">tip</box>
+  </window>
 </overlay>
 
