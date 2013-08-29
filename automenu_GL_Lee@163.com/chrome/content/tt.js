@@ -20,24 +20,22 @@ var am={
 		am.bindAmEvent();
 	},
 	bindImgEvent: function(){
-		am.$doc[0].body.addEventListener("mouseover",am.imgMouseover,false);
+		window.addEventListener("mouseover",am.imgMouseover,false);
 		am.$doc[0].body.addEventListener("mouseout",am.imgMouseout,false);
 		am.$tip.hover(function(){am.intip = 1;},function(){am.intip = 0;})
 	},
 	imgMouseover:function(){
-		var event = arguments[0];
-			am.$tip.text(event.target.tagName.toLowerCase);
-		if(event.target.tagName.toLowerCase == "img"){
-			alert()
+		var target = arguments[0].target;
+		if(target.tagName.toLowerCase() == "img"){
 			am.imgTarget=this;
 			var position = am.getPosition(15,-15);
-			am.$tip.css({left:position.left,top:position.top}).text(_this.src);
-			am.$tip.css("display","block");
+			am.$tip.css({left:position.left,top:position.top}).text(target.src);
+			am.$tip.show();
 		}
 	},
 	imgMouseout: function(){
 		var event = arguments[0];
-		if(event.target.tagName.toLowerCase == "img"){
+		if(event.target.tagName.toLowerCase() == "img"){
 			am.$tip.hide();
 		}
 	},
