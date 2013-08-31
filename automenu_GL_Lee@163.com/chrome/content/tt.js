@@ -1,6 +1,6 @@
 var am={
 	timer: null,
-	mposition:{left:"0px",top:"0px"},
+	mposition:{left:0,top:0,offleft:0,offtop:0},
 	$doc:null,
 	$tip:null,
 	imgTarget:null,
@@ -22,6 +22,7 @@ var am={
 	},
 	imgMouseover:function(){
 		var target = arguments[0].target;
+		var view = arguments[0].view;
 		if(target.tagName.toLowerCase() == "img"){
 			if(am.timer)clearTimeout(am.timer);
 			am.timer = setTimeout(function(){
@@ -41,10 +42,10 @@ var am={
 		}
 	},
 	bindMouseEvent: function(){
-		$(window).bind("mousemove",function(event){
-			am.mposition.left = event.clientX;
-			am.mposition.top = event.clientY;
-		})
+		document.addEventListener("mousemove",function(event){
+			am.mposition.left = event.screenX;
+			am.mposition.top = event.screenY;
+		},true);
 	},
 	bindKeyEvent: function(){
 
@@ -56,7 +57,10 @@ var am={
 		});
 	},
 	getPosition: function(offx,offy,$hoverImg){
-		var position = {left:am.mposition.left+offx,top:am.mposition.top+offy};
+		
+		var left = am.mposition.left - window.mozInnerScreenX+offx;
+		var top = am.mposition.top - window.mozInnerScreenY+offy;
+		var position = {left:left,top:top};
 		if($hoverImg && position.left>$hoverImg.css){
 
 		}
