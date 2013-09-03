@@ -50,7 +50,8 @@
   <script src="tt.js"/>
   <style type="text/css" src="css/tt.css"></style>
   <window id="main-window">
-    <box id="am_tip">tip</box>
+    <box id="am_wrapper">
+    </box>
   </window>
 </overlay>
 
