@@ -1,0 +1,10 @@
+#am_elements,#am_menuitems{
+	border: solid 1px;
+}
+#am_menuitems{
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: 200px;
+	height: 400px;
+	white-space: nowrap;
+}

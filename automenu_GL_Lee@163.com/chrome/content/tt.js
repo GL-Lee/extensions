@@ -54,6 +54,7 @@ var am={
 				if (!am.intip) am.$tip.hide();
 			},100);
 		}
+		am.clicked = 0;
 	},
 	bindMouseEvent: function(){
 		document.addEventListener("mousemove",function(event){
@@ -67,6 +68,8 @@ var am={
 	bindAmEvent: function(){
 		$("#am_wrapper").bind("click",function(event){
 			am.doCommand(am.iteminfos[event.target.id].menuitemId,am.imgTarget);
+			$(this).hide();
+			am.clicked = 1;
 		})
 		am.$tip.hover(null,function(){$(this).hide()})
 	},
