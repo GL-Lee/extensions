@@ -3,21 +3,29 @@
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
   xmlns:html="http://www.w3.org/1999/xhtml"
   buttons="accept,cancel,extra1">
-  <script src="setDialog.js"></script>
+  <script src="setDialog.js"/>
   <vbox height="100px">
     <hbox>
       <vbox id="am_elements">
-        <checkbox class="am_element" label="link" checked="false"/>
-        <checkbox class="am_element" label="image" checked="true"/>
-        <checkbox class="am_element" label="button" checked="false"/>
-        <checkbox class="am_element" label="input area" checked="false"/>
+        <hbox id="am_element_link" persist="currentset" currentset="CopyImage ImageInfo">
+          <checkbox class="am_element" label="" checked="false"/><box class="am_element_label">link</box>
+        </hbox>
+        <hbox id="am_element_image" persist="currentset">
+          <checkbox class="am_element" label="" checked="true"/><box class="am_element_label">image</box>
+        </hbox>
+        <hbox id="am_element_button" persist="currentset">
+          <checkbox class="am_element" label="" checked="false"/><box class="am_element_label">button</box>
+        </hbox>
+        <hbox id="am_element_inputArea" persist="currentset">
+          <checkbox class="am_element" label="" checked="false"/><box class="am_element_label">input area</box>
+        </hbox>
       </vbox>
       <vbox id="am_menuitems">
-        <checkbox class="am_menuitem" label="Copy Image" src="image/16pix/CopyImage-HoverAvailable.png" checked="true"/>
-        <checkbox class="am_menuitem" label="Copy Link" src="image/16pix/CopyLink-HoverAvailable.png" checked="true"/>
-        <checkbox class="am_menuitem" label="Image Info" src="image/16pix/ImageInfo-HoverAvailable.png" checked="true"/>
-        <checkbox class="am_menuitem" label="Save Image As" src="image/16pix/SaveImageAs-HoverAvailable.png" checked="true"/>
-        <checkbox class="am_menuitem" label="Send Image" src="image/16pix/SendImage-HoverAvailable.png" checked="true"/>
+        <checkbox id="CopyImage" class="am_menuitem" label="Copy Image" src="image/16pix/CopyImage-HoverAvailable.png" checked="true"/>
+        <checkbox id="CopyLink" class="am_menuitem" label="Copy Link" src="image/16pix/CopyLink-HoverAvailable.png" checked="true"/>
+        <checkbox id="ImageInfo" class="am_menuitem" label="Image Info" src="image/16pix/ImageInfo-HoverAvailable.png" checked="true"/>
+        <checkbox id="SaveImage As" class="am_menuitem" label="Save Image As" src="image/16pix/SaveImageAs-HoverAvailable.png" checked="true"/>
+        <checkbox id="SendImage" class="am_menuitem" label="Send Image" src="image/16pix/SendImage-HoverAvailable.png" checked="true"/>
         <checkbox class="am_menuitem" label="Copy Image" src="image/16pix/CopyImage-HoverAvailable.png" checked="true"/>
         <checkbox class="am_menuitem" label="Copy Link" src="image/16pix/CopyLink-HoverAvailable.png" checked="true"/>
         <checkbox class="am_menuitem" label="Image Info" src="image/16pix/ImageInfo-HoverAvailable.png" checked="true"/>
