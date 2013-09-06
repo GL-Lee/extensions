@@ -2,25 +2,30 @@
 <dialog id="menueditPrefs" windowtype="automenu_GL:options"
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
   xmlns:html="http://www.w3.org/1999/xhtml"
+  style="backgroud-color:white;"
   buttons="accept,cancel,extra1">
   <script src="setDialog.js"/>
-  <vbox height="100px">
+  <vbox>
     <hbox>
+  <groupbox id="groupbox1">
       <vbox id="am_elements">
-        <hbox id="am_element_link" persist="currentset" currentset="CopyImage ImageInfo">
-          <checkbox class="am_element" label="" checked="false"/><box class="am_element_label">link</box>
+        <hbox id="am_element_link" persist="currentset" currentset="CopyImage ImageInfo" class="actived">
+          <checkbox class="am_element" label="" checked="false"/><box class="am_element_label">link</box><box flex="1" class="arrow">>></box>
         </hbox>
         <hbox id="am_element_image" persist="currentset">
-          <checkbox class="am_element" label="" checked="true"/><box class="am_element_label">image</box>
+          <checkbox class="am_element" label="" checked="true"/><box class="am_element_label">image</box><box flex="1" class="arrow">>></box>
         </hbox>
         <hbox id="am_element_button" persist="currentset">
-          <checkbox class="am_element" label="" checked="false"/><box class="am_element_label">button</box>
+          <checkbox class="am_element" label="" checked="false"/><box class="am_element_label">button</box><box flex="1" class="arrow">>></box>
         </hbox>
         <hbox id="am_element_inputArea" persist="currentset">
-          <checkbox class="am_element" label="" checked="false"/><box class="am_element_label">input area</box>
+          <checkbox class="am_element" label="" checked="false"/><box class="am_element_label">input area</box><box flex="1" class="arrow">>></box>
         </hbox>
       </vbox>
+      </groupbox>
+  <groupbox id="groupbox1">
       <vbox id="am_menuitems">
+        <description>image</description>
         <checkbox id="CopyImage" class="am_menuitem" label="Copy Image" src="image/16pix/CopyImage-HoverAvailable.png" checked="true"/>
         <checkbox id="CopyLink" class="am_menuitem" label="Copy Link" src="image/16pix/CopyLink-HoverAvailable.png" checked="true"/>
         <checkbox id="ImageInfo" class="am_menuitem" label="Image Info" src="image/16pix/ImageInfo-HoverAvailable.png" checked="true"/>
@@ -42,6 +47,7 @@
         <checkbox class="am_menuitem" label="Save Image As" src="image/16pix/SaveImageAs-HoverAvailable.png" checked="true"/>
         <checkbox class="am_menuitem" label="Send Image" src="image/16pix/SendImage-HoverAvailable.png" checked="true"/>
       </vbox>
+  </groupbox>
     </hbox>
   </vbox>
 </dialog>

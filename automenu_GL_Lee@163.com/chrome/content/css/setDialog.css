@@ -1,6 +1,20 @@
-#am_elements,#am_menuitems{
-	border: solid 1px;
+#am_elements{
 	padding:8px;
+	width: 160px;
+}
+#am_elements .am_element_label{
+	cursor: default;
+}
+#am_elements .am_element_label:hover{
+	color: gray;
+}
+#am_elements .arrow{
+	text-align: right;
+	color: red;
+	display: none;
+}
+#am_elements .actived .arrow{
+	display: block;
 }
 #am_menuitems{
 	overflow-x: hidden;
@@ -8,4 +22,10 @@
 	width: 200px;
 	height: 400px;
 	white-space: nowrap;
+	margin-left:10px;
+}
+#am_menuitems description{
+	position: absolute;
+	left:100px;
+	top:380px;
 }

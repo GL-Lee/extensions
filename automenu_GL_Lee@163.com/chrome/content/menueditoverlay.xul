@@ -48,10 +48,12 @@
 <overlay id="menueditOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="jquery/jquery-1.10.2.js"/>
   <script src="tt.js"/>
-  <style type="text/css" src="css/tt.css"></style>
   <window id="main-window">
     <box id="am_wrapper">
     </box>
   </window>
+  <menupopup id="menu_ToolsPopup">
+    <menuitem id="am_setDialog" class="menuitem-iconic" label="am setting" oncommand="am.openSetDialog();"/>
+  </menupopup>
 </overlay>
 

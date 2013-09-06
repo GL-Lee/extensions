@@ -102,5 +102,8 @@ var am={
 		gContextMenu = new nsContextMenu(target, gBrowser);
 		eval(fun);
 	},
+	openSetDialog: function() {
+	  	window.open("chrome://automenu_GL/content/setDialog.xul");
+	},
 }
 $(window).bind("load",am.init);
