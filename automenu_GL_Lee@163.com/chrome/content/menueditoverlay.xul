@@ -49,11 +49,76 @@
   <script src="jquery/jquery-1.10.2.js"/>
   <script src="tt.js"/>
   <window id="main-window">
-    <box id="am_wrapper">
+  <!-- 弹出菜单 -->
+    <box id="am_wrapper" persist="activedEles" default="am_image am_link">
+      <box id="am_link" persist="activedMenuitems" default="CopyImage CopyLink ImageInfo"/>
+      <box id="am_image" persist="activedMenuitems" default="CopyImage CopyLink ImageInfo"/>
+      <box id="am_button" persist="activedMenuitems" default="CopyImage CopyLink ImageInfo"/>
+      <box id="am_input" persist="activedMenuitems" default="CopyImage CopyLink ImageInfo"/>
     </box>
+  <!-- 设定窗口 -->
+  <vbox>
+    <resizer dir="top" style="background: black; -moz-appearance: none;"
+           element="am_menuitems" left="0" top="0" height="8" oncommand="am.setDialog.resize();"/>
+  <hbox>
+  <vbox id="am_setDialog">
+    <hbox>
+      <groupbox id="groupbox1">
+          <vbox id="am_elements" class="resizable">
+            <hbox id="am_element_link">
+              <checkbox class="am_element" activedEleId="am_link" checked="false"/><box class="am_element_label">link</box><box flex="1" class="arrow">>></box>
+            </hbox>
+            <hbox id="am_element_image">
+              <checkbox class="am_element" activedEleId="am_image" checked="false"/><box class="am_element_label">image</box><box flex="1" class="arrow">>></box>
+            </hbox>
+            <hbox id="am_element_button">
+              <checkbox class="am_element" activedEleId="am_button" checked="false"/><box class="am_element_label">button</box><box flex="1" class="arrow">>></box>
+            </hbox>
+            <hbox id="am_element_inputArea">
+              <checkbox class="am_element" activedEleId="am_input" checked="false"/><box class="am_element_label">input area</box><box flex="1" class="arrow">>></box>
+            </hbox>
+          </vbox>
+          </groupbox>
+      <groupbox id="groupbox1">
+          <vbox id="am_menuitems" class="resizable">
+            <description>image</description>
+            <checkbox itemId="CopyImage" class="am_menuitem" label="Copy Image" src="image/16pix/CopyImage-HoverAvailable.png" checked="false"/>
+            <checkbox itemId="CopyLink" class="am_menuitem" label="Copy Link" src="image/16pix/CopyLink-HoverAvailable.png" checked="false"/>
+            <checkbox itemId="ImageInfo" class="am_menuitem" label="Image Info" src="image/16pix/ImageInfo-HoverAvailable.png" checked="false"/>
+            <checkbox itemId="SaveImage As" class="am_menuitem" label="Save Image As" src="image/16pix/SaveImageAs-HoverAvailable.png" checked="false"/>
+            <checkbox itemId="SendImage" class="am_menuitem" label="Send Image" src="image/16pix/SendImage-HoverAvailable.png" checked="false"/>
+            <checkbox class="am_menuitem" label="Copy Image" src="image/16pix/CopyImage-HoverAvailable.png" checked="false"/>
+            <checkbox class="am_menuitem" label="Copy Link" src="image/16pix/CopyLink-HoverAvailable.png" checked="false"/>
+            <checkbox class="am_menuitem" label="Image Info" src="image/16pix/ImageInfo-HoverAvailable.png" checked="false"/>
+            <checkbox class="am_menuitem" label="Save Image As" src="image/16pix/SaveImageAs-HoverAvailable.png" checked="false"/>
+            <checkbox class="am_menuitem" label="Send Image" src="image/16pix/SendImage-HoverAvailable.png" checked="false"/>
+            <checkbox class="am_menuitem" label="Copy Image" src="image/16pix/CopyImage-HoverAvailable.png" checked="false"/>
+            <checkbox class="am_menuitem" label="Copy Link" src="image/16pix/CopyLink-HoverAvailable.png" checked="false"/>
+            <checkbox class="am_menuitem" label="Image Info" src="image/16pix/ImageInfo-HoverAvailable.png" checked="false"/>
+            <checkbox class="am_menuitem" label="Save Image As" src="image/16pix/SaveImageAs-HoverAvailable.png" checked="false"/>
+            <checkbox class="am_menuitem" label="Send Image" src="image/16pix/SendImage-HoverAvailable.png" checked="false"/>
+            <checkbox class="am_menuitem" label="Copy Image" src="image/16pix/CopyImage-HoverAvailable.png" checked="false"/>
+            <checkbox class="am_menuitem" label="Copy Link" src="image/16pix/CopyLink-HoverAvailable.png" checked="false"/>
+            <checkbox class="am_menuitem" label="Image Info" src="image/16pix/ImageInfo-HoverAvailable.png" checked="false"/>
+            <checkbox class="am_menuitem" label="Save Image As" src="image/16pix/SaveImageAs-HoverAvailable.png" checked="false"/>
+            <checkbox class="am_menuitem" label="Send Image" src="image/16pix/SendImage-HoverAvailable.png" checked="false"/>
+          </vbox>
+      </groupbox>
+      <box id="am_close_button">x</box>
+    </hbox>
+    <hbox id="am_setDialog_footer" dir="rtl">
+      <button id="am_setDialog_cancel">取消</button>
+      <button id="am_setDialog_sure">确定</button>
+    </hbox>
+  </vbox>
+  <vbox flex="1">
+  </vbox>
+  </hbox>
+  </vbox>
   </window>
+  <!-- 设定按钮 -->
   <menupopup id="menu_ToolsPopup">
-    <menuitem id="am_setDialog" class="menuitem-iconic" label="am setting" oncommand="am.openSetDialog();"/>
+    <menuitem class="menuitem-iconic" label="am setting" oncommand="am.openSetDialog();"/>
   </menupopup>
 </overlay>
 

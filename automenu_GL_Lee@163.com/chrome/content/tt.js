@@ -5,6 +5,7 @@ var am={
 	$tip:null,
 	imgTarget:null,
 	intip:0,
+	activedEles:"",
 	iteminfos:{
 		am_CopyImage:{tooltiptext:"Copy Image",menuitemId:"context-copyimage"},
 		am_CopyLink:{tooltiptext:"Copy Link",menuitemId:"context-copylink"},
@@ -16,12 +17,30 @@ var am={
 		am.$tip = $("#am_wrapper");
 		am.buildPanel();
 		am.bindEvents();
+		am.setDialog.init();
 	},
 	buildPanel: function(){
-		for(var itemid in am.iteminfos){
-			var item = $("<a tooltiptext='"+am.iteminfos[itemid].tooltiptext+"'><image id='"+itemid+"'/></a>");
-			am.$tip.append(item);
+		var activedEles = am.activedEles = $("#am_wrapper").attr("activedEles")||$("#am_wrapper").attr("default");
+		activedEles = activedEles.split(" ");
+		for(var i = 0; i < activedEles.length; i++){
+			if(activedEles[i] == "")break;
+			am.addMenuitem($("#"+activedEles[i]));
 		}
+	},
+	addMenuitem: function(activedEle){
+		var activedMenuitems = activedEle.attr("activedMenuitems") || activedEle.attr("default");
+		activedMenuitems = activedMenuitems.split(" ");
+		var htmltext = "";
+		for(var i = 0;i < activedMenuitems.length; i++){
+			if(activedMenuitems[i] == "")break;
+			var iteminfo = am.iteminfos["am_"+activedMenuitems[i]];
+			if(iteminfo){
+				htmltext += "<a tooltiptext='"+iteminfo.tooltiptext+"'>"+
+								"<image id='am_" + activedMenuitems[i] + "' class='am_"+activedMenuitems[i]+"'/>"+
+							"</a>";
+			}
+		}
+		$(htmltext).appendTo(activedEle);
 	},
 	bindEvents: function(){
 		am.bindMouseEvent();
@@ -38,6 +57,7 @@ var am={
 		var target = arguments[0].target;
 		var view = arguments[0].view;
 		if(target.tagName.toLowerCase() == "img"){
+			if(am.activedEles.indexOf("am_image") == -1) return;
 			if(am.timer)clearTimeout(am.timer);
 			am.timer = setTimeout(function(){
 				am.imgTarget=target;
@@ -45,6 +65,7 @@ var am={
 				am.$tip.css({left:position.left,top:position.top});
 				am.$tip.show();
 			},300)
+			$("#am_image").addClass("actived");
 		}
 	},
 	imgMouseout: function(){
@@ -103,7 +124,89 @@ var am={
 		eval(fun);
 	},
 	openSetDialog: function() {
-	  	window.open("chrome://automenu_GL/content/setDialog.xul");
+	  	$("#am_setDialog").css("display","block");
 	},
+	setDialog : {
+		inited:false,
+		aleCurrentset:"",
+		init: function(){
+			if(this.inited) return;
+			var count = 0;
+			$("#am_elements checkbox").each(function(i,it){
+				if(am.activedEles.indexOf($(this).attr("activedEleId")) != -1){
+					if(count == 0){
+						/*将第一个activedEle对应的checkbox设为选中状态*/
+						$(this.parentNode).addClass("actived");
+						/*设置第一个activedEle的menuitem*/
+						activedEleId = $(this).attr("activedEleId");
+						activedEle = $(document.getElementById(activedEleId));
+						var activedMenuitems = activedEle.attr("activedMenuitems") || activedEle.attr("default");
+						$("#am_menuitems checkbox").each(function(i,it){
+							if($(this).attr("itemId") && activedMenuitems.indexOf($(this).attr("itemId")) != -1){
+								this.checked = true
+							}
+						})
+						count++;
+					}
+					this.checked = true
+				}
+			})
+			this.bindEvents();
+			this.inited = true
+		},
+		bindEvents: function(){
+			document.getElementById("am_elements").addEventListener("click",function(event){
+				var l = event.target;
+				var am_menuitems = document.getElementById("am_menuitems").children;
+				for(var i = 0,len = am_menuitems.length; i < len; i++){
+					am_menuitems[i].checked = false;
+				}
+			 	var currentset = l.parentNode.getAttribute("currentset")
+			 	if(currentset) currentset = currentset.split(" ");
+			 	for(var i = 0, len = currentset.length; i < len; i++){
+			 		document.getElementById(currentset[i]).checked = true;
+			 	}
+			 	var actived = document.getElementsByClassName("actived")[0]
+			 	var className = actived.className.replace(/ *actived/,"");
+			 	actived.className = className;
+			 	l.parentNode.className+=" actived";
+			})
+			$("#am_setDialog resizer").bind("mousedown.resize",am.setDialog.resizeStart).bind("mouseup.resize",am.setDialog.resizeEnd);
+			$("#am_setDialog_sure").bind("click",function(){
+				var activedEles = "";
+				$("#am_elements checkbox[checked=true]").each(function(i,it){
+					activedEles+=($(this).attr("activedEleId")+" ");
+				});
+				am.activedEles = activedEles;
+				$("#am_wrapper").attr("activedEles", activedEles);
+			})
+			$("#am_menuitems checkbox").bind("click",function(){
+				var activedEleId = $("#am_elements actived").attr("activedEleId");
+				var activedEle = $(document.getElementById(activedEleId));
+				var activedMenuitems = activedEle.attr("activedMenuitems");
+				var reg = new RegExp("\\b"+$(this).attr("itemId")+" |$");
+				if(this.checked){
+					
+					activedMenuitems.replace(reg,"");
+					$(document.getElementById(activedEleId)).attr("activedMenuitems",activedMenuitems);
+				}else{
+
+				}
+			})
+		},
+		resizeStart: function(){
+			// $(document).bind("mousemove.resize",function(){
+			// 	$(".resizable").css("height",$("#am_setDialog").css("height"));
+			// })
+		},
+		resizeEnd: function(){
+			// $(document).unbind("mousemove.resize");
+		},
+		resize: function(){
+			// am_setDialog = $("#am_setDialog")
+			// var height = am_setDialog.css("height");
+			// $(".resizable").css("height",height);
+		}
+	}
 }
 $(window).bind("load",am.init);

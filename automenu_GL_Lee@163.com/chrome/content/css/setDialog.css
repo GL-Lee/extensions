@@ -29,3 +29,10 @@
 	left:100px;
 	top:380px;
 }
+#am_close_button{
+	position: absolute;
+	top: 0px;
+	right: 30px;
+	width: 30px;
+	height: 30px;
+}

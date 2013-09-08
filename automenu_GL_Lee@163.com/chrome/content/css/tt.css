@@ -5,33 +5,96 @@
 	border: solid 1px;
 	background-color: white;
 }
-#am_CopyImage{
+#am_wrapper box{
+	display: none;
+}
+#am_wrapper box.actived{
+	display: block;
+}
+.am_CopyImage{
 	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/CopyImage-Plain.png");
 }
-#am_CopyImage:hover{
+.am_CopyImage:hover{
 	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/CopyImage-HoverAvailable.png");
 }
-#am_CopyLink{
+.am_CopyLink{
 	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/CopyLink-Plain.png");
 }
-#am_CopyLink:hover{
+.am_CopyLink:hover{
 	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/CopyLink-HoverAvailable.png");
 }
-#am_ImageInfo{
+.am_ImageInfo{
 	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/ImageInfo-Plain.png");
 }
-#am_ImageInfo:hover{
+.am_ImageInfo:hover{
 	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/ImageInfo-HoverAvailable.png");
 }
-#am_SaveImageAs{
+.am_SaveImageAs{
 	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/SaveImageAs-Plain.png");
 }
-#am_SaveImageAs:hover{
+.am_SaveImageAs:hover{
 	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/SaveImageAs-HoverAvailable.png");
 }
-#am_SendImage{
+.am_SendImage{
 	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/SendImage-Plain.png");
 }
-#am_SendImage:hover{
+.am_SendImage:hover{
 	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/SendImage-HoverAvailable.png");
+}
+#am_setDialog{
+	width: 380px;
+}
+#am_elements{
+	padding:8px;
+	width: 160px;
+}
+#am_elements .am_element_label{
+	cursor: default;
+}
+#am_elements .am_element_label:hover{
+	color: gray;
+}
+#am_elements .arrow{
+	text-align: right;
+	color: red;
+	display: none;
+}
+#am_elements .actived .arrow{
+	display: block;
+}
+#am_menuitems{
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: 200px;
+	/*height: 400px;*/
+	white-space: nowrap;
+	margin-left:10px;
+}
+#am_menuitems description{
+	position: absolute;
+	left:100px;
+	top:380px;
+}
+#am_close_button{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 30px;
+	height: 30px;
+	background-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/am.png");
+	background-position: 0px 0px;
+}
+#am_drag_line{
+	display: block;
+	border: solid 2px rgb(240,240,240);
+	height: 5px;
+	cursor: ns-resize;
+}
+#am_setDialog_footer{
+	width: 380px;
+	-moz-locale-dir(rtl)
+}
+#am_setDialog_footer button{
+	text-align: center;
+	float: right;
 }
