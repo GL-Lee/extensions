@@ -6,6 +6,8 @@ var am={
 	imgTarget:null,
 	intip:0,
 	activedEles:"",
+	prefs:null,
+	inited:false,
 	iteminfos:{
 		am_CopyImage:{tooltiptext:"Copy Image",menuitemId:"context-copyimage"},
 		am_CopyLink:{tooltiptext:"Copy Link",menuitemId:"context-copylink"},
@@ -14,10 +16,20 @@ var am={
 		am_SendImage:{tooltiptext:"Send Image",menuitemId:"context-sendimage"}
 	},
 	init: function(){
+		if(!am.prefs){
+			try{
+				am.prefs = Components.classes["@mozilla.org/preferences-service;1"]
+				                    .getService(Components.interfaces.nsIPrefService).getBranch("extensions.automenu_GL.");
+				am.on = am.prefs.getBoolPref("menu.on");
+			}catch(e){am.on=true}
+		}
+		if(!am.on) return;
+		am.switchKey={fnKey:"ctrlKey",key:49},
 		am.$tip = $("#am_wrapper");
 		am.buildPanel();
 		am.bindEvents();
 		am.setDialog.init();
+		am.inited = true;
 	},
 	buildPanel: function(){
 		var activedEles = am.activedEles = $("#am_wrapper").attr("activedEles")||$("#am_wrapper").attr("default");
@@ -49,9 +61,13 @@ var am={
 		am.bindAmEvent();
 	},
 	bindImgEvent: function(){
-		$(window).bind("mouseover",am.imgMouseover);
-		$(window).bind("mouseout",am.imgMouseout);
+		$(document).bind("mouseover.am",am.imgMouseover);
+		$(document).bind("mouseout.am",am.imgMouseout);
 		am.$tip.hover(function(){am.intip = 1;},function(){am.intip = 0;})
+	},
+	unbindEvent: function(){
+		$(document).unbind("mouseover.am",am.imgMouseover);
+		$(document).unbind("mouseout.am",am.imgMouseout);
 	},
 	imgMouseover:function(){
 		var target = arguments[0].target;
@@ -84,7 +100,15 @@ var am={
 		},true);
 	},
 	bindKeyEvent: function(){
-
+		window.addEventListener("keypress", function(event){
+			var fnkeydown = event[am.switchKey.fnKey];
+			var key = event.keyCode || event.which;
+			if(fnkeydown && key == am.switchKey.key){
+				am.on = !am.on
+			}
+			if(am.on) am.init()
+			else am.unbindEvent()
+		});
 	},
 	bindAmEvent: function(){
 		$("#am_wrapper").bind("click",function(event){
@@ -124,7 +148,7 @@ var am={
 		eval(fun);
 	},
 	openSetDialog: function() {
-	  	$("#am_setDialog").css("display","block");
+	  	$("#am_setDialog_wrapper").show();
 	},
 	setDialog : {
 		inited:false,
@@ -194,7 +218,11 @@ var am={
 				}
 			})
 		},
+		cancel: function(){
+			$("#am_setDialog_wrapper").hide();
+		},
 		resizeStart: function(){
+			// $("#am_menuitems").css("height","auto");
 			// $(document).bind("mousemove.resize",function(){
 			// 	$(".resizable").css("height",$("#am_setDialog").css("height"));
 			// })
@@ -210,3 +238,10 @@ var am={
 	}
 }
 $(window).bind("load",am.init);
+/*
+1.reset button
+2.menu展示优化
+3.setDialog可以拖出来
+4.setDialog内menuitem拖动
+5.menu内menuitem的拖动
+*/

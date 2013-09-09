@@ -1,9 +1,13 @@
 #am_wrapper{
 	position: fixed;
-	left: 10px;
-	top: 10px;
+	left: -1000px;
+	top: -1000px;
 	border: solid 1px;
 	background-color: white;
+	opacity: 0.2;
+}
+#am_wrapper:hover{
+	opacity: 1;
 }
 #am_wrapper box{
 	display: none;
@@ -12,34 +16,37 @@
 	display: block;
 }
 .am_CopyImage{
-	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/CopyImage-Plain.png");
+	list-style-image: url("chrome://automenu_gl/content/image/CopyImage-Plain.png");
 }
 .am_CopyImage:hover{
-	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/CopyImage-HoverAvailable.png");
+	list-style-image: url("chrome://automenu_gl/content/image/CopyImage-HoverAvailable.png");
 }
 .am_CopyLink{
-	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/CopyLink-Plain.png");
+	list-style-image: url("chrome://automenu_gl/content/image/CopyLink-Plain.png");
 }
 .am_CopyLink:hover{
-	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/CopyLink-HoverAvailable.png");
+	list-style-image: url("chrome://automenu_gl/content/image/CopyLink-HoverAvailable.png");
 }
 .am_ImageInfo{
-	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/ImageInfo-Plain.png");
+	list-style-image: url("chrome://automenu_gl/content/image/ImageInfo-Plain.png");
 }
 .am_ImageInfo:hover{
-	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/ImageInfo-HoverAvailable.png");
+	list-style-image: url("chrome://automenu_gl/content/image/ImageInfo-HoverAvailable.png");
 }
 .am_SaveImageAs{
-	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/SaveImageAs-Plain.png");
+	list-style-image: url("chrome://automenu_gl/content/image/SaveImageAs-Plain.png");
 }
 .am_SaveImageAs:hover{
-	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/SaveImageAs-HoverAvailable.png");
+	list-style-image: url("chrome://automenu_gl/content/image/SaveImageAs-HoverAvailable.png");
 }
 .am_SendImage{
-	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/SendImage-Plain.png");
+	list-style-image: url("chrome://automenu_gl/content/image/SendImage-Plain.png");
 }
 .am_SendImage:hover{
-	list-style-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/SendImage-HoverAvailable.png");
+	list-style-image: url("chrome://automenu_gl/content/image/SendImage-HoverAvailable.png");
+}
+#am_setDialog_wrapper{
+	display: none;
 }
 #am_setDialog{
 	width: 380px;
@@ -76,12 +83,11 @@
 	top:380px;
 }
 #am_close_button{
-	position: absolute;
 	top: 0px;
 	right: 0px;
 	width: 30px;
 	height: 30px;
-	background-image: url("file:///E:/addons/dev/extensions/automenu_GL_Lee@163.com/chrome/content/image/am.png");
+	background-image: url("chrome://automenu_gl/content/image/am.png");
 	background-position: 0px 0px;
 }
 #am_drag_line{
