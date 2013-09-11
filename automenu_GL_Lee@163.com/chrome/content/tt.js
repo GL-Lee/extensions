@@ -24,6 +24,7 @@ var am={
 			}catch(e){am.on=true}
 		}
 		if(!am.on) return;
+		if(am.inited) return;
 		am.switchKey={fnKey:"ctrlKey",key:49},
 		am.$tip = $("#am_wrapper");
 		am.buildPanel();
@@ -70,6 +71,7 @@ var am={
 		$(document).unbind("mouseout.am",am.imgMouseout);
 	},
 	imgMouseover:function(){
+		if(!am.on)return;
 		var target = arguments[0].target;
 		var view = arguments[0].view;
 		if(target.tagName.toLowerCase() == "img"){
@@ -85,6 +87,7 @@ var am={
 		}
 	},
 	imgMouseout: function(){
+		if(!am.on)return;
 		var event = arguments[0];
 		if(event.target.tagName.toLowerCase() == "img"){
 			setTimeout(function(){
@@ -107,7 +110,7 @@ var am={
 				am.on = !am.on
 			}
 			if(am.on) am.init()
-			else am.unbindEvent()
+			// else am.unbindEvent()
 		});
 	},
 	bindAmEvent: function(){
@@ -148,7 +151,7 @@ var am={
 		eval(fun);
 	},
 	openSetDialog: function() {
-	  	$("#am_setDialog_wrapper").show();
+	  	$("#am_setDialog_wrapper").css("display","-moz-box");
 	},
 	setDialog : {
 		inited:false,
@@ -162,7 +165,7 @@ var am={
 						/*将第一个activedEle对应的checkbox设为选中状态*/
 						$(this.parentNode).addClass("actived");
 						/*设置第一个activedEle的menuitem*/
-						activedEleId = $(this).attr("activedEleId");
+						activedEleId = $(this).parent().attr("activedEleId");
 						activedEle = $(document.getElementById(activedEleId));
 						var activedMenuitems = activedEle.attr("activedMenuitems") || activedEle.attr("default");
 						$("#am_menuitems checkbox").each(function(i,it){
@@ -179,21 +182,25 @@ var am={
 			this.inited = true
 		},
 		bindEvents: function(){
-			document.getElementById("am_elements").addEventListener("click",function(event){
-				var l = event.target;
-				var am_menuitems = document.getElementById("am_menuitems").children;
+			$("#am_elements").bind("click",function(event){
+				var l = $(event.target);
+				activedEleId=l.parent().attr("activedEleId");
+				var am_menuitems = $("#am_menuitems").children();
 				for(var i = 0,len = am_menuitems.length; i < len; i++){
-					am_menuitems[i].checked = false;
+					am_menuitems[i].checked =  false;
 				}
-			 	var currentset = l.parentNode.getAttribute("currentset")
-			 	if(currentset) currentset = currentset.split(" ");
-			 	for(var i = 0, len = currentset.length; i < len; i++){
-			 		document.getElementById(currentset[i]).checked = true;
-			 	}
-			 	var actived = document.getElementsByClassName("actived")[0]
-			 	var className = actived.className.replace(/ *actived/,"");
-			 	actived.className = className;
-			 	l.parentNode.className+=" actived";
+				var activedEle = $("#"+activedEleId);
+			 	var activedMenuitems = activedEle.attr("activedMenuitems") || activedEle.attr("default");
+			 	$("#am_menuitems checkbox").each(function(i,it){
+			 		$this = $(this);
+			 		if(activedMenuitems.indexOf($this.attr("itemId")) != -1){
+			 			this.checked = true;
+			 		}
+			 	})
+			 	$(".actived").removeClass("actived");
+			 	l.parent().addClass("actived");
+			})
+			document.getElementById("am_elements").addEventListener("click",function(event){
 			})
 			$("#am_setDialog resizer").bind("mousedown.resize",am.setDialog.resizeStart).bind("mouseup.resize",am.setDialog.resizeEnd);
 			$("#am_setDialog_sure").bind("click",function(){
@@ -219,7 +226,7 @@ var am={
 			})
 		},
 		cancel: function(){
-			$("#am_setDialog_wrapper").hide();
+			$("#am_setDialog_wrapper").css("display","none");
 		},
 		resizeStart: function(){
 			// $("#am_menuitems").css("height","auto");
@@ -234,6 +241,14 @@ var am={
 			// am_setDialog = $("#am_setDialog")
 			// var height = am_setDialog.css("height");
 			// $(".resizable").css("height",height);
+		},
+		pop: function(){
+			var setDialogWrapper = $("#am_setDialog_wrapper");
+			if(setDialogWrapper.hasClass("am_poped")){
+				setDialogWrapper.removeClass("am_poped")
+			}else{
+				setDialogWrapper.addClass("am_poped");
+			}
 		}
 	}
 }

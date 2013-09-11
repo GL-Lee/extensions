@@ -49,83 +49,80 @@
   <script src="jquery/jquery-1.10.2.js"/>
   <script src="tt.js"/>
   <window id="main-window">
-  <!-- 弹出菜单 -->
+    <!-- 弹出菜单 -->
     <box id="am_wrapper" persist="activedEles" default="am_image am_link">
       <box id="am_link" persist="activedMenuitems" default="CopyImage CopyLink ImageInfo"/>
-      <box id="am_image" persist="activedMenuitems" default="CopyImage CopyLink ImageInfo"/>
-      <box id="am_button" persist="activedMenuitems" default="CopyImage CopyLink ImageInfo"/>
-      <box id="am_input" persist="activedMenuitems" default="CopyImage CopyLink ImageInfo"/>
+      <box id="am_image" persist="activedMenuitems" default="CopyImage  ImageInfo"/>
+      <box id="am_button" persist="activedMenuitems" default="CopyImage"/>
+      <box id="am_input" persist="activedMenuitems" default="CopyImage CopyLink "/>
     </box>
-  <!-- 设定窗口 -->
-  <vbox id="am_setDialog_wrapper">
-    <resizer dir="top" style="background: black; -moz-appearance: none;"
-           element="am_menuitems" left="0" top="0" height="8" oncommand="am.setDialog.resize();"/>
-  <hbox dir = "rtl">
-    <box id="am_close_button"></box>
-  </hbox>
-  <hbox>
-  <vbox id="am_setDialog">
-    <hbox>
-      <groupbox id="groupbox1">
-        <vbox id="am_elements" class="resizable">
-          <hbox id="am_element_link">
-            <checkbox class="am_element" activedEleId="am_link" checked="false"/><box class="am_element_label">link</box><box flex="1" class="arrow">>></box>
-          </hbox>
-          <hbox id="am_element_image">
-            <checkbox class="am_element" activedEleId="am_image" checked="false"/><box class="am_element_label">image</box><box flex="1" class="arrow">>></box>
-          </hbox>
-          <hbox id="am_element_button">
-            <checkbox class="am_element" activedEleId="am_button" checked="false"/><box class="am_element_label">button</box><box flex="1" class="arrow">>></box>
-          </hbox>
-          <hbox id="am_element_inputArea">
-            <checkbox class="am_element" activedEleId="am_input" checked="false"/><box class="am_element_label">input area</box><box flex="1" class="arrow">>></box>
-          </hbox>
-        </vbox>
-      </groupbox>
-      <groupbox id="groupbox1">
-        <vbox id="am_menuitems" class="resizable" height="400px">
-          <description>image</description>
-          <checkbox itemId="BackFalse" label="BackFalse" src="chrome://automenu_gl/content/image/16pix/BackFalse.png"/>
-          <checkbox itemId="BackInactive" label="BackInactive" src="chrome://automenu_gl/content/image/16pix/BackInactive.png"/>
-          <checkbox itemId="BackTrue" label="BackTrue" src="chrome://automenu_gl/content/image/16pix/BackTrue.png"/>
-          <checkbox itemId="Bookmark-HoverAvailable" label="Bookmark-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/Bookmark-HoverAvailable.png"/>
-          <checkbox itemId="CopyImage-HoverAvailable" label="CopyImage-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/CopyImage-HoverAvailable.png"/>
-          <checkbox itemId="CopyLink-HoverAvailable" label="CopyLink-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/CopyLink-HoverAvailable.png"/>
-          <checkbox itemId="CornerLeft" label="CornerLeft" src="chrome://automenu_gl/content/image/16pix/CornerLeft.png"/>
-          <checkbox itemId="CornerRight" label="CornerRight" src="chrome://automenu_gl/content/image/16pix/CornerRight.png"/>
-          <checkbox itemId="ForwardFalse" label="ForwardFalse" src="chrome://automenu_gl/content/image/16pix/ForwardFalse.png"/>
-          <checkbox itemId="ForwardInactive" label="ForwardInactive" src="chrome://automenu_gl/content/image/16pix/ForwardInactive.png"/>
-          <checkbox itemId="ForwardTrue" label="ForwardTrue" src="chrome://automenu_gl/content/image/16pix/ForwardTrue.png"/>
-          <checkbox itemId="ImageInfo-HoverAvailable" label="ImageInfo-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/ImageInfo-HoverAvailable.png"/>
-          <checkbox itemId="Inspect-HoverAvailable" label="Inspect-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/Inspect-HoverAvailable.png"/>
-          <checkbox itemId="OpenInNewprivate-HoverAvailable" label="OpenInNewprivate-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/OpenInNewprivate-HoverAvailable.png"/>
-          <checkbox itemId="OpenInNewtab-HoverAvailable" label="OpenInNewtab-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/OpenInNewtab-HoverAvailable.png"/>
-          <checkbox itemId="OpenInNewwindow-HoverAvailable" label="OpenInNewwindow-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/OpenInNewwindow-HoverAvailable.png"/>
-          <checkbox itemId="PageInfo-HoverAvailable" label="PageInfo-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/PageInfo-HoverAvailable.png"/>
-          <checkbox itemId="Paste-HoverAvailable" label="Paste-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/Paste-HoverAvailable.png"/>
-          <checkbox itemId="Reload-HoverAvailable" label="Reload-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/Reload-HoverAvailable.png"/>
-          <checkbox itemId="SaveAs-HoverAvailable" label="SaveAs-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/SaveAs-HoverAvailable.png"/>
-          <checkbox itemId="SaveImageAs-HoverAvailable" label="SaveImageAs-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/SaveImageAs-HoverAvailable.png"/>
-          <checkbox itemId="SaveLinkAs-HoverAvailable" label="SaveLinkAs-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/SaveLinkAs-HoverAvailable.png"/>
-          <checkbox itemId="SavePageAs-HoverAvailable" label="SavePageAs-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/SavePageAs-HoverAvailable.png"/>
-          <checkbox itemId="SelectAll-HoverAvailable" label="SelectAll-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/SelectAll-HoverAvailable.png"/>
-          <checkbox itemId="SendImage-HoverAvailable" label="SendImage-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/SendImage-HoverAvailable.png"/>
-          <checkbox itemId="SendLink-HoverAvailable" label="SendLink-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/SendLink-HoverAvailable.png"/>
-          <checkbox itemId="ShowBackgroundImage-HoverAvailable" label="ShowBackgroundImage-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/ShowBackgroundImage-HoverAvailable.png"/>
-          <checkbox itemId="ShowSource-HoverAvailable" label="ShowSource-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/ShowSource-HoverAvailable.png"/>
-          <checkbox itemId="Stop-HoverAvailable" label="Stop-HoverAvailable" src="chrome://automenu_gl/content/image/16pix/Stop-HoverAvailable.png"/>
-        </vbox>
-      </groupbox>
-    </hbox>
-    <hbox id="am_setDialog_footer" dir="rtl">
-      <button id="am_setDialog_cancel" oncommand="am.setDialog.cancel();">取消</button>
-      <button id="am_setDialog_sure">确定</button>
-    </hbox>
-  </vbox>
-  <vbox flex="1">
-  </vbox>
-  </hbox>
-  </vbox>
+    <!-- 设定窗口 -->
+    <vbox id="am_setDialog_wrapper">
+      <resizer dir="top" style="background: black; -moz-appearance: none;"
+             element="am_menuitems" left="0" top="0" height="8" oncommand="am.setDialog.resize();"/>
+      <vbox id="am_setDialog">
+        <hbox dir = "rtl">
+          <box id="am_close_button"></box>
+          <button id="am_popout_button" oncommand="am.setDialog.pop();">pop</button>
+        </hbox>
+        <hbox>
+          <groupbox id="groupbox1">
+            <vbox id="am_elements" class="resizable">
+              <hbox id="am_element_link" activedEleId="am_link">
+                <checkbox class="am_element" checked="false"/><box class="am_element_label">link</box><box flex="1" class="arrow">>></box>
+              </hbox>
+              <hbox id="am_element_image" activedEleId="am_image">
+                <checkbox class="am_element" checked="false"/><box class="am_element_label">image</box><box flex="1" class="arrow">>></box>
+              </hbox>
+              <hbox id="am_element_button" activedEleId="am_button">
+                <checkbox class="am_element" checked="false"/><box class="am_element_label">button</box><box flex="1" class="arrow">>></box>
+              </hbox>
+              <hbox id="am_element_inputArea" activedEleId="am_input">
+                <checkbox class="am_element" checked="false"/><box class="am_element_label">input area</box><box flex="1" class="arrow">>></box>
+              </hbox>
+            </vbox>
+          </groupbox>
+          <groupbox id="groupbox1">
+            <vbox id="am_menuitems" class="resizable" height="400px">
+              <description>image</description>
+              <checkbox itemId="BackFalse" label="BackFalse" src="chrome://automenu_gl/content/image/16pix/BackFalse.png"/>
+              <checkbox itemId="BackInactive" label="BackInactive" src="chrome://automenu_gl/content/image/16pix/BackInactive.png"/>
+              <checkbox itemId="BackTrue" label="BackTrue" src="chrome://automenu_gl/content/image/16pix/BackTrue.png"/>
+              <checkbox itemId="Bookmark" label="Bookmark" src="chrome://automenu_gl/content/image/16pix/Bookmark-HoverAvailable.png"/>
+              <checkbox itemId="CopyImage" label="CopyImage" src="chrome://automenu_gl/content/image/16pix/CopyImage-HoverAvailable.png"/>
+              <checkbox itemId="CopyLink" label="CopyLink" src="chrome://automenu_gl/content/image/16pix/CopyLink-HoverAvailable.png"/>
+              <checkbox itemId="CornerLeft" label="CornerLeft" src="chrome://automenu_gl/content/image/16pix/CornerLeft.png"/>
+              <checkbox itemId="CornerRight" label="CornerRight" src="chrome://automenu_gl/content/image/16pix/CornerRight.png"/>
+              <checkbox itemId="ForwardFalse" label="ForwardFalse" src="chrome://automenu_gl/content/image/16pix/ForwardFalse.png"/>
+              <checkbox itemId="ForwardInactive" label="ForwardInactive" src="chrome://automenu_gl/content/image/16pix/ForwardInactive.png"/>
+              <checkbox itemId="ForwardTrue" label="ForwardTrue" src="chrome://automenu_gl/content/image/16pix/ForwardTrue.png"/>
+              <checkbox itemId="ImageInfo" label="ImageInfo" src="chrome://automenu_gl/content/image/16pix/ImageInfo-HoverAvailable.png"/>
+              <checkbox itemId="Inspect" label="Inspect" src="chrome://automenu_gl/content/image/16pix/Inspect-HoverAvailable.png"/>
+              <checkbox itemId="OpenInNewprivate" label="OpenInNewprivate" src="chrome://automenu_gl/content/image/16pix/OpenInNewprivate-HoverAvailable.png"/>
+              <checkbox itemId="OpenInNewtab" label="OpenInNewtab" src="chrome://automenu_gl/content/image/16pix/OpenInNewtab-HoverAvailable.png"/>
+              <checkbox itemId="OpenInNewwindow" label="OpenInNewwindow" src="chrome://automenu_gl/content/image/16pix/OpenInNewwindow-HoverAvailable.png"/>
+              <checkbox itemId="PageInfo" label="PageInfo" src="chrome://automenu_gl/content/image/16pix/PageInfo-HoverAvailable.png"/>
+              <checkbox itemId="Paste" label="Paste" src="chrome://automenu_gl/content/image/16pix/Paste-HoverAvailable.png"/>
+              <checkbox itemId="Reload" label="Reload" src="chrome://automenu_gl/content/image/16pix/Reload-HoverAvailable.png"/>
+              <checkbox itemId="SaveAs" label="SaveAs" src="chrome://automenu_gl/content/image/16pix/SaveAs-HoverAvailable.png"/>
+              <checkbox itemId="SaveImageAs" label="SaveImageAs" src="chrome://automenu_gl/content/image/16pix/SaveImageAs-HoverAvailable.png"/>
+              <checkbox itemId="SaveLinkAs" label="SaveLinkAs" src="chrome://automenu_gl/content/image/16pix/SaveLinkAs-HoverAvailable.png"/>
+              <checkbox itemId="SavePageAs" label="SavePageAs" src="chrome://automenu_gl/content/image/16pix/SavePageAs-HoverAvailable.png"/>
+              <checkbox itemId="SelectAll" label="SelectAll" src="chrome://automenu_gl/content/image/16pix/SelectAll-HoverAvailable.png"/>
+              <checkbox itemId="SendImage" label="SendImage" src="chrome://automenu_gl/content/image/16pix/SendImage-HoverAvailable.png"/>
+              <checkbox itemId="SendLink" label="SendLink" src="chrome://automenu_gl/content/image/16pix/SendLink-HoverAvailable.png"/>
+              <checkbox itemId="ShowBackgroundImage" label="ShowBackgroundImage" src="chrome://automenu_gl/content/image/16pix/ShowBackgroundImage-HoverAvailable.png"/>
+              <checkbox itemId="ShowSource" label="ShowSource" src="chrome://automenu_gl/content/image/16pix/ShowSource-HoverAvailable.png"/>
+              <checkbox itemId="Stop" label="Stop" src="chrome://automenu_gl/content/image/16pix/Stop-HoverAvailable.png"/>
+            </vbox>
+          </groupbox>
+        </hbox>
+        <hbox id="am_setDialog_footer" dir="rtl">
+          <button id="am_setDialog_cancel" oncommand="am.setDialog.cancel();">取消</button>
+          <button id="am_setDialog_sure">确定</button>
+        </hbox>
+      </vbox>
+    </vbox>
   </window>
   <!-- 设定按钮 -->
   <menupopup id="menu_ToolsPopup">

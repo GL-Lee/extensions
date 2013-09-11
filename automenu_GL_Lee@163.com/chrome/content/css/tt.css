@@ -13,7 +13,7 @@
 	display: none;
 }
 #am_wrapper box.actived{
-	display: block;
+	display: -moz-box;
 }
 .am_CopyImage{
 	list-style-image: url("chrome://automenu_gl/content/image/CopyImage-Plain.png");
@@ -46,6 +46,17 @@
 	list-style-image: url("chrome://automenu_gl/content/image/SendImage-HoverAvailable.png");
 }
 #am_setDialog_wrapper{
+}
+#am_setDialog_wrapper.am_poped{
+	position: fixed;
+	left: 10px;
+	top: 10px;
+	background-color: white;
+	display: -moz-box;
+	border: solid 1px;
+	-moz-box-orient:vertical;
+}
+.am_poped resizer{
 	display: none;
 }
 #am_setDialog{
@@ -67,7 +78,7 @@
 	display: none;
 }
 #am_elements .actived .arrow{
-	display: block;
+	display: -moz-box;
 }
 #am_menuitems{
 	overflow-x: hidden;
@@ -91,7 +102,7 @@
 	background-position: 0px 0px;
 }
 #am_drag_line{
-	display: block;
+	display: -moz-box;
 	border: solid 2px rgb(240,240,240);
 	height: 5px;
 	cursor: ns-resize;
