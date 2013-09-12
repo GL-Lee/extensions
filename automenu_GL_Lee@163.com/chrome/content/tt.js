@@ -156,8 +156,11 @@ var am={
 	setDialog : {
 		inited:false,
 		aleCurrentset:"",
+		panel:null,
+		drag:{},
 		init: function(){
 			if(this.inited) return;
+			this.panel = $("#am_setDialog_wrapper");
 			var count = 0;
 			$("#am_elements checkbox").each(function(i,it){
 				if(am.activedEles.indexOf($(this).attr("activedEleId")) != -1){
@@ -202,6 +205,7 @@ var am={
 			})
 			document.getElementById("am_elements").addEventListener("click",function(event){
 			})
+			/* 给拖动窗口大小的控件添加事件监听 */
 			$("#am_setDialog resizer").bind("mousedown.resize",am.setDialog.resizeStart).bind("mouseup.resize",am.setDialog.resizeEnd);
 			$("#am_setDialog_sure").bind("click",function(){
 				var activedEles = "";
@@ -224,9 +228,26 @@ var am={
 
 				}
 			})
+			am.setDialog.panel.find(".header").bind("mousedown.drag",function(event){
+				am.setDialog.drag.start = 1;
+				am.setDialog.drag.offset = {
+					left:event.clientX - parseInt(am.setDialog.panel.css("left")),
+					top:event.clientY - parseInt(am.setDialog.panel.css("top")),
+				};
+				$(document).bind("mousemove.drag",function(event){
+					if(am.setDialog.drag.start == 1){
+						var left = event.clientX - am.setDialog.drag.offset.left;
+						var top = event.clientY - am.setDialog.drag.offset.top;
+						am.setDialog.panel.css({left:left,top:top});
+					}
+				})
+			}).bind("mouseup.drag",function(){
+				am.setDialog.drag.start = 0;
+				$(document).unbind("mousemove.drag");
+			})
 		},
 		cancel: function(){
-			$("#am_setDialog_wrapper").css("display","none");
+			am.setDialog.panel.css("display","none");
 		},
 		resizeStart: function(){
 			// $("#am_menuitems").css("height","auto");
@@ -249,6 +270,19 @@ var am={
 			}else{
 				setDialogWrapper.addClass("am_poped");
 			}
+			var position = am.setDialog.popPosition || am.setDialog.getPopPosition();
+			setDialogWrapper.css(position);
+		},
+		getPopPosition: function(){
+			var left = am.setDialog.panel.attr("panel_left");
+			if(!left){
+				left = ($(window).width()-am.setDialog.panel.width())/2
+			}
+			var top = am.setDialog.panel.attr("panel_top");
+			if(!top){
+				top = ($(window).height()-am.setDialog.panel.height())/2
+			}
+			return {left:left+"px",top:top+"px"};
 		}
 	}
 }

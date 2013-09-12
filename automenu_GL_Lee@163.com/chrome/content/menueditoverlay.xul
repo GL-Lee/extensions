@@ -61,7 +61,7 @@
       <resizer dir="top" style="background: black; -moz-appearance: none;"
              element="am_menuitems" left="0" top="0" height="8" oncommand="am.setDialog.resize();"/>
       <vbox id="am_setDialog">
-        <hbox dir = "rtl">
+        <hbox class="header" dir = "rtl">
           <box id="am_close_button"></box>
           <button id="am_popout_button" oncommand="am.setDialog.pop();">pop</button>
         </hbox>
