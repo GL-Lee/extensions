@@ -65,7 +65,14 @@
           <box id="am_close_button"></box>
           <button id="am_popout_button" oncommand="am.setDialog.pop();">pop</button>
         </hbox>
-        <hbox>
+        <tabbox>
+        <tabs>
+        <tab>items</tab>
+        <tab>other</tab>
+        </tabs>
+        <tabpanels>
+        <tabpanel>
+        <hbox id="am_setDialog_content">
           <groupbox id="groupbox1">
             <vbox id="am_elements" class="resizable">
               <hbox id="am_element_link" activedEleId="am_link">
@@ -117,6 +124,12 @@
             </vbox>
           </groupbox>
         </hbox>
+        </tabpanel>
+        <tabpanel>
+        hello
+        </tabpanel>
+        </tabpanels>
+        </tabbox>
         <hbox id="am_setDialog_footer" dir="rtl">
           <button id="am_setDialog_cancel" oncommand="am.setDialog.cancel();">取消</button>
           <button id="am_setDialog_sure">确定</button>

@@ -45,22 +45,32 @@
 .am_SendImage:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/SendImage-HoverAvailable.png");
 }
-#am_setDialog_wrapper{
+#am_setDialog_wrapper .header{
+	background-color: #CDD8E4;
+	border-top-left-radius:6px;
+	border-top-right-radius:6px;
+}
+#am_setDialog_wrapper .header{
+
 }
 #am_setDialog_wrapper.am_poped{
 	position: fixed;
 	left: 10px;
 	top: 10px;
-	background-color: white;
+	background-color: #CDD8E4;
 	display: -moz-box;
 	border: solid 1px;
 	-moz-box-orient:vertical;
+	box-shadow: 0 0 5px;
+	border-radius: 5px;
+	padding: 0 4px 4px 4px;
+}
+#am_setDialog_content{
+	background-color: white;
+	border: solid 1px #666A6F;
 }
 .am_poped resizer{
 	display: none;
-}
-#am_setDialog{
-	width: 380px;
 }
 #am_elements{
 	padding:8px;
