@@ -45,6 +45,9 @@
 .am_SendImage:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/SendImage-HoverAvailable.png");
 }
+#am_setDialog_wrapper{
+	display: none;
+}
 #am_setDialog_wrapper .header{
 	background-color: #CDD8E4;
 	border-top-left-radius:6px;

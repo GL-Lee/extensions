@@ -33,12 +33,16 @@ var am={
 		am.inited = true;
 	},
 	buildPanel: function(){
-		var activedEles = am.activedEles = $("#am_wrapper").attr("activedEles")||$("#am_wrapper").attr("default");
+		var activedEles = am.activedEles = $("#am_wrapper").attr("activedEles")
+		if(!activedEles || activedEles.match(/\s*/)){
+			activedEles = $("#am_wrapper").attr("default");
+		}
 		activedEles = activedEles.split(" ");
 		for(var i = 0; i < activedEles.length; i++){
 			if(activedEles[i] == "")break;
 			am.addMenuitem($("#"+activedEles[i]));
 		}
+		am.activedEles = activedEles;
 	},
 	addMenuitem: function(activedEle){
 		var activedMenuitems = activedEle.attr("activedMenuitems") || activedEle.attr("default");
@@ -57,7 +61,7 @@ var am={
 	},
 	bindEvents: function(){
 		am.bindMouseEvent();
-		am.bindKeyEvent();
+		// am.bindKeyEvent();
 		am.bindImgEvent();
 		am.bindAmEvent();
 	},
@@ -102,17 +106,17 @@ var am={
 			am.mposition.top = event.screenY;
 		},true);
 	},
-	bindKeyEvent: function(){
-		window.addEventListener("keypress", function(event){
-			var fnkeydown = event[am.switchKey.fnKey];
-			var key = event.keyCode || event.which;
-			if(fnkeydown && key == am.switchKey.key){
-				am.on = !am.on
-			}
-			if(am.on) am.init()
-			// else am.unbindEvent()
-		});
-	},
+	// bindKeyEvent: function(){
+	// 	window.addEventListener("keypress", function(event){
+	// 		var fnkeydown = event[am.switchKey.fnKey];
+	// 		var key = event.keyCode || event.which;
+	// 		if(fnkeydown && key == am.switchKey.key){
+	// 			am.on = !am.on
+	// 		}
+	// 		if(am.on) am.init()
+	// 		// else am.unbindEvent()
+	// 	});
+	//},
 	bindAmEvent: function(){
 		$("#am_wrapper").bind("click",function(event){
 			am.doCommand(am.iteminfos[event.target.id].menuitemId,am.imgTarget);
@@ -121,8 +125,10 @@ var am={
 		})
 		am.$tip.hover(null,function(){$(this).hide()})
 	},
+	switchonff: function(){
+		am.on = !am.on;
+	},
 	getPosition: function(offx,offy,$hoverImg){
-		
 		var left = am.mposition.left - window.mozInnerScreenX+offx;
 		var top = am.mposition.top - window.mozInnerScreenY+offy;
 		var position = {left:left,top:top};
@@ -181,6 +187,8 @@ var am={
 					this.checked = true
 				}
 			})
+			/* 生成hotkey list */
+			this.generateHotkeyList();
 			this.bindEvents();
 			this.inited = true
 		},
@@ -246,6 +254,24 @@ var am={
 				$(document).unbind("mousemove.drag");
 			})
 		},
+		/* 生成hotkey list */
+		generateHotkeyList: function(){
+			var menupopup = $("<menupopup/>");
+			var charcode = 48;
+			var menuitem = {};
+			while(charcode<58){
+				menuitem = $("<menuitem label='"+String.fromCharCode(charcode)+"'></menuitem>")
+				menupopup.append(menuitem);
+				charcode++;
+			}
+			charcode = 65;
+			while(charcode<91){
+				menuitem = $("<menuitem label='"+String.fromCharCode(charcode)+"'></menuitem>")
+				menupopup.append(menuitem);
+				charcode++;
+			}
+			$("#am_hotkey_list").append(menupopup);
+		},
 		cancel: function(){
 			am.setDialog.panel.css("display","none");
 		},
@@ -287,10 +313,15 @@ var am={
 	}
 }
 $(window).bind("load",am.init);
+function am_setListKey(){
+	var list = $("#am_hotkey_list")[0];
+	list.value = list.selectedItem.label;
+}
 /*
 1.reset button
 2.menu展示优化
 3.setDialog可以拖出来
 4.setDialog内menuitem拖动
 5.menu内menuitem的拖动
+6.key冲突
 */

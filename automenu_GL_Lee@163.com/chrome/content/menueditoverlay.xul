@@ -49,6 +49,18 @@
   <script src="jquery/jquery-1.10.2.js"/>
   <script src="tt.js"/>
   <window id="main-window">
+    <commandset id="am_commandset">
+      <command id="am_cd_set" oncommand="am.openSetDialog();"/>
+      <command id="am_cd_switch" oncommand="am.switchonff();"/>
+    </commandset>
+    <!-- 快捷键 -->
+    <key id="menuitem_jsdebugger" removeelement="true"/>
+    <keyset id="am_keyset">
+      <key id="am_switch_key" modifiers="control,shift" key="S" command="am_cd_set"/>
+    </keyset>
+    <keyset id="am_keyset">
+      <key id="am_switch_key" modifiers="control" key="M" command="am_cd_switch"/>
+    </keyset>
     <!-- 弹出菜单 -->
     <box id="am_wrapper" persist="activedEles" default="am_image am_link">
       <box id="am_link" persist="activedMenuitems" default="CopyImage CopyLink ImageInfo"/>
@@ -126,7 +138,24 @@
         </hbox>
         </tabpanel>
         <tabpanel>
-        hello
+          <vbox>
+            <!-- 键盘事件监听 -->
+            <groupbox id="groupbox1">
+              <caption>hot key</caption>
+              <description>switch on/off:</description>
+              <vbox>
+                <hbox id="am_hotkey">
+                  <checkbox label="ctrl +" value="accel"/><checkbox label="shift +" value="shift"/><checkbox label="alt +" value="alt"/>
+                  <menulist id="am_hotkey_list" editable="true" value="1"  oncommand="am_setListKey()">
+                  </menulist>
+                </hbox>
+              </vbox>
+            </groupbox>
+            <!-- 鼠标事件监听 -->
+            <groupbox id="groupbox1">
+              <caption>mouse</caption>
+            </groupbox>
+          </vbox>
         </tabpanel>
         </tabpanels>
         </tabbox>
@@ -139,7 +168,7 @@
   </window>
   <!-- 设定按钮 -->
   <menupopup id="menu_ToolsPopup">
-    <menuitem class="menuitem-iconic" label="am setting" oncommand="am.openSetDialog();"/>
+    <menuitem class="menuitem-iconic" label="am setting" acceltext="Ctrl+Shift+S" accesskey="S" oncommand="am.openSetDialog();"/>
   </menupopup>
 </overlay>
 
