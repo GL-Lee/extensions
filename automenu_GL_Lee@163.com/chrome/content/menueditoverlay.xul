@@ -56,9 +56,6 @@
     <!-- 快捷键 -->
     <key id="menuitem_jsdebugger" removeelement="true"/>
     <keyset id="am_keyset">
-      <key id="am_switch_key" modifiers="control,shift" key="S" command="am_cd_set"/>
-    </keyset>
-    <keyset id="am_keyset">
       <key id="am_switch_key" modifiers="control" key="M" command="am_cd_switch"/>
     </keyset>
     <!-- 弹出菜单 -->
@@ -84,9 +81,10 @@
         </tabs>
         <tabpanels>
         <tabpanel>
+        <vbox>
         <hbox id="am_setDialog_content">
           <groupbox id="groupbox1">
-            <vbox id="am_elements" class="resizable">
+            <vbox id="am_elements" class="resizable" setedEle="am_elements">
               <hbox id="am_element_link" activedEleId="am_link">
                 <checkbox class="am_element" checked="false"/><box class="am_element_label">link</box><box flex="1" class="arrow">>></box>
               </hbox>
@@ -102,7 +100,7 @@
             </vbox>
           </groupbox>
           <groupbox id="groupbox1">
-            <vbox id="am_menuitems" class="resizable" height="400px">
+            <vbox id="am_menuitems" class="resizable" height="400px" setedEle="am_menuitems">
               <description>image</description>
               <checkbox itemId="BackFalse" label="BackFalse" src="chrome://automenu_gl/content/image/16pix/BackFalse.png"/>
               <checkbox itemId="BackInactive" label="BackInactive" src="chrome://automenu_gl/content/image/16pix/BackInactive.png"/>
@@ -136,6 +134,14 @@
             </vbox>
           </groupbox>
         </hbox>
+        <groupbox>
+          <caption>item size</caption>
+          <radiogroup id="am_item_size" class="am-horizontal" setedEle="am_item_size">
+            <radio label="Large" accesskey="L" value="large"/>
+            <radio label="Small"  accesskey="S" value="small" selected="true"/>
+          </radiogroup>
+        </groupbox>
+        </vbox>
         </tabpanel>
         <tabpanel>
           <vbox>
@@ -144,7 +150,7 @@
               <caption>hot key</caption>
               <description>switch on/off:</description>
               <vbox>
-                <hbox id="am_hotkey">
+                <hbox id="am_set_switch_key"  setedEle="am_set_switch_key">
                   <checkbox label="ctrl +" value="accel"/><checkbox label="shift +" value="shift"/><checkbox label="alt +" value="alt"/>
                   <menulist id="am_hotkey_list" editable="true" value="1"  oncommand="am_setListKey()">
                   </menulist>

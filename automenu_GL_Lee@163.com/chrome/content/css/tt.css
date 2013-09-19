@@ -15,35 +15,67 @@
 #am_wrapper box.actived{
 	display: -moz-box;
 }
+/* 32px */
 .am_CopyImage{
-	list-style-image: url("chrome://automenu_gl/content/image/CopyImage-Plain.png");
+	list-style-image: url("chrome://automenu_gl/content/image/large/CopyImage-Plain.png");
 }
 .am_CopyImage:hover{
-	list-style-image: url("chrome://automenu_gl/content/image/CopyImage-HoverAvailable.png");
+	list-style-image: url("chrome://automenu_gl/content/image/large/CopyImage-HoverAvailable.png");
 }
 .am_CopyLink{
-	list-style-image: url("chrome://automenu_gl/content/image/CopyLink-Plain.png");
+	list-style-image: url("chrome://automenu_gl/content/image/large/CopyLink-Plain.png");
 }
 .am_CopyLink:hover{
-	list-style-image: url("chrome://automenu_gl/content/image/CopyLink-HoverAvailable.png");
+	list-style-image: url("chrome://automenu_gl/content/image/large/CopyLink-HoverAvailable.png");
 }
 .am_ImageInfo{
-	list-style-image: url("chrome://automenu_gl/content/image/ImageInfo-Plain.png");
+	list-style-image: url("chrome://automenu_gl/content/image/large/ImageInfo-Plain.png");
 }
 .am_ImageInfo:hover{
-	list-style-image: url("chrome://automenu_gl/content/image/ImageInfo-HoverAvailable.png");
+	list-style-image: url("chrome://automenu_gl/content/image/large/ImageInfo-HoverAvailable.png");
 }
 .am_SaveImageAs{
-	list-style-image: url("chrome://automenu_gl/content/image/SaveImageAs-Plain.png");
+	list-style-image: url("chrome://automenu_gl/content/image/large/SaveImageAs-Plain.png");
 }
 .am_SaveImageAs:hover{
-	list-style-image: url("chrome://automenu_gl/content/image/SaveImageAs-HoverAvailable.png");
+	list-style-image: url("chrome://automenu_gl/content/image/large/SaveImageAs-HoverAvailable.png");
 }
 .am_SendImage{
-	list-style-image: url("chrome://automenu_gl/content/image/SendImage-Plain.png");
+	list-style-image: url("chrome://automenu_gl/content/image/large/SendImage-Plain.png");
 }
 .am_SendImage:hover{
-	list-style-image: url("chrome://automenu_gl/content/image/SendImage-HoverAvailable.png");
+	list-style-image: url("chrome://automenu_gl/content/image/large/SendImage-HoverAvailable.png");
+}
+/* 16px */
+.small .am_CopyImage{
+	list-style-image: url("chrome://automenu_gl/content/image/small/CopyImage-Plain.png");
+}
+.small .am_CopyImage:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/CopyImage-HoverAvailable.png");
+}
+.small .am_CopyLink{
+	list-style-image: url("chrome://automenu_gl/content/image/small/CopyLink-Plain.png");
+}
+.small .am_CopyLink:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/CopyLink-HoverAvailable.png");
+}
+.small .am_ImageInfo{
+	list-style-image: url("chrome://automenu_gl/content/image/small/ImageInfo-Plain.png");
+}
+.small .am_ImageInfo:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/ImageInfo-HoverAvailable.png");
+}
+.small .am_SaveImageAs{
+	list-style-image: url("chrome://automenu_gl/content/image/small/SaveImageAs-Plain.png");
+}
+.small .am_SaveImageAs:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/SaveImageAs-HoverAvailable.png");
+}
+.small .am_SendImage{
+	list-style-image: url("chrome://automenu_gl/content/image/small/SendImage-Plain.png");
+}
+.small .am_SendImage:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/SendImage-HoverAvailable.png");
 }
 #am_setDialog_wrapper{
 	display: none;
@@ -127,4 +159,7 @@
 #am_setDialog_footer button{
 	text-align: center;
 	float: right;
+}
+.am-horizontal{
+	-moz-box-orient:horizontal;
 }

@@ -49,7 +49,7 @@ var am={
 		activedMenuitems = activedMenuitems.split(" ");
 		var htmltext = "";
 		for(var i = 0;i < activedMenuitems.length; i++){
-			if(activedMenuitems[i] == "")break;
+			if(activedMenuitems[i] == "")continue;
 			var iteminfo = am.iteminfos["am_"+activedMenuitems[i]];
 			if(iteminfo){
 				htmltext += "<a tooltiptext='"+iteminfo.tooltiptext+"'>"+
@@ -164,12 +164,13 @@ var am={
 		aleCurrentset:"",
 		panel:null,
 		drag:{},
+		setedEles:{},
 		init: function(){
 			if(this.inited) return;
 			this.panel = $("#am_setDialog_wrapper");
 			var count = 0;
 			$("#am_elements checkbox").each(function(i,it){
-				if(am.activedEles.indexOf($(this).attr("activedEleId")) != -1){
+				if(am.activedEles.indexOf($(this).parent().attr("activedEleId")) != -1){
 					if(count == 0){
 						/*将第一个activedEle对应的checkbox设为选中状态*/
 						$(this.parentNode).addClass("actived");
@@ -193,9 +194,12 @@ var am={
 			this.inited = true
 		},
 		bindEvents: function(){
+			var settingEle = $("#am_elements .actived");
+			var activedEleId=settingEle.attr("activedEleId");
 			$("#am_elements").bind("click",function(event){
 				var l = $(event.target);
-				activedEleId=l.parent().attr("activedEleId");
+				settingEle = l.parent();
+				activedEleId=settingEle.attr("activedEleId");
 				var am_menuitems = $("#am_menuitems").children();
 				for(var i = 0,len = am_menuitems.length; i < len; i++){
 					am_menuitems[i].checked =  false;
@@ -209,32 +213,21 @@ var am={
 			 		}
 			 	})
 			 	$(".actived").removeClass("actived");
-			 	l.parent().addClass("actived");
+			 	settingEle.addClass("actived");
 			})
-			document.getElementById("am_elements").addEventListener("click",function(event){
+			$("#am_menuitems").bind("click",function(event){
+				var settingMenu = $("#"+activedEleId);
+				var itemId = $(event.target).attr("itemId");
+				if(this.checked){
+					am.setDialog.removeItem(settingMenu,itemId)
+				}else{
+					am.setDialog.addItem(settingMenu,itemId)
+				}
 			})
 			/* 给拖动窗口大小的控件添加事件监听 */
 			$("#am_setDialog resizer").bind("mousedown.resize",am.setDialog.resizeStart).bind("mouseup.resize",am.setDialog.resizeEnd);
 			$("#am_setDialog_sure").bind("click",function(){
-				var activedEles = "";
-				$("#am_elements checkbox[checked=true]").each(function(i,it){
-					activedEles+=($(this).attr("activedEleId")+" ");
-				});
-				am.activedEles = activedEles;
-				$("#am_wrapper").attr("activedEles", activedEles);
-			})
-			$("#am_menuitems checkbox").bind("click",function(){
-				var activedEleId = $("#am_elements actived").attr("activedEleId");
-				var activedEle = $(document.getElementById(activedEleId));
-				var activedMenuitems = activedEle.attr("activedMenuitems");
-				var reg = new RegExp("\\b"+$(this).attr("itemId")+" |$");
-				if(this.checked){
-					
-					activedMenuitems.replace(reg,"");
-					$(document.getElementById(activedEleId)).attr("activedMenuitems",activedMenuitems);
-				}else{
-
-				}
+				am.setDialog.set();
 			})
 			am.setDialog.panel.find(".header").bind("mousedown.drag",function(event){
 				am.setDialog.drag.start = 1;
@@ -253,6 +246,23 @@ var am={
 				am.setDialog.drag.start = 0;
 				$(document).unbind("mousemove.drag");
 			})
+			$("#am_elements,#am_menuitems,#am_set_switch_key").bind("click",function(){
+				am.setDialog.setedEles[this.id]=1;
+			})
+		},
+		addItem: function(settingMenu, itemId){
+			var items = settingMenu.data("items");
+			if(!items || !(/\S/.test(items))){
+				items = settingMenu.attr("activedMenuitems") || settingMenu.attr("default");
+			}
+			items += " " + itemId;
+			settingMenu.data("items" ,items);
+		},
+		removeItem: function(settingMenu, itemId){
+			var items = settingMenu.data("items") || settingMenu.attr("activedMenuitems") || settingMenu.attr("default");
+			var reg = new RegExp("\\b"+itemId+" |$");
+			items.replace(reg,"");
+			settingMenu.data("items" ,items);
 		},
 		/* 生成hotkey list */
 		generateHotkeyList: function(){
@@ -309,6 +319,49 @@ var am={
 				top = ($(window).height()-am.setDialog.panel.height())/2
 			}
 			return {left:left+"px",top:top+"px"};
+		},
+		set: function(){
+			this.setElementes();
+			this.setMenuitems();
+			this.setShortcut();
+			this.setItemsize();
+		},
+		setElementes: function(){
+			var activedEles = "";
+			$("#am_elements checkbox[checked=true]").each(function(i,it){
+				activedEles+=($(this).parent().attr("activedEleId")+" ");
+			});
+			am.activedEles = activedEles;
+			$("#am_wrapper").attr("activedEles", activedEles);
+		},
+		setMenuitems: function(){
+			$("#am_wrapper box").each(function(i,it){
+				var $this = null;
+				var activedMenuitems="";
+				$this = $(this);
+				activedMenuitems  = $this.data("items")
+				$this.attr("activedMenuitems",activedMenuitems);
+				$this.children().remove();
+				am.addMenuitem($this);
+			})
+		},
+		setShortcut: function(){
+			this.setSwitchKey();
+		},
+		setSwitchKey: function(){
+			if(am.setDialog.setedEles.am_set_switch_key == 1){
+				var modifiers = "";
+				var checkboxs = 
+				$("#am_set_switch_key checkbox[checked=true]").each(function(i,it){
+					modifiers += $(this).attr("value")+" "
+				})
+				$("#am_set_switch_key").attr("modifiers",modifiers);
+				$("#am_set_switch_key menulist")[0].value;
+			}
+		},
+		setItemsize: function(){
+			var itemsize = $("#am_item_size radio[selected=true]").attr("value");
+			$("#am_wrapper").removeClass().addClass(itemsize);
 		}
 	}
 }
@@ -320,7 +373,7 @@ function am_setListKey(){
 /*
 1.reset button
 2.menu展示优化
-3.setDialog可以拖出来
+3.setDialog可以拖出来 --over
 4.setDialog内menuitem拖动
 5.menu内menuitem的拖动
 6.key冲突
