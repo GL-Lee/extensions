@@ -129,6 +129,10 @@ var am={
 		am.clicked = 0;
 	},
 	bindMouseEvent: function(){
+		document.addEventListener("mousemove",function(event){
+			am.mposition.left = event.screenX;
+			am.mposition.top = event.screenY;
+		})
 	},
 	// bindKeyEvent: function(){
 	// 	window.addEventListener("keypress", function(event){

@@ -16,66 +16,354 @@
 	display: -moz-box;
 }
 /* 32px */
-.am_CopyImage{
-	list-style-image: url("chrome://automenu_gl/content/image/large/CopyImage-Plain.png");
+.large .am_BackFalse{
+	list-style-image: url("chrome://automenu_gl/content/image/large/BackFalse.png")
 }
-.am_CopyImage:hover{
-	list-style-image: url("chrome://automenu_gl/content/image/large/CopyImage-HoverAvailable.png");
+.large .am_BackInactive{
+	list-style-image: url("chrome://automenu_gl/content/image/large/BackInactive.png")
 }
-.am_CopyLink{
-	list-style-image: url("chrome://automenu_gl/content/image/large/CopyLink-Plain.png");
+.large .am_BackTrue{
+	list-style-image: url("chrome://automenu_gl/content/image/large/BackTrue.png")
 }
-.am_CopyLink:hover{
-	list-style-image: url("chrome://automenu_gl/content/image/large/CopyLink-HoverAvailable.png");
+.large .am_Bookmark{
+	list-style-image: url("chrome://automenu_gl/content/image/large/Bookmark-HoverAvailable.png")
 }
-.am_ImageInfo{
-	list-style-image: url("chrome://automenu_gl/content/image/large/ImageInfo-Plain.png");
+.large .am_CopyImage{
+	list-style-image: url("chrome://automenu_gl/content/image/large/CopyImage-HoverAvailable.png")
 }
-.am_ImageInfo:hover{
-	list-style-image: url("chrome://automenu_gl/content/image/large/ImageInfo-HoverAvailable.png");
+.large .am_CopyLink{
+	list-style-image: url("chrome://automenu_gl/content/image/large/CopyLink-HoverAvailable.png")
 }
-.am_SaveImageAs{
-	list-style-image: url("chrome://automenu_gl/content/image/large/SaveImageAs-Plain.png");
+.large .am_CornerLeft{
+	list-style-image: url("chrome://automenu_gl/content/image/large/CornerLeft.png")
 }
-.am_SaveImageAs:hover{
-	list-style-image: url("chrome://automenu_gl/content/image/large/SaveImageAs-HoverAvailable.png");
+.large .am_CornerRight{
+	list-style-image: url("chrome://automenu_gl/content/image/large/CornerRight.png")
 }
-.am_SendImage{
-	list-style-image: url("chrome://automenu_gl/content/image/large/SendImage-Plain.png");
+.large .am_ForwardFalse{
+	list-style-image: url("chrome://automenu_gl/content/image/large/ForwardFalse.png")
 }
-.am_SendImage:hover{
-	list-style-image: url("chrome://automenu_gl/content/image/large/SendImage-HoverAvailable.png");
+.large .am_ForwardInactive{
+	list-style-image: url("chrome://automenu_gl/content/image/large/ForwardInactive.png")
+}
+.large .am_ForwardTrue{
+	list-style-image: url("chrome://automenu_gl/content/image/large/ForwardTrue.png")
+}
+.large .am_ImageInfo{
+	list-style-image: url("chrome://automenu_gl/content/image/large/ImageInfo-HoverAvailable.png")
+}
+.large .am_Inspect{
+	list-style-image: url("chrome://automenu_gl/content/image/large/Inspect-HoverAvailable.png")
+}
+.large .am_OpenInNewprivate{
+	list-style-image: url("chrome://automenu_gl/content/image/large/OpenInNewprivate-HoverAvailable.png")
+}
+.large .am_OpenInNewtab{
+	list-style-image: url("chrome://automenu_gl/content/image/large/OpenInNewtab-HoverAvailable.png")
+}
+.large .am_OpenInNewwindow{
+	list-style-image: url("chrome://automenu_gl/content/image/large/OpenInNewwindow-HoverAvailable.png")
+}
+.large .am_PageInfo{
+	list-style-image: url("chrome://automenu_gl/content/image/large/PageInfo-HoverAvailable.png")
+}
+.large .am_Paste{
+	list-style-image: url("chrome://automenu_gl/content/image/large/Paste-HoverAvailable.png")
+}
+.large .am_Reload{
+	list-style-image: url("chrome://automenu_gl/content/image/large/Reload-HoverAvailable.png")
+}
+.large .am_SaveAs{
+	list-style-image: url("chrome://automenu_gl/content/image/large/SaveAs-HoverAvailable.png")
+}
+.large .am_SaveImageAs{
+	list-style-image: url("chrome://automenu_gl/content/image/large/SaveImageAs-HoverAvailable.png")
+}
+.large .am_SaveLinkAs{
+	list-style-image: url("chrome://automenu_gl/content/image/large/SaveLinkAs-HoverAvailable.png")
+}
+.large .am_SavePageAs{
+	list-style-image: url("chrome://automenu_gl/content/image/large/SavePageAs-HoverAvailable.png")
+}
+.large .am_SelectAll{
+	list-style-image: url("chrome://automenu_gl/content/image/large/SelectAll-HoverAvailable.png")
+}
+.large .am_SendImage{
+	list-style-image: url("chrome://automenu_gl/content/image/large/SendImage-HoverAvailable.png")
+}
+.large .am_SendLink{
+	list-style-image: url("chrome://automenu_gl/content/image/large/SendLink-HoverAvailable.png")
+}
+.large .am_ShowBackgroundImage{
+	list-style-image: url("chrome://automenu_gl/content/image/large/ShowBackgroundImage-HoverAvailable.png")
+}
+.large .am_ShowSource{
+	list-style-image: url("chrome://automenu_gl/content/image/large/ShowSource-HoverAvailable.png")
+}
+.large .am_Stop{
+	list-style-image: url("chrome://automenu_gl/content/image/large/Stop-HoverAvailable.png")
+}
+.large .am_BackFalse:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/BackFalse.png")
+}
+.large .am_BackInactive:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/BackInactive.png")
+}
+.large .am_BackTrue:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/BackTrue.png")
+}
+.large .am_Bookmark:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/Bookmark-Plain.png")
+}
+.large .am_CopyImage:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/CopyImage-Plain.png")
+}
+.large .am_CopyLink:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/CopyLink-Plain.png")
+}
+.large .am_CornerLeft:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/CornerLeft.png")
+}
+.large .am_CornerRight:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/CornerRight.png")
+}
+.large .am_ForwardFalse:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/ForwardFalse.png")
+}
+.large .am_ForwardInactive:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/ForwardInactive.png")
+}
+.large .am_ForwardTrue:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/ForwardTrue.png")
+}
+.large .am_ImageInfo:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/ImageInfo-Plain.png")
+}
+.large .am_Inspect:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/Inspect-Plain.png")
+}
+.large .am_OpenInNewprivate:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/OpenInNewprivate-Plain.png")
+}
+.large .am_OpenInNewtab:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/OpenInNewtab-Plain.png")
+}
+.large .am_OpenInNewwindow:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/OpenInNewwindow-Plain.png")
+}
+.large .am_PageInfo:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/PageInfo-Plain.png")
+}
+.large .am_Paste:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/Paste-Plain.png")
+}
+.large .am_Reload:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/Reload-Plain.png")
+}
+.large .am_SaveAs:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/SaveAs-Plain.png")
+}
+.large .am_SaveImageAs:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/SaveImageAs-Plain.png")
+}
+.large .am_SaveLinkAs:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/SaveLinkAs-Plain.png")
+}
+.large .am_SavePageAs:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/SavePageAs-Plain.png")
+}
+.large .am_SelectAll:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/SelectAll-Plain.png")
+}
+.large .am_SendImage:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/SendImage-Plain.png")
+}
+.large .am_SendLink:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/SendLink-Plain.png")
+}
+.large .am_ShowBackgroundImage:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/ShowBackgroundImage-Plain.png")
+}
+.large .am_ShowSource:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/ShowSource-Plain.png")
+}
+.large .am_Stop:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/large/Stop-Plain.png")
 }
 /* 16px */
-.small .am_CopyImage{
-	list-style-image: url("chrome://automenu_gl/content/image/small/CopyImage-Plain.png");
+.small .am_BackFalse{
+	list-style-image: url("chrome://automenu_gl/content/image/small/BackFalse.png")
 }
-.small .am_CopyImage:hover{
-	list-style-image: url("chrome://automenu_gl/content/image/small/CopyImage-HoverAvailable.png");
+.small .am_BackInactive{
+	list-style-image: url("chrome://automenu_gl/content/image/small/BackInactive.png")
+}
+.small .am_BackTrue{
+	list-style-image: url("chrome://automenu_gl/content/image/small/BackTrue.png")
+}
+.small .am_Bookmark{
+	list-style-image: url("chrome://automenu_gl/content/image/small/Bookmark-HoverAvailable.png")
+}
+.small .am_CopyImage{
+	list-style-image: url("chrome://automenu_gl/content/image/small/CopyImage-HoverAvailable.png")
 }
 .small .am_CopyLink{
-	list-style-image: url("chrome://automenu_gl/content/image/small/CopyLink-Plain.png");
+	list-style-image: url("chrome://automenu_gl/content/image/small/CopyLink-HoverAvailable.png")
 }
-.small .am_CopyLink:hover{
-	list-style-image: url("chrome://automenu_gl/content/image/small/CopyLink-HoverAvailable.png");
+.small .am_CornerLeft{
+	list-style-image: url("chrome://automenu_gl/content/image/small/CornerLeft.png")
+}
+.small .am_CornerRight{
+	list-style-image: url("chrome://automenu_gl/content/image/small/CornerRight.png")
+}
+.small .am_ForwardFalse{
+	list-style-image: url("chrome://automenu_gl/content/image/small/ForwardFalse.png")
+}
+.small .am_ForwardInactive{
+	list-style-image: url("chrome://automenu_gl/content/image/small/ForwardInactive.png")
+}
+.small .am_ForwardTrue{
+	list-style-image: url("chrome://automenu_gl/content/image/small/ForwardTrue.png")
 }
 .small .am_ImageInfo{
-	list-style-image: url("chrome://automenu_gl/content/image/small/ImageInfo-Plain.png");
+	list-style-image: url("chrome://automenu_gl/content/image/small/ImageInfo-HoverAvailable.png")
 }
-.small .am_ImageInfo:hover{
-	list-style-image: url("chrome://automenu_gl/content/image/small/ImageInfo-HoverAvailable.png");
+.small .am_Inspect{
+	list-style-image: url("chrome://automenu_gl/content/image/small/Inspect-HoverAvailable.png")
+}
+.small .am_OpenInNewprivate{
+	list-style-image: url("chrome://automenu_gl/content/image/small/OpenInNewprivate-HoverAvailable.png")
+}
+.small .am_OpenInNewtab{
+	list-style-image: url("chrome://automenu_gl/content/image/small/OpenInNewtab-HoverAvailable.png")
+}
+.small .am_OpenInNewwindow{
+	list-style-image: url("chrome://automenu_gl/content/image/small/OpenInNewwindow-HoverAvailable.png")
+}
+.small .am_PageInfo{
+	list-style-image: url("chrome://automenu_gl/content/image/small/PageInfo-HoverAvailable.png")
+}
+.small .am_Paste{
+	list-style-image: url("chrome://automenu_gl/content/image/small/Paste-HoverAvailable.png")
+}
+.small .am_Reload{
+	list-style-image: url("chrome://automenu_gl/content/image/small/Reload-HoverAvailable.png")
+}
+.small .am_SaveAs{
+	list-style-image: url("chrome://automenu_gl/content/image/small/SaveAs-HoverAvailable.png")
 }
 .small .am_SaveImageAs{
-	list-style-image: url("chrome://automenu_gl/content/image/small/SaveImageAs-Plain.png");
+	list-style-image: url("chrome://automenu_gl/content/image/small/SaveImageAs-HoverAvailable.png")
 }
-.small .am_SaveImageAs:hover{
-	list-style-image: url("chrome://automenu_gl/content/image/small/SaveImageAs-HoverAvailable.png");
+.small .am_SaveLinkAs{
+	list-style-image: url("chrome://automenu_gl/content/image/small/SaveLinkAs-HoverAvailable.png")
+}
+.small .am_SavePageAs{
+	list-style-image: url("chrome://automenu_gl/content/image/small/SavePageAs-HoverAvailable.png")
+}
+.small .am_SelectAll{
+	list-style-image: url("chrome://automenu_gl/content/image/small/SelectAll-HoverAvailable.png")
 }
 .small .am_SendImage{
-	list-style-image: url("chrome://automenu_gl/content/image/small/SendImage-Plain.png");
+	list-style-image: url("chrome://automenu_gl/content/image/small/SendImage-HoverAvailable.png")
+}
+.small .am_SendLink{
+	list-style-image: url("chrome://automenu_gl/content/image/small/SendLink-HoverAvailable.png")
+}
+.small .am_ShowBackgroundImage{
+	list-style-image: url("chrome://automenu_gl/content/image/small/ShowBackgroundImage-HoverAvailable.png")
+}
+.small .am_ShowSource{
+	list-style-image: url("chrome://automenu_gl/content/image/small/ShowSource-HoverAvailable.png")
+}
+.small .am_Stop{
+	list-style-image: url("chrome://automenu_gl/content/image/small/Stop-HoverAvailable.png")
+}
+.small .am_BackFalse:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/BackFalse.png")
+}
+.small .am_BackInactive:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/BackInactive.png")
+}
+.small .am_BackTrue:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/BackTrue.png")
+}
+.small .am_Bookmark:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/Bookmark-Plain.png")
+}
+.small .am_CopyImage:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/CopyImage-Plain.png")
+}
+.small .am_CopyLink:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/CopyLink-Plain.png")
+}
+.small .am_CornerLeft:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/CornerLeft.png")
+}
+.small .am_CornerRight:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/CornerRight.png")
+}
+.small .am_ForwardFalse:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/ForwardFalse.png")
+}
+.small .am_ForwardInactive:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/ForwardInactive.png")
+}
+.small .am_ForwardTrue:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/ForwardTrue.png")
+}
+.small .am_ImageInfo:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/ImageInfo-Plain.png")
+}
+.small .am_Inspect:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/Inspect-Plain.png")
+}
+.small .am_OpenInNewprivate:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/OpenInNewprivate-Plain.png")
+}
+.small .am_OpenInNewtab:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/OpenInNewtab-Plain.png")
+}
+.small .am_OpenInNewwindow:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/OpenInNewwindow-Plain.png")
+}
+.small .am_PageInfo:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/PageInfo-Plain.png")
+}
+.small .am_Paste:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/Paste-Plain.png")
+}
+.small .am_Reload:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/Reload-Plain.png")
+}
+.small .am_SaveAs:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/SaveAs-Plain.png")
+}
+.small .am_SaveImageAs:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/SaveImageAs-Plain.png")
+}
+.small .am_SaveLinkAs:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/SaveLinkAs-Plain.png")
+}
+.small .am_SavePageAs:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/SavePageAs-Plain.png")
+}
+.small .am_SelectAll:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/SelectAll-Plain.png")
 }
 .small .am_SendImage:hover{
-	list-style-image: url("chrome://automenu_gl/content/image/small/SendImage-HoverAvailable.png");
+	list-style-image: url("chrome://automenu_gl/content/image/small/SendImage-Plain.png")
+}
+.small .am_SendLink:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/SendLink-Plain.png")
+}
+.small .am_ShowBackgroundImage:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/ShowBackgroundImage-Plain.png")
+}
+.small .am_ShowSource:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/ShowSource-Plain.png")
+}
+.small .am_Stop:hover{
+	list-style-image: url("chrome://automenu_gl/content/image/small/Stop-Plain.png")
 }
 #am_setDialog_wrapper{
 	display: none;
