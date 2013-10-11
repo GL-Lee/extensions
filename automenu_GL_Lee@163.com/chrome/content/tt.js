@@ -9,19 +9,19 @@ var am={
 	prefs:null,
 	inited:false,
 	iteminfos:{
-		// am_BackFalse:{tooltiptext:"Back False",menuitemId:"context-copyimage"},
-		// am_BackInactive:{tooltiptext:"Back In active",menuitemId:"context-copylink"},
-		// am_BackTrue:{tooltiptext:"Back True",menuitemId:"context-viewimageinfo"},
+		am_BackFalse:{tooltiptext:"Back False",menuitemId:"context-copyimage"},
+		am_BackInactive:{tooltiptext:"Back In active",menuitemId:"context-copylink"},
+		am_BackTrue:{tooltiptext:"Back True",menuitemId:"context-viewimageinfo"},
 		am_Bookmark:{tooltiptext:"Bookmark Page",menuitemId:"context-bookmarkpage"},
 		am_CopyImage:{tooltiptext:"Copy Image",menuitemId:"context-copyimage"},
 		am_CopyLink:{tooltiptext:"Copy Link",menuitemId:"context-copylink"},
-		// am_CornerLeft:{tooltiptext:"Corner Left",menuitemId:"context-copylink"},
-		// am_CornerRight:{tooltiptext:"Corner Right",menuitemId:"context-viewimageinfo"},
-		// am_ForwardFalse:{tooltiptext:"Forward False",menuitemId:"context-saveimage"},
-		// am_ForwardInactive:{tooltiptext:"Forward In active",menuitemId:"context-sendimage"},
+		am_CornerLeft:{tooltiptext:"Corner Left",menuitemId:"context-copylink"},
+		am_CornerRight:{tooltiptext:"Corner Right",menuitemId:"context-viewimageinfo"},
+		am_ForwardFalse:{tooltiptext:"Forward False",menuitemId:"context-saveimage"},
+		am_ForwardInactive:{tooltiptext:"Forward In active",menuitemId:"context-sendimage"},
 
 
- 		// am_ForwardTrue:{tooltiptext:"Forward True",menuitemId:"context-copyimage"},
+ 		am_ForwardTrue:{tooltiptext:"Forward True",menuitemId:"context-copyimage"},
 		am_ImageInfo:{tooltiptext:"Image Info",menuitemId:"context-viewimageinfo"},
 		am_Inspect:{tooltiptext:"Inspect",menuitemId:"context-inspect"},
 		am_OpenInNewprivate:{tooltiptext:"Open In New private",menuitemId:"context-openlinkprivate"},
@@ -30,7 +30,7 @@ var am={
 		am_PageInfo:{tooltiptext:"Page Info",menuitemId:"context-viewinfo"},
 		am_Paste:{tooltiptext:"Paste",menuitemId:"context-paste"},
 		am_Reload:{tooltiptext:"Reload",menuitemId:"context-reload"},
-		// am_SaveAs:{tooltiptext:"Save As",menuitemId:"context-savepage"},
+		am_SaveAs:{tooltiptext:"Save As",menuitemId:"context-savepage"},
 
 
 		am_SaveImageAs:{tooltiptext:"Save Image As",menuitemId:"context-saveimage"},
@@ -38,12 +38,15 @@ var am={
 		am_SavePageAs:{tooltiptext:"Save Page As",menuitemId:"context-savepage"},
 		am_SelectAll:{tooltiptext:"Select All",menuitemId:"context-selectall"},
 		am_SendImage:{tooltiptext:"Send Image",menuitemId:"context-sendimage"},
-		// am_SendLink:{tooltiptext:"Send Link",menuitemId:"context-copyimage"},
-		// am_ShowBackgroundImage:{tooltiptext:"Show Background Image",menuitemId:"context-copylink"},
-		// am_ShowSource:{tooltiptext:"Show Source",menuitemId:"context-viewimageinfo"},
+		am_SendLink:{tooltiptext:"Send Link",menuitemId:"context-copyimage"},
+		am_ShowBackgroundImage:{tooltiptext:"Show Background Image",menuitemId:"context-copylink"},
+		am_ShowSource:{tooltiptext:"Show Source",menuitemId:"context-viewimageinfo"},
 		am_Stop:{tooltiptext:"Stop",menuitemId:"context-stop"},
 	},
 	init: function(){
+		am.console = (Cu.import("resource://gre/modules/devtools/Console.jsm", {})).console;
+		am.console.log("Hello from Firefox code");
+
 		if(!am.prefs){
 			try{
 				am.prefs = Components.classes["@mozilla.org/preferences-service;1"]
@@ -73,19 +76,34 @@ var am={
 		am.activedEles = activedEles;
 	},
 	addMenuitem: function(activedEle){
+				am.console.log(activedEle[0].id);
 		var activedMenuitems = activedEle.attr("activedMenuitems") || activedEle.attr("default");
 		activedMenuitems = activedMenuitems.split(" ");
-		var htmltext = "";
-		for(var i = 0;i < activedMenuitems.length; i++){
-			if(activedMenuitems[i] == "")continue;
-			var iteminfo = am.iteminfos["am_"+activedMenuitems[i]];
-			if(iteminfo){
-				htmltext += "<a tooltiptext='"+iteminfo.tooltiptext+"'>"+
-								"<image id='am_" + activedMenuitems[i] + "' class='am_"+activedMenuitems[i]+"'/>"+
-							"</a>";
+		var x = activedMenuitems.length;
+		var y = Math.sqrt(x);
+				am.console.log(x+":"+y);
+		for(var i = 0;i < x;){
+			var row = $("<box class='am-row'/>")
+				am.console.log(row.children().length);
+			for(var j=0; j<y && j<x && i<x;i++){
+				am.console.log(i);
+				am.console.log(activedMenuitems[i]);
+				if(activedMenuitems[i] == "" || !am.iteminfos["am_"+activedMenuitems[i]]){
+					continue;
+					// j--;
+				}
+				var iteminfo = am.iteminfos["am_"+activedMenuitems[i]];
+				if(iteminfo){
+					var htmltext = "<a id='am_" + activedMenuitems[i] +"' tooltiptext='"+iteminfo.tooltiptext+"'>"+
+									"<image class='am_"+activedMenuitems[i]+"'/>"+
+									"<box class='am-item-text'>"+iteminfo.tooltiptext+"</box>"+
+								"</a>";
+					row.append($(htmltext));
+					j++
+				}
 			}
+			activedEle.append(row);
 		}
-		$(htmltext).appendTo(activedEle);
 	},
 	bindEvents: function(){
 		am.bindMouseEvent();
@@ -114,6 +132,7 @@ var am={
 				var position = am.getPosition(15,-15);
 				am.$tip.css({left:position.left,top:position.top});
 				am.$tip.show();
+				console.log("Hello from Firefox code");
 			},300)
 			$("#am_image").addClass("actived");
 		}
@@ -147,7 +166,7 @@ var am={
 	//},
 	bindAmEvent: function(){
 		$("#am_wrapper").bind("click",function(event){
-			am.doCommand(am.iteminfos[event.target.id].menuitemId,am.imgTarget);
+			am.doCommand(am.iteminfos[event.target.parentNode.id].menuitemId,am.imgTarget);
 			$(this).hide();
 			am.clicked = 1;
 		})
@@ -442,6 +461,7 @@ function am_setListKey(){
 	var list = $("#am_hotkey_list")[0];
 	list.value = list.selectedItem.label;
 }
+
 /*
 1.reset button
 2.menu展示优化

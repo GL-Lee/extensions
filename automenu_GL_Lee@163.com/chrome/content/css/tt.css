@@ -2,18 +2,37 @@
 	position: fixed;
 	left: -1000px;
 	top: -1000px;
-	border: solid 1px;
+	border: solid 1px grey;
+	box-shadow: 2px 2px 2px;
 	background-color: white;
 	opacity: 0.2;
+	padding: 3px;
 }
 #am_wrapper:hover{
 	opacity: 1;
 }
-#am_wrapper box{
+#am_wrapper vbox{
 	display: none;
 }
-#am_wrapper box.actived{
+#am_wrapper vbox.actived{
 	display: -moz-box;
+}
+.am-wrapper-single .am-row{
+	-moz-box-orient: vertical;
+}
+.am-wrapper-single a:hover{
+	background-color: grey;
+}
+.am-hover-cover{
+	position: absolute;
+	top:1px;
+	width: 30px;
+	height: 14px;
+	border:solid 1px grey;
+	opacity: 0.2;
+}
+.am-wrapper-multiply .am-item-text{
+	display: none;
 }
 /* 32px */
 .large .am_BackFalse{
@@ -103,91 +122,91 @@
 .large .am_Stop{
 	list-style-image: url("chrome://automenu_gl/content/image/large/Stop-HoverAvailable.png")
 }
-.large .am_BackFalse:hover{
+.am-wrapper-multiply .large .am_BackFalse:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/BackFalse.png")
 }
-.large .am_BackInactive:hover{
+.am-wrapper-multiply .large .am_BackInactive:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/BackInactive.png")
 }
-.large .am_BackTrue:hover{
+.am-wrapper-multiply .large .am_BackTrue:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/BackTrue.png")
 }
-.large .am_Bookmark:hover{
+.am-wrapper-multiply .large .am_Bookmark:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/Bookmark-Plain.png")
 }
-.large .am_CopyImage:hover{
+.am-wrapper-multiply .large .am_CopyImage:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/CopyImage-Plain.png")
 }
-.large .am_CopyLink:hover{
+.am-wrapper-multiply .large .am_CopyLink:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/CopyLink-Plain.png")
 }
-.large .am_CornerLeft:hover{
+.am-wrapper-multiply .large .am_CornerLeft:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/CornerLeft.png")
 }
-.large .am_CornerRight:hover{
+.am-wrapper-multiply .large .am_CornerRight:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/CornerRight.png")
 }
-.large .am_ForwardFalse:hover{
+.am-wrapper-multiply .large .am_ForwardFalse:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/ForwardFalse.png")
 }
-.large .am_ForwardInactive:hover{
+.am-wrapper-multiply .large .am_ForwardInactive:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/ForwardInactive.png")
 }
-.large .am_ForwardTrue:hover{
+.am-wrapper-multiply .large .am_ForwardTrue:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/ForwardTrue.png")
 }
-.large .am_ImageInfo:hover{
+.am-wrapper-multiply .large .am_ImageInfo:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/ImageInfo-Plain.png")
 }
-.large .am_Inspect:hover{
+.am-wrapper-multiply .large .am_Inspect:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/Inspect-Plain.png")
 }
-.large .am_OpenInNewprivate:hover{
+.am-wrapper-multiply .large .am_OpenInNewprivate:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/OpenInNewprivate-Plain.png")
 }
-.large .am_OpenInNewtab:hover{
+.am-wrapper-multiply .large .am_OpenInNewtab:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/OpenInNewtab-Plain.png")
 }
-.large .am_OpenInNewwindow:hover{
+.am-wrapper-multiply .large .am_OpenInNewwindow:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/OpenInNewwindow-Plain.png")
 }
-.large .am_PageInfo:hover{
+.am-wrapper-multiply .large .am_PageInfo:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/PageInfo-Plain.png")
 }
-.large .am_Paste:hover{
+.am-wrapper-multiply .large .am_Paste:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/Paste-Plain.png")
 }
-.large .am_Reload:hover{
+.am-wrapper-multiply .large .am_Reload:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/Reload-Plain.png")
 }
-.large .am_SaveAs:hover{
+.am-wrapper-multiply .large .am_SaveAs:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/SaveAs-Plain.png")
 }
-.large .am_SaveImageAs:hover{
+.am-wrapper-multiply .large .am_SaveImageAs:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/SaveImageAs-Plain.png")
 }
-.large .am_SaveLinkAs:hover{
+.am-wrapper-multiply .large .am_SaveLinkAs:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/SaveLinkAs-Plain.png")
 }
-.large .am_SavePageAs:hover{
+.am-wrapper-multiply .large .am_SavePageAs:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/SavePageAs-Plain.png")
 }
-.large .am_SelectAll:hover{
+.am-wrapper-multiply .large .am_SelectAll:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/SelectAll-Plain.png")
 }
-.large .am_SendImage:hover{
+.am-wrapper-multiply .large .am_SendImage:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/SendImage-Plain.png")
 }
-.large .am_SendLink:hover{
+.am-wrapper-multiply .large .am_SendLink:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/SendLink-Plain.png")
 }
-.large .am_ShowBackgroundImage:hover{
+.am-wrapper-multiply .large .am_ShowBackgroundImage:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/ShowBackgroundImage-Plain.png")
 }
-.large .am_ShowSource:hover{
+.am-wrapper-multiply .large .am_ShowSource:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/ShowSource-Plain.png")
 }
-.large .am_Stop:hover{
+.am-wrapper-multiply .large .am_Stop:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/large/Stop-Plain.png")
 }
 /* 16px */
@@ -278,91 +297,91 @@
 .small .am_Stop{
 	list-style-image: url("chrome://automenu_gl/content/image/small/Stop-HoverAvailable.png")
 }
-.small .am_BackFalse:hover{
+.am-wrapper-multiply .small .am_BackFalse:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/BackFalse.png")
 }
-.small .am_BackInactive:hover{
+.am-wrapper-multiply .small .am_BackInactive:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/BackInactive.png")
 }
-.small .am_BackTrue:hover{
+.am-wrapper-multiply .small .am_BackTrue:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/BackTrue.png")
 }
-.small .am_Bookmark:hover{
+.am-wrapper-multiply .small .am_Bookmark:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/Bookmark-Plain.png")
 }
-.small .am_CopyImage:hover{
+.am-wrapper-multiply .small .am_CopyImage:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/CopyImage-Plain.png")
 }
-.small .am_CopyLink:hover{
+.am-wrapper-multiply .small .am_CopyLink:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/CopyLink-Plain.png")
 }
-.small .am_CornerLeft:hover{
+.am-wrapper-multiply .small .am_CornerLeft:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/CornerLeft.png")
 }
-.small .am_CornerRight:hover{
+.am-wrapper-multiply .small .am_CornerRight:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/CornerRight.png")
 }
-.small .am_ForwardFalse:hover{
+.am-wrapper-multiply .small .am_ForwardFalse:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/ForwardFalse.png")
 }
-.small .am_ForwardInactive:hover{
+.am-wrapper-multiply .small .am_ForwardInactive:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/ForwardInactive.png")
 }
-.small .am_ForwardTrue:hover{
+.am-wrapper-multiply .small .am_ForwardTrue:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/ForwardTrue.png")
 }
-.small .am_ImageInfo:hover{
+.am-wrapper-multiply .small .am_ImageInfo:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/ImageInfo-Plain.png")
 }
-.small .am_Inspect:hover{
+.am-wrapper-multiply .small .am_Inspect:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/Inspect-Plain.png")
 }
-.small .am_OpenInNewprivate:hover{
+.am-wrapper-multiply .small .am_OpenInNewprivate:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/OpenInNewprivate-Plain.png")
 }
-.small .am_OpenInNewtab:hover{
+.am-wrapper-multiply .small .am_OpenInNewtab:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/OpenInNewtab-Plain.png")
 }
-.small .am_OpenInNewwindow:hover{
+.am-wrapper-multiply .small .am_OpenInNewwindow:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/OpenInNewwindow-Plain.png")
 }
-.small .am_PageInfo:hover{
+.am-wrapper-multiply .small .am_PageInfo:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/PageInfo-Plain.png")
 }
-.small .am_Paste:hover{
+.am-wrapper-multiply .small .am_Paste:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/Paste-Plain.png")
 }
-.small .am_Reload:hover{
+.am-wrapper-multiply .small .am_Reload:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/Reload-Plain.png")
 }
-.small .am_SaveAs:hover{
+.am-wrapper-multiply .small .am_SaveAs:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/SaveAs-Plain.png")
 }
-.small .am_SaveImageAs:hover{
+.am-wrapper-multiply .small .am_SaveImageAs:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/SaveImageAs-Plain.png")
 }
-.small .am_SaveLinkAs:hover{
+.am-wrapper-multiply .small .am_SaveLinkAs:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/SaveLinkAs-Plain.png")
 }
-.small .am_SavePageAs:hover{
+.am-wrapper-multiply .small .am_SavePageAs:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/SavePageAs-Plain.png")
 }
-.small .am_SelectAll:hover{
+.am-wrapper-multiply .small .am_SelectAll:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/SelectAll-Plain.png")
 }
-.small .am_SendImage:hover{
+.am-wrapper-multiply .small .am_SendImage:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/SendImage-Plain.png")
 }
-.small .am_SendLink:hover{
+.am-wrapper-multiply .small .am_SendLink:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/SendLink-Plain.png")
 }
-.small .am_ShowBackgroundImage:hover{
+.am-wrapper-multiply .small .am_ShowBackgroundImage:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/ShowBackgroundImage-Plain.png")
 }
-.small .am_ShowSource:hover{
+.am-wrapper-multiply .small .am_ShowSource:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/ShowSource-Plain.png")
 }
-.small .am_Stop:hover{
+.am-wrapper-multiply .small .am_Stop:hover{
 	list-style-image: url("chrome://automenu_gl/content/image/small/Stop-Plain.png")
 }
 #am_setDialog_wrapper{
