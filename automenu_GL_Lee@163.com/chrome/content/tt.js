@@ -95,7 +95,9 @@ var am={
 				var iteminfo = am.iteminfos["am_"+activedMenuitems[i]];
 				if(iteminfo){
 					var htmltext = "<a id='am_" + activedMenuitems[i] +"' tooltiptext='"+iteminfo.tooltiptext+"'>"+
-									"<image class='am_"+activedMenuitems[i]+"'/>"+
+									"<box class='image'>"+
+										"<image class='am_"+activedMenuitems[i]+"'/>"+
+									"</box>"+
 									"<box class='am-item-text'>"+iteminfo.tooltiptext+"</box>"+
 								"</a>";
 					row.append($(htmltext));
@@ -267,7 +269,7 @@ var am={
 			$("#am_menuitems").bind("click",function(event){
 				var settingMenu = $("#"+activedEleId);
 				var itemId = $(event.target).attr("itemId");
-				if(this.checked){
+				if(!event.target.checked){
 					am.setDialog.removeItem(settingMenu,itemId)
 				}else{
 					am.setDialog.addItem(settingMenu,itemId)
@@ -332,18 +334,18 @@ var am={
 			});
 		},
 		addItem: function(settingMenu, itemId){
-			var items = settingMenu.data("items");
+			var items = settingMenu.attr("activedMenuitems");
 			if(!items || !(/\S/.test(items))){
 				items = settingMenu.attr("activedMenuitems") || settingMenu.attr("default");
 			}
 			items += " " + itemId;
-			settingMenu.data("items" ,items);
+			settingMenu.attr("activedMenuitems" ,items);
 		},
 		removeItem: function(settingMenu, itemId){
-			var items = settingMenu.data("items") || settingMenu.attr("activedMenuitems") || settingMenu.attr("default");
-			var reg = new RegExp("\\b"+itemId+" |$");
-			items.replace(reg,"");
-			settingMenu.data("items" ,items);
+			var items = settingMenu.attr("activedMenuitems") || settingMenu.attr("default");
+			var reg = new RegExp("\\b"+itemId+" *","g");
+			items = items.replace(reg,"");
+			settingMenu.attr("activedMenuitems" ,items);
 		},
 		/* 生成hotkey list */
 		generateHotkeyList: function(){
@@ -423,11 +425,10 @@ var am={
 			$("#am_wrapper").attr("activedEles", activedEles);
 		},
 		setMenuitems: function(){
-			$("#am_wrapper box").each(function(i,it){
-				var $this = null;
+			$("#am_wrapper vbox").each(function(i,it){
+				var $this = $(this);;
 				var activedMenuitems="";
-				$this = $(this);
-				activedMenuitems  = $this.data("items")
+				activedMenuitems  = $this.attr("activedMenuitems")
 				$this.attr("activedMenuitems",activedMenuitems);
 				$this.children().remove();
 				am.addMenuitem($this);
@@ -449,7 +450,7 @@ var am={
 		},
 		setItemsize: function(){
 			var itemsize = $("#am_item_size radio[selected=true]").attr("value");
-			$("#am_wrapper").removeClass().addClass(itemsize);
+			$("#am_wrapper").removeClass("small large").addClass(itemsize);
 		},
 		close: function(){
 			am.setDialog.panel.hide();

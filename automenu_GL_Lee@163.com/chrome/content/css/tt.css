@@ -34,6 +34,21 @@
 .am-wrapper-multiply .am-item-text{
 	display: none;
 }
+.am-row .image{
+	display: block;
+}
+.am-row .image image{
+	display: block;
+	margin: auto;
+}
+.small .am-row .image{
+	width: 16px;
+	height: 16px;
+}
+.large .am-row .image{
+	width: 32px;
+	height: 32px;
+}
 /* 32px */
 .large .am_BackFalse{
 	list-style-image: url("chrome://automenu_gl/content/image/large/BackFalse.png")

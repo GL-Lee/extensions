@@ -60,11 +60,11 @@
       <key id="am_switch_key" modifiers="control" key="M" command="am_cd_switch"/>
     </keyset>
     <!-- 弹出菜单 -->
-    <box id="am_wrapper" class="am-wrapper-multiply" persist="activedEles" default="am_image am_link">
-      <vbox id="am_link" class="small" persist="activedMenuitems" default="CopyImage CopyLink ImageInfo"/>
-      <vbox id="am_image" class="small" persist="activedMenuitems" default="CopyImage  ImageInfo"/>
-      <vbox id="am_button" class="small" persist="activedMenuitems" default="CopyImage"/>
-      <vbox id="am_input" class="small" persist="activedMenuitems" default="CopyImage CopyLink "/>
+    <box id="am_wrapper" class="am-wrapper-multiply large" persist="activedEles" default="am_image am_link">
+      <vbox id="am_link" persist="activedMenuitems" default="CopyImage CopyLink ImageInfo"/>
+      <vbox id="am_image" persist="activedMenuitems" default="CopyImage  ImageInfo"/>
+      <vbox id="am_button" persist="activedMenuitems" default="CopyImage"/>
+      <vbox id="am_input" persist="activedMenuitems" default="CopyImage CopyLink "/>
     </box>
     <!-- 设定窗口 -->
     <vbox id="am_setDialog_wrapper">
