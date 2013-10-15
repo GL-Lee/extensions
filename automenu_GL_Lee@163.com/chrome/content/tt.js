@@ -56,6 +56,7 @@ var am={
 		}
 		if(!am.on) return;
 		if(am.inited) return;
+		$("#am_wrapper").addClass($("#am_wrapper").attr("size"));
 		am.switchKey={fnKey:"ctrlKey",key:49},
 		am.$tip = $("#am_wrapper");
 		am.buildPanel();
@@ -168,7 +169,7 @@ var am={
 	//},
 	bindAmEvent: function(){
 		$("#am_wrapper").bind("click",function(event){
-			am.doCommand(am.iteminfos[event.target.parentNode.id].menuitemId,am.imgTarget);
+			am.doCommand(am.iteminfos[$(event.target).closest("a")[0].id].menuitemId,am.imgTarget);
 			$(this).hide();
 			am.clicked = 1;
 		})
@@ -237,6 +238,8 @@ var am={
 					this.checked = true
 				}
 			})
+			var size = $("#am_wrapper").attr("size");
+			$("#am_item_size radio[value="+size+"]")[0].click();
 			/* 生成hotkey list */
 			this.generateHotkeyList();
 			this.bindEvents();
@@ -246,8 +249,14 @@ var am={
 			var settingEle = $("#am_elements .actived");
 			var activedEleId=settingEle.attr("activedEleId");
 			$("#am_elements").bind("click",function(event){
-				var l = $(event.target);
-				settingEle = l.parent();
+				var l = event.target;
+				while(l.parentNode.id != "am_elements"){
+					l = l.parentNode;
+				}
+				if(l.id == "am_elements"){
+					return;
+				}
+				settingEle = $(l);
 				activedEleId=settingEle.attr("activedEleId");
 				var am_menuitems = $("#am_menuitems").children();
 				for(var i = 0,len = am_menuitems.length; i < len; i++){
@@ -263,7 +272,7 @@ var am={
 			 	})
 			 	$(".actived").removeClass("actived");
 			 	settingEle.addClass("actived");
-			 	$("#am_menuitems .am_h1").text($(event.target).text());
+			 	$("#am_menuitems .am_h1 span").text(settingEle.text());
 			 	$("#am_menuitems")[0].scrollTop = 0;
 			})
 			$("#am_menuitems").bind("click",function(event){
@@ -450,7 +459,7 @@ var am={
 		},
 		setItemsize: function(){
 			var itemsize = $("#am_item_size radio[selected=true]").attr("value");
-			$("#am_wrapper").removeClass("small large").addClass(itemsize);
+			$("#am_wrapper").removeClass("small large").addClass(itemsize).attr("size",itemsize);
 		},
 		close: function(){
 			am.setDialog.panel.hide();

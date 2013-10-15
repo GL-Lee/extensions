@@ -60,7 +60,7 @@
       <key id="am_switch_key" modifiers="control" key="M" command="am_cd_switch"/>
     </keyset>
     <!-- 弹出菜单 -->
-    <box id="am_wrapper" class="am-wrapper-multiply large" persist="activedEles" default="am_image am_link">
+    <box id="am_wrapper" class="am-wrapper-multiply" size="large" persist="activedEles size" default="am_image am_link">
       <vbox id="am_link" persist="activedMenuitems" default="CopyImage CopyLink ImageInfo"/>
       <vbox id="am_image" persist="activedMenuitems" default="CopyImage  ImageInfo"/>
       <vbox id="am_button" persist="activedMenuitems" default="CopyImage"/>
@@ -88,11 +88,11 @@
               <groupbox>
                 <hbox>
                   <vbox id="am_elements" class="resizable" setedEle="am_elements">
-                    <hbox id="am_element_link" activedEleId="am_link">
-                      <checkbox class="am_element" checked="false"/><box class="am_element_label">link</box>
-                    </hbox>
                     <hbox id="am_element_image" activedEleId="am_image">
                       <checkbox class="am_element" checked="false"/><box class="am_element_label">image</box>
+                    </hbox>
+                    <hbox id="am_element_link" activedEleId="am_link">
+                      <checkbox class="am_element" checked="false"/><box class="am_element_label">link</box>
                     </hbox>
                     <hbox id="am_element_button" activedEleId="am_button">
                       <checkbox class="am_element" checked="false"/><box class="am_element_label">button</box>
@@ -103,7 +103,7 @@
                   </vbox>
                   <resizer dir="left" style="background: black; -moz-appearance: none;" element="am_elements" width="8"/>
                   <vbox id="am_menuitems" class="resizable" setedEle="am_menuitems">
-                    <description class="am_h1">image</description>
+                    <description class="am_h1">Setting <span>image</span></description>
                     <checkbox itemId="BackFalse" label="BackFalse" src="chrome://automenu_gl/content/image/small/BackFalse.png"/>
                     <checkbox itemId="BackInactive" label="BackInactive" src="chrome://automenu_gl/content/image/small/BackInactive.png"/>
                     <checkbox itemId="BackTrue" label="BackTrue" src="chrome://automenu_gl/content/image/small/BackTrue.png"/>
@@ -141,7 +141,7 @@
               <caption>item size</caption>
               <radiogroup id="am_item_size" class="am-horizontal" setedEle="am_item_size">
                 <radio label="Large" accesskey="L" value="large"/>
-                <radio label="Small"  accesskey="S" value="small" selected="true"/>
+                <radio label="Small"  accesskey="S" value="small"/>
               </radiogroup>
             </groupbox>
             </vbox>
