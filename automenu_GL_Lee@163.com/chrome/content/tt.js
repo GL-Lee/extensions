@@ -130,11 +130,14 @@ var am={
 		if(target.tagName.toLowerCase() == "img"){
 			if(am.activedEles.indexOf("am_image") == -1) return;
 			if(am.timer)clearTimeout(am.timer);
+			am.inImg = true;
 			am.timer = setTimeout(function(){
 				am.imgTarget=target;
 				var position = am.getPosition(15,-15);
 				am.$tip.css({left:position.left,top:position.top});
-				am.$tip.show();
+				if(am.inImg){
+					am.$tip.show();
+				}
 				console.log("Hello from Firefox code");
 			},300)
 			$("#am_image").addClass("actived");
@@ -145,7 +148,10 @@ var am={
 		var event = arguments[0];
 		if(event.target.tagName.toLowerCase() == "img"){
 			setTimeout(function(){
-				if (!am.intip) am.$tip.hide();
+				if (!am.intip) {
+					am.inImg = false;
+					am.$tip.hide();
+				}
 			},100);
 		}
 		am.clicked = 0;
@@ -240,6 +246,9 @@ var am={
 			})
 			var size = $("#am_wrapper").attr("size");
 			$("#am_item_size radio[value="+size+"]")[0].click();
+			if($("#am_wrapper").hasClass("am-wrapper-single")){
+				$("#am_text_on").attr("checked", "true");
+			}
 			/* 生成hotkey list */
 			this.generateHotkeyList();
 			this.bindEvents();
@@ -424,6 +433,7 @@ var am={
 			this.setMenuitems();
 			this.setShortcut();
 			this.setItemsize();
+			this.setTexton();
 		},
 		setElementes: function(){
 			var activedEles = "";
@@ -460,6 +470,14 @@ var am={
 		setItemsize: function(){
 			var itemsize = $("#am_item_size radio[selected=true]").attr("value");
 			$("#am_wrapper").removeClass("small large").addClass(itemsize).attr("size",itemsize);
+		},
+		setTexton: function(){
+			var on = $("#am_text_on")[0].checked;
+			if(on){
+				$("#am_wrapper").addClass("am-wrapper-single").removeClass("am-wrapper-multiply")
+			}else{
+				$("#am_wrapper").addClass("am-wrapper-multiply").removeClass("am-wrapper-single")
+			}
 		},
 		close: function(){
 			am.setDialog.panel.hide();

@@ -7,6 +7,7 @@
 	background-color: white;
 	opacity: 0.2;
 	padding: 3px;
+	z-index: 100;
 }
 #am_wrapper:hover{
 	opacity: 1;
