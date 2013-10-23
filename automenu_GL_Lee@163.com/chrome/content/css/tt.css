@@ -50,6 +50,21 @@
 	width: 32px;
 	height: 32px;
 }
+#am_wrapper .am-item{
+	border: 1px solid #DDEBF9;
+	border-radius: 2px;
+}
+#am_wrapper .am-item:hover{
+	border-color: #3C7FB1;
+}
+.small .am-item-text{
+	height: 16px;
+	line-height: 16px;
+}
+.large .am-item-text{
+	height: 32px;
+	line-height: 32px;
+}
 /* 32px */
 .large .am_BackFalse{
 	list-style-image: url("chrome://automenu_gl/content/image/large/BackFalse.png")

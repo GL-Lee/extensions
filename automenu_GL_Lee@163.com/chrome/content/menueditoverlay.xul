@@ -137,13 +137,20 @@
                 </hbox>
               </groupbox>
             </hbox>
-            <groupbox>
-              <caption>item size</caption>
-              <radiogroup id="am_item_size" class="am-horizontal" setedEle="am_item_size">
-                <radio label="Large" accesskey="L" value="large"/>
-                <radio label="Small"  accesskey="S" value="small"/>
-              </radiogroup>
-            </groupbox>
+            <hbox>
+              <groupbox>
+                <caption>item size</caption>
+                <radiogroup id="am_item_size" class="am-horizontal" setedEle="am_item_size">
+                  <radio label="Large" accesskey="L" value="large"/>
+                  <radio label="Small"  accesskey="S" value="small"/>
+                </radiogroup>
+              </groupbox>
+              <!-- 是否显示文字 -->
+              <groupbox>
+                <caption>text beside item</caption>
+                  <checkbox id="am_text_on" label="show" persist="checked"/>
+              </groupbox>
+            </hbox>
             </vbox>
             </tabpanel>
             <tabpanel>
@@ -160,8 +167,6 @@
                     </hbox>
                   </vbox>
                 </groupbox>
-                <!-- 是否显示文字 -->
-                <checkbox id="am_text_on" label="show text1"/>
               </vbox>
             </tabpanel>
             </tabpanels>

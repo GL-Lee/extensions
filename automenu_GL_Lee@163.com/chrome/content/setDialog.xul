@@ -3,6 +3,7 @@
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
   xmlns:html="http://www.w3.org/1999/xhtml"
   style="backgroud-color:white;"
+  ondialogaccept="set();"
   buttons="accept,cancel,extra1">
   <script src="setDialog.js"/>
   <vbox>

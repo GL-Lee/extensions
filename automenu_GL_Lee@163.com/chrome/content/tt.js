@@ -95,7 +95,7 @@ var am={
 				}
 				var iteminfo = am.iteminfos["am_"+activedMenuitems[i]];
 				if(iteminfo){
-					var htmltext = "<a id='am_" + activedMenuitems[i] +"' tooltiptext='"+iteminfo.tooltiptext+"'>"+
+					var htmltext = "<a id='am_" + activedMenuitems[i] +"' class='am-item' tooltiptext='"+iteminfo.tooltiptext+"'>"+
 									"<box class='image'>"+
 										"<image class='am_"+activedMenuitems[i]+"'/>"+
 									"</box>"+
@@ -248,6 +248,8 @@ var am={
 			$("#am_item_size radio[value="+size+"]")[0].click();
 			if($("#am_wrapper").hasClass("am-wrapper-single")){
 				$("#am_text_on").attr("checked", "true");
+			}else{
+				$("#am_text_on").attr("checked", "false");
 			}
 			/* 生成hotkey list */
 			this.generateHotkeyList();
