@@ -48,6 +48,10 @@
 <overlay id="menueditOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="jquery/jquery-1.10.2.js"/>
   <script src="tt.js"/>
+  <toolbarpalette id="BrowserToolbarPalette">
+    <toolbarbutton id="am-switch-on" class="toolbarbutton-1 chromeclass-toolbar-additional" label="AM"  
+                   oncommand="am.amSwitch();" tooltiptext="switch AM on/off" persist="switchonoff"/>
+  </toolbarpalette>
   <window id="main-window">
     <commandset id="am_commandset">
       <command id="am_cd_close" oncommand="am.setDialog.close();"/>
@@ -92,13 +96,13 @@
                       <checkbox class="am_element" checked="false"/><box class="am_element_label">image</box>
                     </hbox>
                     <hbox id="am_element_link" activedEleId="am_link">
-                      <checkbox class="am_element" checked="false"/><box class="am_element_label">link</box>
+                      <checkbox class="am_element" checked="false" disabled="true"/><box class="am_element_label">link</box>
                     </hbox>
                     <hbox id="am_element_button" activedEleId="am_button">
-                      <checkbox class="am_element" checked="false"/><box class="am_element_label">button</box>
+                      <checkbox class="am_element" checked="false" disabled="true"/><box class="am_element_label">button</box>
                     </hbox>
                     <hbox id="am_element_inputArea" activedEleId="am_input">
-                      <checkbox class="am_element" checked="false"/><box class="am_element_label">input area</box>
+                      <checkbox class="am_element" checked="false" disabled="true"/><box class="am_element_label">input area</box>
                     </hbox>
                   </vbox>
                   <vobx style="border:solid grey;border-width:0 1px 0 1px;-moz-appearance: none;" width="4"/>
@@ -155,7 +159,7 @@
             </tabpanel>
             <tabpanel>
               <vbox>
-                <!-- 键盘事件监听 -->
+            <!--
                 <groupbox id="groupbox1">
                   <caption>hot key</caption>
                   <description>switch on/off:</description>
@@ -167,6 +171,7 @@
                     </hbox>
                   </vbox>
                 </groupbox>
+            -->
               </vbox>
             </tabpanel>
             </tabpanels>

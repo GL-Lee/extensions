@@ -1,3 +1,10 @@
+#am-switch-on {list-style-image: url('chrome://automenu_GL/content/image/ak24.png');}
+toolbar[iconsize="small"] #am-switch-on {list-style-image: url('chrome://automenu_GL/content/image/ak16.png');}
+#am-switch-on[switchonoff="off"] {list-style-image: url('chrome://automenu_GL/content/image/ak24Grey.png');}
+toolbar[iconsize="small"] #am-switch-on[switchonoff="off"] {list-style-image: url('chrome://automenu_GL/content/image/ak16Grey.png');}
+
+#accessKeyMenu {list-style-image: url('chrome://accessKey/skin/ak16.png');}
+
 #am_wrapper{
 	position: fixed;
 	left: -1000px;
@@ -56,6 +63,10 @@
 }
 #am_wrapper .am-item:hover{
 	border-color: #3C7FB1;
+}
+.am-item-text{
+	-moz-user-select:-moz-none;
+	cursor: default;
 }
 .small .am-item-text{
 	height: 16px;

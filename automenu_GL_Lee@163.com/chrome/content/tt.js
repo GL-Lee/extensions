@@ -47,14 +47,15 @@ var am={
 		am.console = (Cu.import("resource://gre/modules/devtools/Console.jsm", {})).console;
 		am.console.log("Hello from Firefox code");
 
-		if(!am.prefs){
-			try{
-				am.prefs = Components.classes["@mozilla.org/preferences-service;1"]
-				                    .getService(Components.interfaces.nsIPrefService).getBranch("extensions.automenu_GL.");
-				am.on = am.prefs.getBoolPref("menu.on");
-			}catch(e){am.on=true}
-		}
-		if(!am.on) return;
+		// if(!am.prefs){
+		// 	try{
+		// 		am.prefs = Components.classes["@mozilla.org/preferences-service;1"]
+		// 		                    .getService(Components.interfaces.nsIPrefService).getBranch("extensions.automenu_GL.");
+		// 		am.switchonoff = am.prefs.getBoolPref("menu.on");
+		// 	}catch(e){am.switchonoff=true}
+		// }
+		am.switchonoff = ($("#am-switch-on").attr("switchonoff")=="on")?true:false;
+		if(!am.switchonoff) return;
 		if(am.inited) return;
 		$("#am_wrapper").addClass($("#am_wrapper").attr("size"));
 		am.switchKey={fnKey:"ctrlKey",key:49},
@@ -124,7 +125,7 @@ var am={
 		$(document).unbind("mouseout.am",am.imgMouseout);
 	},
 	imgMouseover:function(){
-		if(!am.on)return;
+		if(!am.switchonoff)return;
 		var target = arguments[0].target;
 		var view = arguments[0].view;
 		if(target.tagName.toLowerCase() == "img"){
@@ -139,20 +140,20 @@ var am={
 					am.$tip.show();
 				}
 				console.log("Hello from Firefox code");
-			},300)
+			},200)
 			$("#am_image").addClass("actived");
 		}
 	},
 	imgMouseout: function(){
-		if(!am.on)return;
+		if(!am.switchonoff)return;
 		var event = arguments[0];
 		if(event.target.tagName.toLowerCase() == "img"){
+			am.inImg = false;
 			setTimeout(function(){
 				if (!am.intip) {
-					am.inImg = false;
 					am.$tip.hide();
 				}
-			},100);
+			},20);
 		}
 		am.clicked = 0;
 	},
@@ -167,9 +168,9 @@ var am={
 	// 		var fnkeydown = event[am.switchKey.fnKey];
 	// 		var key = event.keyCode || event.which;
 	// 		if(fnkeydown && key == am.switchKey.key){
-	// 			am.on = !am.on
+	// 			am.switchonoff = !am.switchonoff
 	// 		}
-	// 		if(am.on) am.init()
+	// 		if(am.switchonoff) am.init()
 	// 		// else am.unbindEvent()
 	// 	});
 	//},
@@ -181,8 +182,8 @@ var am={
 		})
 		am.$tip.hover(null,function(){$(this).hide()})
 	},
-	switchonff: function(){
-		am.on = !am.on;
+	switchonoff: function(){
+		am.switchonoff = !am.switchonoff;
 	},
 	getPosition: function(offx,offy,$hoverImg){
 		var left = am.mposition.left - window.mozInnerScreenX+offx;
@@ -211,6 +212,17 @@ var am={
 									 */
 		gContextMenu = new nsContextMenu(target, gBrowser);
 		eval(fun);
+	},
+	amSwitch: function(){
+		if($("#am-switch-on").attr("switchonoff") == "on"){
+			am.switchonoff = false;
+			$("#am-switch-on").attr("switchonoff","off")
+		}else{
+			am.switchonoff = true;
+			$("#am-switch-on").attr("switchonoff","on")
+			am.init();
+		}
+		
 	},
 	openSetDialog: function() {
 	  	$("#am_setDialog_wrapper").css("display","-moz-box");
@@ -305,6 +317,7 @@ var am={
 			});
 			$("#am_setDialog_sure").bind("click",function(){
 				am.setDialog.set();
+				am.setDialog.panel.css("display","none");
 			})
 			am.setDialog.panel.find(".header").bind("mousedown",function(event){
 				am.setDialog.drag.start = 1;
@@ -461,7 +474,6 @@ var am={
 		setSwitchKey: function(){
 			if(am.setDialog.setedEles.am_set_switch_key == 1){
 				var modifiers = "";
-				var checkboxs = 
 				$("#am_set_switch_key checkbox[checked=true]").each(function(i,it){
 					modifiers += $(this).attr("value")+" "
 				})
