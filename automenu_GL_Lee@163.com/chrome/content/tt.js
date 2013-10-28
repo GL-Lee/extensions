@@ -9,9 +9,9 @@ var am={
 	prefs:null,
 	inited:false,
 	iteminfos:{
-		am_BackFalse:{tooltiptext:"Back False",menuitemId:"context-copyimage"},
-		am_BackInactive:{tooltiptext:"Back In active",menuitemId:"context-copylink"},
-		am_BackTrue:{tooltiptext:"Back True",menuitemId:"context-viewimageinfo"},
+		// am_BackFalse:{tooltiptext:"Back False",menuitemId:"context-copyimage"},
+		// am_BackInactive:{tooltiptext:"Back In active",menuitemId:"context-copylink"},
+		// am_BackTrue:{tooltiptext:"Back True",menuitemId:"context-viewimageinfo"},
 		am_Bookmark:{tooltiptext:"Bookmark Page",menuitemId:"context-bookmarkpage"},
 		am_CopyImage:{tooltiptext:"Copy Image",menuitemId:"context-copyimage"},
 		am_CopyLink:{tooltiptext:"Copy Link",menuitemId:"context-copylink"},
@@ -21,7 +21,7 @@ var am={
 		am_ForwardInactive:{tooltiptext:"Forward In active",menuitemId:"context-sendimage"},
 
 
- 		am_ForwardTrue:{tooltiptext:"Forward True",menuitemId:"context-copyimage"},
+ 		// am_ForwardTrue:{tooltiptext:"Forward True",menuitemId:"context-copyimage"},
 		am_ImageInfo:{tooltiptext:"Image Info",menuitemId:"context-viewimageinfo"},
 		am_Inspect:{tooltiptext:"Inspect",menuitemId:"context-inspect"},
 		am_OpenInNewprivate:{tooltiptext:"Open In New private",menuitemId:"context-openlinkprivate"},
