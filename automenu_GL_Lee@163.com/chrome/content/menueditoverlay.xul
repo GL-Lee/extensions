@@ -47,7 +47,7 @@
 ]>
 <overlay id="menueditOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="jquery/jquery-1.10.2.js"/>
-  <script src="tt.js"/>
+  <script src="menueditoverlay.js"/>
   <toolbarpalette id="BrowserToolbarPalette">
     <toolbarbutton id="am-switch-on" class="toolbarbutton-1 chromeclass-toolbar-additional" label="AM"  
                    oncommand="am.amSwitch();" tooltiptext="switch AM on/off" persist="switchonoff"/>
@@ -181,7 +181,7 @@
   </window>
   <!-- 设定按钮 -->
   <menupopup id="menu_ToolsPopup">
-    <menuitem class="menuitem-iconic" label="am setting" acceltext="Ctrl+Shift+S" accesskey="S" oncommand="am.openSetDialog();"/>
+    <menuitem class="menuitem-iconic" label="AM Setting" acceltext="Ctrl+Shift+S" accesskey="S" image="chrome://automenu_GL/content/image/green16.png" oncommand="am.openSetDialog();"/>
   </menupopup>
 </overlay>
 

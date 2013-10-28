@@ -1,7 +1,7 @@
-#am-switch-on {list-style-image: url('chrome://automenu_GL/content/image/ak24.png');}
-toolbar[iconsize="small"] #am-switch-on {list-style-image: url('chrome://automenu_GL/content/image/ak16.png');}
-#am-switch-on[switchonoff="off"] {list-style-image: url('chrome://automenu_GL/content/image/ak24Grey.png');}
-toolbar[iconsize="small"] #am-switch-on[switchonoff="off"] {list-style-image: url('chrome://automenu_GL/content/image/ak16Grey.png');}
+#am-switch-on {list-style-image: url('chrome://automenu_GL/content/image/green24.png');}
+toolbar[iconsize="small"] #am-switch-on {list-style-image: url('chrome://automenu_GL/content/image/green16.png');}
+#am-switch-on[switchonoff="off"] {list-style-image: url('chrome://automenu_GL/content/image/red24.png');}
+toolbar[iconsize="small"] #am-switch-on[switchonoff="off"] {list-style-image: url('chrome://automenu_GL/content/image/red16.png');}
 
 #accessKeyMenu {list-style-image: url('chrome://accessKey/skin/ak16.png');}
 
