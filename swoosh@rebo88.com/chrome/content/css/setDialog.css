@@ -1,0 +1,38 @@
+#am_elements{
+	padding:8px;
+	width: 160px;
+}
+#am_elements .am_element_label{
+	cursor: default;
+}
+#am_elements .am_element_label:hover{
+	color: gray;
+}
+#am_elements .arrow{
+	text-align: right;
+	color: red;
+	display: none;
+}
+#am_elements .actived .arrow{
+	display: block;
+}
+#am_menuitems{
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: 200px;
+	height: 400px;
+	white-space: nowrap;
+	margin-left:10px;
+}
+#am_menuitems description{
+	position: absolute;
+	left:100px;
+	top:380px;
+}
+#am_close_button{
+	position: absolute;
+	top: 0px;
+	right: 30px;
+	width: 30px;
+	height: 30px;
+}
