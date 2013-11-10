@@ -1,3 +1,16 @@
+
+#wrapper{
+	background-color: #F0F0F0;
+}
+label{
+	font: menu;
+}
+.caption{
+	padding-left: 7px;
+}
+.module{
+	margin-top:7px; 
+}
 #am_elements{
 	padding:8px;
 	width: 160px;
