@@ -7,78 +7,35 @@ function buildList(){
   var engineList = document.getElementById("engineList");
   engineList.innerHTML = engineList.innerHTML + innerHtml;
 }
-window.addEventListener("load",buildList);
+function init(){
+  buildList();
+  bindEvents();
+}
+var listTrriger = false;
+function bindEvents(){
 
-/*
-
-
-  	var descEle;
-  	var selectorEle;
-    var state = "";
-  	function change(){
-      if(state == "add"){
-        addRule(panel.firstChild.children[0].value, panel.firstChild.children[1].value);
-      }
-      if(state == "change"){
-        changeRule();
-      }
-  		panel.hidePopup();
- 	  }
-    function addRule(desc, selector){
-      var listitem = document.createElement("listitem");
-      var html =  '<listcell width="240">'+
-                      '<label value="'+desc+'"/>'+
-                    '</listcell>'+
-                    '<listcell>'+
-                      '<label value="'+selector+'"/>'+
-                    '</listcell>';
-      listitem.innerHTML = html;
-      list.appendChild(listitem);
-      // $(html).appendTo($("#theList");
+  var list = document.getElementById("engineList");
+  list.addEventListener("select",function(event){
+    if(!listTrriger){
+      listTrriger = true;
+      document.getElementById("up-button").disabled=false;
+      document.getElementById("down-button").disabled=false;
+      document.getElementById("modify-button").disabled=false;
+      document.getElementById("remove-button").disabled=false;
     }
-    function changeRule(){
-      descEle.firstChild.value = panel.firstChild.children[0].value;
-      selectorEle.firstChild.value = panel.firstChild.children[1].value;
-    }
-    function set(){
-      var listitems = document.getElementsByTagName("listitem");
-      var rules = {};
-      var dataSelector = {};
-      for(var i = 0; i < listitems.length; i++){
-        var desc = listitems[i].children[0].children[0].value;
-        var selector = listitems[i].children[1].children[0].value;
-        if(desc){
-          dataSelector[desc] = selector;
-        }
-      }
-      var mutationSelector = document.getElementById("mutation_selector").value;
-      rules.dataSelector = dataSelector;
-      rules.mutationSelector = mutationSelector;
-      window.rules.dataSelector = rules;
-      win
-    }
-    window.addEventListener("load",function(){
-      panel = document.getElementById("changepanel");
-      list = document.getElementById("theList");
-      document.getElementById("mutation_selector").value = window.opener.sets.mutationSelector;
+    if(list.selectedIndex == 0){
+      document.getElementById("up-button").disabled=true;
+    }else{
+      document.getElementById("up-button").disabled=false;
 
-      var rules = window.opener.sets.dataSelector;
-      for(var r in rules){
-        addRule(r, rules[r]);
-      }
-      list.addEventListener("dblclick",function(event){
-        var ele = event.target;
-        descEle = ele.children[0];
-        selectorEle = ele.children[1];
-        panel.firstChild.children[0].value = descEle.firstChild.value;
-        panel.firstChild.children[1].value = selectorEle.firstChild.value;
-        state = "change";
-        panel.openPopup( ele , "after_start" )
-      })
-      document.getElementById("add_rule_button").addEventListener("click",function(event){
-        var ele = event.target;
-        state = "add";
-        panel.openPopup( ele , "before_start" )
-      })
-    })
-*/
+    }
+    if(list.selectedIndex == list.itemCount-1){
+      document.getElementById("down-button").disabled=true;
+    }else{
+      document.getElementById("down-button").disabled=false;
+      
+    }
+
+  })
+}
+window.addEventListener("load",init);

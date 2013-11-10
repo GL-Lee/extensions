@@ -4,6 +4,7 @@
 <dialog id="swoosh-manager" windowtype="automenu_GL:options"
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
   xmlns:html="http://www.w3.org/1999/xhtml"
+  title="搜索引擎设置"
   buttons="accept,cancel">
   <script src="chrome://swoosh/content/manager.js" />
   <vbox id="wrapper">
@@ -19,15 +20,15 @@
       </listbox>
       <vbox>
         <box flex="1"/>
-        <button id="modify-button" label="修改..."/>
-        <button id="up-button" label="上移"/>
-        <button id="down-button" label="下移"/>
+        <button id="modify-button" label="修改..." accesskey="m" disabled="true"/>
+        <button id="up-button" label="上移" accesskey="u" disabled="true"/>
+        <button id="down-button" label="下移" accesskey="d" disabled="true"/>
         <box flex="1"/>
-        <button id="remove-utton" label="移除"/>
+        <button id="remove-button" label="移除" accesskey="r" disabled="true"/>
       </vbox>
     </hbox>
     <hbox>
-      <button label="添加搜索引擎..."/>
+      <button label="添加搜索引擎" accesskey="a"/>
     </hbox>
   </vbox>
 </dialog>
