@@ -1,8 +1,6 @@
 
 #swoosh-manager{
 	background-color: #F0F0F0;
-	width: 312px;
-	height: 312px;
 }
 label{
 	font: menu;
@@ -14,7 +12,5 @@ label{
 	margin-top:7px; 
 }
 #engineList{
-	overflow-x: hidden;
-	overflow-y: auto;
 	height: 215px;
 }

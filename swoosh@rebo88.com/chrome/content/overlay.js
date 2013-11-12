@@ -5,6 +5,8 @@ gl.swoosh={};
     Components.utils.import("resource://gre/modules/NetUtil.jsm");
     //utils
     Components.utils.import("resource://swoosh/util.js", swoosh);
+    var browserSearchService; 
+    var installedEngines;
     var util = swoosh.util;
     var inputTags = "input,textarea,textbox";
     var inSwoosh = false;
@@ -18,7 +20,7 @@ gl.swoosh={};
             this.textbox = this.panel.firstChild.firstChild;
             this.textbox.value = "";
             this.menupopup = this.textbox.firstChild.firstChild;
-            model.init(this.buildEngineList);
+            this.buildEngineList();
             this.inited = true;
             this.setPosition();
             this.show();
@@ -27,15 +29,13 @@ gl.swoosh={};
         buildEngineList: function(){
             var menupopup = view.menupopup;
             var innerHtml = "";
-            var engineInfos = model.engineInfos;
-            for(var i = 0; i < engineInfos.length; i++){
-                var engineFlag = engineInfos[i].flag.split(",")[0];
-                innerHtml+=("<menuitem class='menuitem-iconic' label='"+engineInfos[i].label+"' image= '"+engineInfos[i].logo+"' engineFlag='"+engineFlag+"'/>");
+            for(var i = 0; i < installedEngines.length; i++){
+                innerHtml+=("<menuitem class='menuitem-iconic' label='"+installedEngines[i].name+"' image= '"+installedEngines[i].iconURI.asciiSpec+"'/>");
             }
             menupopup.innerHTML = innerHtml;
             var managerItem = document.createElement("menuitem");
             managerItem.setAttribute("label", "管理引擎");
-            managerItem.setAttribute("engineFlag", "manager");
+            managerItem.setAttribute("alia", "manager");
             // managerItem.setAttribute("oncommand", 'window.open("chrome://swoosh/content/manager.xul",null ,"modal" ,modal.engineInfos)');
             menupopup.appendChild(managerItem);
         },
@@ -61,36 +61,19 @@ gl.swoosh={};
         defaultEngineUrl:"http://www.baidu.com/s?wd=",
         engineUrl: "",
         engineInfos: [],
-        init: function(callback){
-            var file = FileUtils.getDir("ProfD", ["swoosh"], true);
-            file.append("engineInfos.json");
-            if(!file.exists()){
-                file.create(app.fileConstantapp.FILE_TYPE,parseInt("0600",8));
-            }
-            var channel = NetUtil.newChannel(file);
-            channel.contentType = "application/json";
-
-            NetUtil.asyncFetch(channel, function(inputStream, status) {
-                if (!Components.isSuccessCode(status)) {
-                    // Handle error!
-                    return;
-                }
-                var data = NetUtil.readInputStreamToString(inputStream, inputStream.available());//You can call nsIInputStream.available() to get the number of bytes currently available
-                model.engineInfos = JSON.parse(data);
-                callback();
-            });
+        init: function(){
         },
-        setEngineUrl: function(engineFlag){
-            if(!engineFlag) {
+        setEngineUrl: function(alia){
+            if(!alia) {
                 this.engineUrl= this.defaultEngineUrl;
                 return;
             }
             var engines = [];
             var engineInfos = this.engineInfos;
             for(var i = 0; i< engineInfos.length; i++){
-                var array = engineInfos[i].flag.split(",");
+                var array = engineInfos[i].alia.split(",");
                 for(var j = 0; j < array.length; j++){
-                    if(array[j] == engineFlag)
+                    if(array[j] == alia)
                     engines.push(engineInfos[i]);
                 }
             }
@@ -104,41 +87,57 @@ gl.swoosh={};
     function search(eventTarget){
         var str = view.textbox.value;
         if(!str) return;
-        var engineFlag = ""
+        var alia = ""
         if(eventTarget){
-           engineFlag = eventTarget.getAttribute("engineFlag");
-           if(engineFlag == "manager"){
-                window.openDialog("chrome://swoosh/content/manager.xul","manager" ,"chrome,centerscreen,all,modal" ,model.engineInfos);
+           alia = eventTarget.getAttribute("alia");
+           if(alia == "manager"){
+                browserSearchService = Components.classes["@mozilla.org/browser/search-service;1"].getService(Components.interfaces.nsIBrowserSearchService); 
+                var engineCount = 0;
+                browserSearchService.init();
+                installedEngines = browserSearchService.getEngines();
+                window.openDialog("chrome://swoosh/content/manager.xul","manager" ,"chrome,centerscreen,all,modal" ,browserSearchService);
                 return;
            }
         }
         if(util.isUrl(str)){
             openSite(str);
         }else{
-            searchStr(str,engineFlag);
+            searchStr(str,alia);
         }
         view.panel.hidePopup();
     }
     function openSite(url){
         gBrowser.selectedTab = gBrowser.addTab(url);
     }
-    function searchStr(string,engineFlag){
+    function searchStr(string,alia){
         var str = string;
-        var flag = engineFlag;
-        if(!flag){
+        if(!alia){
             var array = str.split(";");
             if(array.length == 2){
-                flag = array[array.length-1];
-                flag = util.trim(flag);
+                alia = array[array.length-1];
+                alia = util.trim(alia);
                 str = str.replace(/;.*/, "");
             }
         }
-        model.setEngineUrl(flag);
-        if(!model.engineUrl) model.engineUrl = model.defaultEngineUrl;
-        var url = model.engineUrl+str;
+        var engine;
+        if(!alia){
+            engine = installedEngines[0];
+        }else{
+            if(alia.match(/^\d+$/)){
+                engine = installedEngines[parseInt(alia)-1]
+            }else{
+                engine = browserSearchService.getEngineByAlias(alia)
+            }
+        }
+        var url = engine.getSubmission(str).uri.asciiSpec;
         openSite(url);
     }
     swoosh.search = search;
+    window.addEventListener("load",function(){
+        browserSearchService = Components.classes["@mozilla.org/browser/search-service;1"].getService(Components.interfaces.nsIBrowserSearchService); 
+        browserSearchService.init();
+        installedEngines = browserSearchService.getEngines();
+    })
     window.addEventListener("keypress",function(event){
         if(event.altKey || event.metaKey) return;
         if(inSwoosh) return;
