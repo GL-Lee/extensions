@@ -5,12 +5,15 @@
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
   xmlns:html="http://www.w3.org/1999/xhtml"
   title="搜索引擎设置"
-  buttons="accept,cancel">
+  buttons="extra1,accept,cancel"
+  buttonlabelextra1="恢复默认值"
+  buttonaccesskeyextra1="E"
+   ondialogextra1="restore()">
   <script src="chrome://swoosh/content/manager.js" />
   <vbox id="wrapper">
-    <label class="caption" value="已设定引擎:"/>
+    <label class="caption" value="您已安装下列搜索引擎:"/>
     <hbox class="module">
-      <listbox id="engineList" rows="10">
+      <listbox id="engineList">
         <listhead>
           <listheader label="名称" width="200"/>
           <listheader label="关键字" width="70"/>
@@ -29,8 +32,14 @@
         <button id="remove-button" label="移除" accesskey="r" disabled="true" oncommand="removeItem()"/>
       </vbox>
     </hbox>
-    <hbox>
-      <button label="添加搜索引擎" accesskey="a"/>
+    <hbox class="module">
+      <html:a target="_blank" href="https://addons.mozilla.org/zh-CN/firefox/search/?atype=4" style="color:#0066CC;padding-left:4px;">获取更多搜索引擎...</html:a>
+    </hbox>
+    <hbox class="module">
+      <button dlgtype="extra1"/>
+      <box flex="1"/>
+      <button dlgtype="accept"/>
+      <button dlgtype="cancel"/>
     </hbox>
   </vbox>
 </dialog>

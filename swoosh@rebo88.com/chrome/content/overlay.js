@@ -30,7 +30,8 @@ gl.swoosh={};
             var menupopup = view.menupopup;
             var innerHtml = "";
             for(var i = 0; i < installedEngines.length; i++){
-                innerHtml+=("<menuitem class='menuitem-iconic' label='"+installedEngines[i].name+"' image= '"+installedEngines[i].iconURI.asciiSpec+"'/>");
+                if(installedEngines[i].hidden) continue;
+                innerHtml+=("<menuitem class='menuitem-iconic' label='"+installedEngines[i].name+"' image= '"+installedEngines[i].iconURI.asciiSpec+"' engineIndex='"+i+"'/>");
             }
             menupopup.innerHTML = innerHtml;
             var managerItem = document.createElement("menuitem");
@@ -96,7 +97,12 @@ gl.swoosh={};
                 browserSearchService.init();
                 installedEngines = browserSearchService.getEngines();
                 window.openDialog("chrome://swoosh/content/manager.xul","manager" ,"chrome,centerscreen,all,modal" ,browserSearchService);
+                installedEngines = browserSearchService.getEngines();
+                view.buildEngineList();
                 return;
+           }
+           if(eventTarget.tagName.toLowerCase() == "menuitem"){
+                alia = parseInt(eventTarget.getAttribute("engineIndex"))+1+"";
            }
         }
         if(util.isUrl(str)){

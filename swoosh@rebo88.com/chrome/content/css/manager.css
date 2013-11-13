@@ -6,11 +6,11 @@ label{
 	font: menu;
 }
 .caption{
-	padding-left: 7px;
+	padding-left: 0px;
 }
 .module{
 	margin-top:7px; 
 }
 #engineList{
-	height: 215px;
+	height: 230px;
 }
