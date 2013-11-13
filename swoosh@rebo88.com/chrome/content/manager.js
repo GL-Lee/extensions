@@ -55,13 +55,16 @@ function moveUp(){
 function moveDown(){
   browserSearchService.moveEngine(currentEngine,currentIndex+1);
   var engineList = document.getElementById("engineList");
-  var item = engineList.currentItem.innerHTML;
-  engineList.removeItemAt(currentIndex);
-  var d = engineList.insertItemAt(currentIndex);
-  d.innerHTML=item;
-  setTimeout(500,function(){
-    alert(d.innerHTML);
-  });
+  var cels1 = engineList.currentItem.children;
+  var cels2 = engineList.currentItem.nextSibling.children;
+  var a1 = {image:cels1[0].getAttribute("image"),label:cels1[0].getAttribute("label"),alias:cels1[1].getAttribute("label")};
+  var a2 = {image:cels2[0].getAttribute("image"),label:cels2[0].getAttribute("label"),alias:cels2[1].getAttribute("label")};
+  cels1[0].setAttribute("image", a2.image);
+  cels1[0].setAttribute("label", a2.label);
+  cels1[1].setAttribute("label", a2.alias);
+  cels2[0].setAttribute("image", a1.image);
+  cels2[0].setAttribute("label", a1.label);
+  cels2[1].setAttribute("label", a1.alias);
 }
 function removeItem(){
   browserSearchService.removeEngine(currentEngine);
