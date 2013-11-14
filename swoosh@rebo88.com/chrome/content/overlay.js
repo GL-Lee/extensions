@@ -31,7 +31,7 @@ gl.swoosh={};
             var innerHtml = "";
             for(var i = 0; i < installedEngines.length; i++){
                 if(installedEngines[i].hidden) continue;
-                innerHtml+=("<menuitem class='menuitem-iconic' label='"+installedEngines[i].name+"' image= '"+installedEngines[i].iconURI.asciiSpec+"' engineIndex='"+i+"'/>");
+                innerHtml+=("<menuitem class='menuitem-iconic menuitem-with-favicon' label='"+installedEngines[i].name+"' image= '"+installedEngines[i].iconURI.asciiSpec+"' engineIndex='"+i+"'/>");
             }
             menupopup.innerHTML = innerHtml;
             var managerItem = document.createElement("menuitem");

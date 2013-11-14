@@ -8,7 +8,7 @@ function buildSettedList(){
   for(var i = 0; i < installedEngines.length; i++){
     if(installedEngines[i].hidden) continue;
     var str = "<listitem>"+
-                "<listcell class='listcell-iconic' image='"+installedEngines[i].iconURI.asciiSpec+"' label='"+installedEngines[i].name+"'/>"+
+                "<listcell class='listcell-iconic menuitem-with-favicon' image='"+installedEngines[i].iconURI.asciiSpec+"' label='"+installedEngines[i].name+"'/>"+
                 "<listcell label='"+(installedEngines[i].alias?installedEngines[i].alias:"")+"'/>"+
               "</listitem>";
     innerHtml+= str;
@@ -49,10 +49,11 @@ function bindEvents(){
   })
 }
 function moveUp(){
-  browserSearchService.moveEngine(currentEngine,currentIndex+1);
   var engineList = document.getElementById("engineList");
-  var cels1 = engineList.currentItem.children;
-  var cels2 = engineList.currentItem.previousSibling.children;
+  var currentIndex = engineList.currentIndex;
+  browserSearchService.moveEngine(currentEngine,currentIndex-1);
+  var cels1 = engineList.selectedItem.children;
+  var cels2 = engineList.selectedItem.previousSibling.children;
   var a1 = {image:cels1[0].getAttribute("image"),label:cels1[0].getAttribute("label"),alias:cels1[1].getAttribute("label")};
   var a2 = {image:cels2[0].getAttribute("image"),label:cels2[0].getAttribute("label"),alias:cels2[1].getAttribute("label")};
   cels1[0].setAttribute("image", a2.image);
@@ -61,12 +62,14 @@ function moveUp(){
   cels2[0].setAttribute("image", a1.image);
   cels2[0].setAttribute("label", a1.label);
   cels2[1].setAttribute("label", a1.alias);
+  engineList.selectItem( engineList.selectedItem.previousSibling );
 }
 function moveDown(){
-  browserSearchService.moveEngine(currentEngine,currentIndex+1);
   var engineList = document.getElementById("engineList");
-  var cels1 = engineList.currentItem.children;
-  var cels2 = engineList.currentItem.nextSibling.children;
+  var currentIndex = engineList.currentIndex;
+  browserSearchService.moveEngine(currentEngine,currentIndex+1);
+  var cels1 = engineList.selectedItem.children;
+  var cels2 = engineList.selectedItem.nextSibling.children;
   var a1 = {image:cels1[0].getAttribute("image"),label:cels1[0].getAttribute("label"),alias:cels1[1].getAttribute("label")};
   var a2 = {image:cels2[0].getAttribute("image"),label:cels2[0].getAttribute("label"),alias:cels2[1].getAttribute("label")};
   cels1[0].setAttribute("image", a2.image);
@@ -75,6 +78,7 @@ function moveDown(){
   cels2[0].setAttribute("image", a1.image);
   cels2[0].setAttribute("label", a1.label);
   cels2[1].setAttribute("label", a1.alias);
+  engineList.selectItem( engineList.selectedItem.nextSibling );
 }
 function removeItem(){
   browserSearchService.removeEngine(currentEngine);
@@ -89,7 +93,7 @@ function editKeyword(){
   var name = installedEngines[currentIndex].name;
   var result = prompts.prompt(null, "Title", "为\""+name+"\"输入新的关键字：", input, null, check);
   if(input.value.match(/^[a-z0-9A-Z]*$/)){
-    document.getElementById("engineList").currentItem.children[1].setAttribute("label",input.value);
+    document.getElementById("engineList").selectedItem.children[1].setAttribute("label",input.value);
     installedEngines[currentIndex].alias = input.value;
   }else{
     prompts.alert("关键字只能由字母和数字组合而成，不可以存在空格");
@@ -104,4 +108,3 @@ function restore(){
   buildSettedList();
 }
 window.addEventListener("load",init);
-/*第一个的下移和最后一个上移有问题，移动后移动listbox的selecteditem*/

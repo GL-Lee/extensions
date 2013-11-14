@@ -16,7 +16,7 @@
       <listbox id="engineList">
         <listhead>
           <listheader label="名称" width="200"/>
-          <listheader label="关键字" width="70"/>
+          <listheader label="关键字" width="80"/>
         </listhead>
         <listcols>
           <listcol/>
