@@ -34,8 +34,12 @@ gl.swoosh={};
                 innerHtml+=("<menuitem class='menuitem-iconic menuitem-with-favicon' label='"+installedEngines[i].name+"' image= '"+installedEngines[i].iconURI.asciiSpec+"' engineIndex='"+i+"'/>");
             }
             menupopup.innerHTML = innerHtml;
+            var sep = document.createElement("menuseparator");
+            menupopup.appendChild(sep);
             var managerItem = document.createElement("menuitem");
-            managerItem.setAttribute("label", "管理引擎");
+            var stringsBundle = document.getElementById("swoosh-stringbundle");
+            var manageEngines = stringsBundle.getString('swoosh.manageEngines') + " ";
+            managerItem.setAttribute("label", manageEngines);
             managerItem.setAttribute("alia", "manager");
             // managerItem.setAttribute("oncommand", 'window.open("chrome://swoosh/content/manager.xul",null ,"modal" ,modal.engineInfos)');
             menupopup.appendChild(managerItem);

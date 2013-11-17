@@ -4,22 +4,4 @@ overlay	chrome://browser/content/browser.xul	chrome://swoosh/content/overlay.xul
 resource swoosh modules/
 
 locale swoosh en-US chrome/locale/en-US/
-locale swoosh da-DK translations/1.2.3/da-DK/
-locale swoosh de-DE translations/1.2.3/de-DE/
-locale swoosh es-ES translations/1.2.3/es-ES/
-locale swoosh fa-IR translations/1.2.3/fa-IR/
-locale swoosh fr-FR translations/1.2.3/fr-FR/
-locale swoosh he-IL translations/1.2.3/he-IL/
-locale swoosh hu-HU translations/1.2.3/hu-HU/
-locale swoosh it-IT translations/1.2.3/it-IT/
-locale swoosh ja-JP translations/1.2.3/ja-JP/
-locale swoosh ko-KR translations/1.2.3/ko-KR/
-locale swoosh nb-NO translations/1.2.3/nb-NO/
-locale swoosh nl-NL translations/1.2.3/nl-NL/
-locale swoosh pl-PL translations/1.2.3/pl-PL/
-locale swoosh pt-BR translations/1.2.3/pt-BR/
-locale swoosh pt-PT translations/1.2.3/pt-PT/
-locale swoosh sk-SK translations/1.2.3/sk-SK/
-locale swoosh sv-SE translations/1.2.3/sv-SE/
-locale swoosh zh-CN translations/1.2.3/zh-CN/
-locale swoosh zh-TW translations/1.2.3/zh-TW/
+locale swoosh zh-CN chrome/locale/zh-CN/

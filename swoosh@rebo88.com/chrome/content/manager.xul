@@ -1,22 +1,23 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin" type="text/css"?>
 <?xml-stylesheet href="css/manager.css"?>
-<dialog id="swoosh-manager" windowtype="automenu_GL:options"
+<!DOCTYPE window SYSTEM "chrome://swoosh/locale/swoosh.dtd">
+<dialog id="swoosh-manager" 
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
   xmlns:html="http://www.w3.org/1999/xhtml"
-  title="搜索引擎设置"
+  title="&manager.title;"
   buttons="extra1,accept,cancel"
-  buttonlabelextra1="恢复默认值"
+  buttonlabelextra1="&manager.restoreButton;"
   buttonaccesskeyextra1="E"
    ondialogextra1="restore()">
   <script src="chrome://swoosh/content/manager.js" />
   <vbox id="wrapper">
-    <label class="caption" value="您已安装下列搜索引擎:"/>
+    <label class="caption" value="&manager.installedCaption;"/>
     <hbox class="module">
       <listbox id="engineList">
         <listhead>
-          <listheader label="名称" width="200"/>
-          <listheader label="关键字" width="80"/>
+          <listheader label="&manager.nameHeader;" width="200"/>
+          <listheader label="&manager.keywordHeader;" width="80"/>
         </listhead>
         <listcols>
           <listcol/>
@@ -25,15 +26,15 @@
       </listbox>
       <vbox>
         <box flex="1"/>
-        <button id="modify-button" label="编辑关键字..." accesskey="m" disabled="true"  oncommand="editKeyword()"/>
-        <button id="up-button" label="上移" accesskey="u" disabled="true" oncommand="moveUp()"/>
-        <button id="down-button" label="下移" accesskey="d" disabled="true" oncommand="moveDown()"/>
+        <button id="modify-button" label="&manager.editKeyword;" accesskey="m" disabled="true"  oncommand="editKeyword()"/>
+        <button id="up-button" label="&manager.moveUp;" accesskey="u" disabled="true" oncommand="moveUp()"/>
+        <button id="down-button" label="&manager.moveDown;" accesskey="d" disabled="true" oncommand="moveDown()"/>
         <box flex="1"/>
-        <button id="remove-button" label="移除" accesskey="r" disabled="true" oncommand="removeItem()"/>
+        <button id="remove-button" label="&manager.remove;" accesskey="r" disabled="true" oncommand="removeItem()"/>
       </vbox>
     </hbox>
     <hbox class="module">
-      <html:a target="_blank" href="https://addons.mozilla.org/zh-CN/firefox/search/?atype=4" style="color:#0066CC;padding-left:4px;">获取更多搜索引擎...</html:a>
+      <html:a target="_blank" href="https://addons.mozilla.org/zh-CN/firefox/search/?atype=4" style="color:#0066CC;padding-left:4px;">&manager.getMoreEngine;</html:a>
     </hbox>
     <hbox class="module">
       <button dlgtype="extra1"/>

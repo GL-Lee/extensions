@@ -1,0 +1,15 @@
+<!ENTITY  manager.title  "搜索引擎设置">
+
+<!ENTITY  manager.restoreButton  "恢复默认值">
+<!ENTITY  manager.installedCaption "您已安装下列搜索引擎:">
+
+<!ENTITY  manager.nameHeader  "名称">
+<!ENTITY  manager.keywordHeader "关键字">
+
+<!ENTITY  manager.editKeyword  "编辑关键字...">
+<!ENTITY  manager.moveUp  "上移">
+
+<!ENTITY  manager.moveDown  "下移">
+<!ENTITY  manager.remove  "移除">
+
+<!ENTITY  manager.getMoreEngine "获取更多搜索引擎...">

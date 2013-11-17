@@ -1,14 +1,11 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://swoosh/content/css/search.css"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
-<!DOCTYPE overlay [
-  <!ENTITY % commonDTD SYSTEM "chrome://automenu_GL/locale/menuedittext.dtd">
-  %commonDTD;
-  <!ENTITY % customizeToolbarDTD SYSTEM "chrome://global/locale/customizeToolbar.dtd">
-  %customizeToolbarDTD;
-]>
 <overlay id="menueditOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="overlay.js"/>
+  <stringbundleset>
+    <stringbundle id="swoosh-stringbundle" src="chrome://swoosh/locale/swoosh.properties"/>
+  </stringbundleset>
   <popupset id="mainPopupSet">
     <panel id="swoosh-panel">
       <hbox id="swoosh-box" xmlns:html="http://www.w3.org/1999/xhtml">
