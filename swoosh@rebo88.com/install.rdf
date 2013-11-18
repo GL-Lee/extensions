@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>swoosh@rebo88.com</em:id>
-    <em:version>1.2.7</em:version>
+    <em:version>1.0.0</em:version>
 
     <!-- Firefox -->
     <em:targetApplication>
@@ -19,10 +19,9 @@
     <em:description>search your need with swoosh speed</em:description>
     <em:creator>GL-Lee</em:creator>
     <em:developer>GL-Lee</em:developer>
-    <em:homepageURL>http://menueditor.mozdev.org/</em:homepageURL>
-    <!-- <em:updateURL>http://menueditor.mozdev.org/update.rdf</em:updateURL> -->
-    <!-- <em:optionsURL>chrome://automenu_GL/content/menueditprefs.xul</em:optionsURL> -->
+    <em:homepageURL>http://www.cnblogs.com/muha/p/3430363.html</em:homepageURL>
     <em:type>2</em:type> <!-- extension -->
+    <em:iconURL>chrome://swoosh/content/image/swoosh-1.png</em:iconURL>
 
   </Description>      
 </RDF>

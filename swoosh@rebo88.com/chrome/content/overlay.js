@@ -10,6 +10,7 @@ gl.swoosh={};
     var util = swoosh.util;
     var inputTags = "input,textarea,textbox";
     var inSwoosh = false;
+    var strCon = "";
     var view = {
         inited: false,
         panel: null,
@@ -51,6 +52,12 @@ gl.swoosh={};
             // this.textbox.setSelectionRange(len, len);
             this.textbox.value="";
             this.textbox.focus();
+            var _this = this;
+            setTimeout(function(){
+                if(!_this.textbox.value){
+                    _this.textbox.value = strCon;
+                }
+            },10);
         },
         bindEvents: function(){
         },
@@ -160,6 +167,11 @@ gl.swoosh={};
             }
         }
         if(event.target.tagName.toLowerCase() != "body" ) return;
+        var keycode = event.which;
+        if(!event.shiftKey){
+            keycode+=32;
+        }
+        strCon = String.fromCharCode(keycode);
         if(view.inited){
             view.show()
         } else{
