@@ -46,9 +46,10 @@ gl.swoosh={};
         },
         show: function(){
             this.panel.openPopup(null,"",this.position.left, this.position.top);
-            this.textbox.value = model.inputStr;
-            var len = model.inputStr.length;
-            this.textbox.setSelectionRange(len, len);
+            // this.textbox.value = model.inputStr;
+            // var len = model.inputStr.length;
+            // this.textbox.setSelectionRange(len, len);
+            this.textbox.value="";
             this.textbox.focus();
         },
         bindEvents: function(){
@@ -122,13 +123,14 @@ gl.swoosh={};
     function searchStr(string,alia){
         var str = string;
         if(!alia){
-            var array = str.split(";");
-            if(array.length == 2){
-                alia = array[array.length-1];
-                alia = util.trim(alia);
-                str = str.replace(/;.*/, "");
+            var temp = "";
+            alia = str.match(/;([a-z0-9]*)($| )/);
+            if(alia){
+                temp = alia[0];
+                alia = util.trim(alia[1]);
+                str = str.replace(temp, "");
             }
-        }
+         }
         var engine;
         if(!alia){
             engine = installedEngines[0];
@@ -148,15 +150,14 @@ gl.swoosh={};
         browserSearchService.init();
         installedEngines = browserSearchService.getEngines();
     })
-    window.addEventListener("keypress",function(event){
+    window.addEventListener("keydown",function(event){
+        if(event.which < 48 || event.which > 105) return;
         if(event.altKey || event.metaKey) return;
         if(inSwoosh) return;
         if(event.ctrlKey){
-            if(event.which != 118){//86 = 'v' keycode
+            if(event.which != 86){//86 = 'v' keycode
                 return;
             }
-        }else{
-            model.inputStr=String.fromCharCode(event.which);
         }
         if(event.target.tagName.toLowerCase() != "body" ) return;
         if(view.inited){
