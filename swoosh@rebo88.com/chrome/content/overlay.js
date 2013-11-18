@@ -92,7 +92,6 @@ gl.swoosh={};
     }
     function search(eventTarget){
         var str = view.textbox.value;
-        if(!str) return;
         var alia = ""
         if(eventTarget){
            alia = eventTarget.getAttribute("alia");
@@ -110,6 +109,7 @@ gl.swoosh={};
                 alia = parseInt(eventTarget.getAttribute("engineIndex"))+1+"";
            }
         }
+        if(!str) return;
         if(util.isUrl(str)){
             openSite(str);
         }else{
