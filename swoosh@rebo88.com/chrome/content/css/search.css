@@ -38,6 +38,8 @@
 	border-style: none;
 	padding: 0px;
 	margin: 0px;
+	width: 250px;
+	overflow: hidden;
 }
 #swoosh-panel menupopup{
 	background-color: white;
@@ -46,6 +48,7 @@
 	overflow: hidden;
 	padding: 0px;
 	margin: 0px;
+	height: auto;
 }
 #swoosh-tip-panel listitem{
 	border-bottom: dashed 1px #006eb9;

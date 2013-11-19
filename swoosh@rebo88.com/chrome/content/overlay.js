@@ -11,6 +11,10 @@ gl.swoosh={};
     var inputTags = "input,textarea,textbox";
     var inSwoosh = false;
     var strCon = "";
+    var tipItems=[];
+    var engineAlia="";
+    var engineFlg=false;
+    var tipPanel=null;
     var view = {
         inited: false,
         panel: null,
@@ -47,7 +51,11 @@ gl.swoosh={};
             menupopup.appendChild(managerItem);
         },
         buildTipPanel:function(){
-          var innerHtml = "";
+          var innerHtml =   "<listcols>"+
+                                "<listcol/>"+
+                                "<listcol/>"+
+                                "<listcol/>"+
+                            "</listcols>";
           var j = 0;
           var row = "";
           for(var i = 0; i < installedEngines.length; i++){
@@ -68,9 +76,11 @@ gl.swoosh={};
             innerHtml+= str;
           }
           var engineList = document.getElementById("swoosh-tip-panel").children[0];
-          engineList.innerHTML = engineList.innerHTML + innerHtml;
+          engineList.innerHTML = innerHtml;
+          tipItems = document.getElementById("swoosh-tip-panel").children[0].children;
         },
         show: function(){
+            initVar();
             this.panel.openPopup(null,"",this.position.left, this.position.top);
             // this.textbox.value = model.inputStr;
             // var len = model.inputStr.length;
@@ -82,7 +92,7 @@ gl.swoosh={};
                 if(!_this.textbox.value){
                     _this.textbox.value = strCon;
                 }
-            },10);
+            },20);
         },
         bindEvents: function(){
         },
@@ -99,6 +109,7 @@ gl.swoosh={};
         defaultEngineUrl:"http://www.baidu.com/s?wd=",
         engineUrl: "",
         engineInfos: [],
+        firstkeycode:-1,
         init: function(){
         },
         setEngineUrl: function(alia){
@@ -122,6 +133,11 @@ gl.swoosh={};
             }
         }
     }
+    function initVar(){
+        engineAlia="";
+        engineFlg=false;
+        tipPanel.children[0].clearSelection();
+    }
     function search(eventTarget){
         var str = view.textbox.value;
         var alia = ""
@@ -135,6 +151,7 @@ gl.swoosh={};
                 window.openDialog("chrome://swoosh/content/manager.xul","manager" ,"chrome,centerscreen,all,modal" ,browserSearchService);
                 installedEngines = browserSearchService.getEngines();
                 view.buildEngineList();
+                view.buildTipPanel();
                 return;
            }
            if(eventTarget.tagName.toLowerCase() == "menuitem"){
@@ -142,15 +159,21 @@ gl.swoosh={};
            }
         }
         if(!str) return;
+        var success = false;
         if(util.isUrl(str)){
-            openSite(str);
+            success = openSite(str);
         }else{
-            searchStr(str,alia);
+            success = searchStr(str,alia);
         }
-        view.panel.hidePopup();
+        if(success){
+            view.panel.hidePopup();
+            tipPanel.hidePopup();
+            model.firstkeycode = -1;
+        }
     }
     function openSite(url){
         gBrowser.selectedTab = gBrowser.addTab(url);
+        return true;
     }
     function searchStr(string,alia){
         var str = string;
@@ -173,19 +196,49 @@ gl.swoosh={};
                 engine = browserSearchService.getEngineByAlias(alia)
             }
         }
-        var url = engine.getSubmission(str).uri.asciiSpec;
-        openSite(url);
+        if(engine){
+            var url = engine.getSubmission(str).uri.asciiSpec;
+            openSite(url);
+            return true;
+        }else{
+            return false;
+        }
     }
     swoosh.search = search;
     window.addEventListener("load",function(){
         browserSearchService = Components.classes["@mozilla.org/browser/search-service;1"].getService(Components.interfaces.nsIBrowserSearchService); 
         browserSearchService.init();
         installedEngines = browserSearchService.getEngines();
+        tipPanel = document.getElementById("swoosh-tip-panel");
         document.getElementById("swoosh-textbox").addEventListener("keypress",function(event){
             var keycode = event.which;
+            if(engineFlg){
+                setTimeout(function(){
+                    var searchStr = view.textbox.value;
+                    var index = searchStr.lastIndexOf(";");
+                    if(index > 0){
+                        engineAlia = searchStr.substr(index+1);
+                    }else{
+                        engineAlia = "";
+                    }
+                    var listbox = tipPanel.children[0];
+                    if(engineAlia.match(/\d+/)){
+                        listbox.selectItem( tipItems[parseInt(engineAlia)] );
+                    }else{
+                        for(var i = 0;i < tipItems.length; i++){
+                            var listitem = tipItems[i].children[2];
+                            if(listitem.getAttribute("label") == engineAlia){
+                                listbox.selectItem( tipItems[i] );
+                            }
+                        }
+                    }
+                },20)
+            }
             if(keycode == 59){//';'=59
                 document.getElementById("swoosh-tip-panel").openPopup(event.currentTarget,"after_start");
                 event.currentTarget.inputField.focus();
+                engineFlg = true;
+                engineAlia="";
             }
         })
     })
@@ -200,15 +253,23 @@ gl.swoosh={};
             }
         }
         if(event.target.tagName.toLowerCase() != "body" ) return;
-        if(!event.shiftKey){
-            strCon = String.fromCharCode(keycode+32);
-        }else{
-            strCon = String.fromCharCode(keycode);
+        // if(!event.shiftKey && keycode > 65 &&){
+        //     strCon = String.fromCharCode(keycode+32);
+        // }else{
+        //     strCon = String.fromCharCode(keycode);
+        // }
+        if(model.firstkeycode<0){
+            model.firstkeycode = keycode;
         }
         if(view.inited){
             view.show()
         } else{
             view.init()
         }
+    })
+    window.addEventListener("keypress",function(event){
+        var keycode = event.which;
+        if(event.target.tagName.toLowerCase() != "body" ) return;
+        strCon = String.fromCharCode(keycode);
     })
 })(gl.swoosh);
