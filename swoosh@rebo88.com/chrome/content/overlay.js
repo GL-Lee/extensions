@@ -1,5 +1,9 @@
-var gl={};
-gl.swoosh={};
+if(typeof gl == "undefined"){
+    var gl={};
+}
+if(typeof gl.swoosh == "undefined"){
+    gl.swoosh={};
+}
 (function(swoosh){
     Components.utils.import("resource://gre/modules/FileUtils.jsm");
     Components.utils.import("resource://gre/modules/NetUtil.jsm");
