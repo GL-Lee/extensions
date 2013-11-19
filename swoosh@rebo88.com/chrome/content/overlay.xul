@@ -10,12 +10,21 @@
     <panel id="swoosh-panel">
       <hbox id="swoosh-box" xmlns:html="http://www.w3.org/1999/xhtml">
         <textbox id="swoosh-textbox" dir="rtl" type="search" searchbutton="true" oncommand="gl.swoosh.search(event.target)">
-          <button class="swoosh-menu-button" type="menu">
+          <button id="swoosh-menu-button" class="swoosh-menu-button" type="menu">
             <menupopup id="swoosh-engine-menu">
             </menupopup>
           </button>
         </textbox>
       </hbox>
+    </panel>
+    <panel id="swoosh-tip-panel">
+      <listbox>
+        <listcols>
+          <listcol/>
+          <listcol/>
+          <listcol/>
+        </listcols>
+      </listbox>
     </panel>
   </popupset>
 </overlay>

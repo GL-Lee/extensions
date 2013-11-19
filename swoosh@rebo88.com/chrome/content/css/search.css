@@ -34,6 +34,25 @@
   background: none;
   border: none;
 }
+#swoosh-tip-panel{
+	border-style: none;
+	padding: 0px;
+	margin: 0px;
+}
 #swoosh-panel menupopup{
 	background-color: white;
+}
+#swoosh-tip-panel listbox{
+	overflow: hidden;
+	padding: 0px;
+	margin: 0px;
+}
+#swoosh-tip-panel listitem{
+	border-bottom: dashed 1px #006eb9;
+}
+#swoosh-tip-panel .swoosh-alias{
+	font-weight: bolder;
+	padding-left: 15px;
+	padding-right: 15px;
+	width: 60px;
 }

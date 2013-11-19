@@ -22,6 +22,7 @@ gl.swoosh={};
             this.textbox.value = "";
             this.menupopup = this.textbox.firstChild.firstChild;
             this.buildEngineList();
+            this.buildTipPanel();
             this.inited = true;
             this.setPosition();
             this.show();
@@ -44,6 +45,30 @@ gl.swoosh={};
             managerItem.setAttribute("alia", "manager");
             // managerItem.setAttribute("oncommand", 'window.open("chrome://swoosh/content/manager.xul",null ,"modal" ,modal.engineInfos)');
             menupopup.appendChild(managerItem);
+        },
+        buildTipPanel:function(){
+          var innerHtml = "";
+          var j = 0;
+          var row = "";
+          for(var i = 0; i < installedEngines.length; i++){
+            if(installedEngines[i].hidden) continue;
+            if(j == 0){
+                row = "swoosh-even";
+                j++;
+            }else{
+                row = "swoosh-odd";
+                j--;
+            }
+            var alia = installedEngines[i].alias?installedEngines[i].alias:"";
+            var str = "<listitem class='"+row+"'>"+
+                        "<listcell label='"+(i+1)+"'/>"+
+                        "<listcell class='listcell-iconic menuitem-with-favicon' image='"+installedEngines[i].iconURI.asciiSpec+"' label='"+installedEngines[i].name+"'/>"+
+                        "<listcell class='swoosh-alias' label='"+alia+"'/>"+
+                      "</listitem>";
+            innerHtml+= str;
+          }
+          var engineList = document.getElementById("swoosh-tip-panel").children[0];
+          engineList.innerHTML = engineList.innerHTML + innerHtml;
         },
         show: function(){
             this.panel.openPopup(null,"",this.position.left, this.position.top);
@@ -156,22 +181,30 @@ gl.swoosh={};
         browserSearchService = Components.classes["@mozilla.org/browser/search-service;1"].getService(Components.interfaces.nsIBrowserSearchService); 
         browserSearchService.init();
         installedEngines = browserSearchService.getEngines();
+        document.getElementById("swoosh-textbox").addEventListener("keypress",function(event){
+            var keycode = event.which;
+            if(keycode == 59){//';'=59
+                document.getElementById("swoosh-tip-panel").openPopup(event.currentTarget,"after_start");
+                event.currentTarget.inputField.focus();
+            }
+        })
     })
     window.addEventListener("keydown",function(event){
-        if(event.which < 48 || event.which > 105) return;
+        var keycode = event.which;
+        if(keycode < 48 || keycode > 105) return;
         if(event.altKey || event.metaKey) return;
         if(inSwoosh) return;
         if(event.ctrlKey){
-            if(event.which != 86){//86 = 'v' keycode
+            if(keycode != 86){//86 = 'v' keycode
                 return;
             }
         }
         if(event.target.tagName.toLowerCase() != "body" ) return;
-        var keycode = event.which;
         if(!event.shiftKey){
-            keycode+=32;
+            strCon = String.fromCharCode(keycode+32);
+        }else{
+            strCon = String.fromCharCode(keycode);
         }
-        strCon = String.fromCharCode(keycode);
         if(view.inited){
             view.show()
         } else{
