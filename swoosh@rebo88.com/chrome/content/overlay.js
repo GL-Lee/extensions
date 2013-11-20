@@ -256,7 +256,7 @@ if(typeof gl.swoosh == "undefined"){
                 return;
             }
         }
-        if(event.target.tagName.toLowerCase() != "body" ) return;
+        if(event.target.tagName.toLowerCase() != "body" || event.view != event.view.parent) return;
         // if(!event.shiftKey && keycode > 65 &&){
         //     strCon = String.fromCharCode(keycode+32);
         // }else{
