@@ -113,7 +113,6 @@ if(typeof gl.swoosh == "undefined"){
         defaultEngineUrl:"http://www.baidu.com/s?wd=",
         engineUrl: "",
         engineInfos: [],
-        firstkeycode:-1,
         init: function(){
         },
         setEngineUrl: function(alia){
@@ -141,6 +140,13 @@ if(typeof gl.swoosh == "undefined"){
         engineAlia="";
         engineFlg=false;
         tipPanel.children[0].clearSelection();
+    }
+    function destroy(){
+
+    }
+    function disappear(){
+        view.panel.hidePopup();
+        tipPanel.hidePopup();
     }
     function search(eventTarget){
         var str = view.textbox.value;
@@ -170,9 +176,7 @@ if(typeof gl.swoosh == "undefined"){
             success = searchStr(str,alia);
         }
         if(success){
-            view.panel.hidePopup();
-            tipPanel.hidePopup();
-            model.firstkeycode = -1;
+            disappear();
         }
     }
     function openSite(url){
@@ -246,7 +250,8 @@ if(typeof gl.swoosh == "undefined"){
             }
         })
     })
-    window.addEventListener("keydown",function(event){
+    function keydownListener(event){
+        if(!SwooshOn) return;
         var keycode = event.which;
         if(keycode < 48 || keycode > 105) return;
         if(event.altKey || event.metaKey) return;
@@ -262,18 +267,41 @@ if(typeof gl.swoosh == "undefined"){
         // }else{
         //     strCon = String.fromCharCode(keycode);
         // }
-        if(model.firstkeycode<0){
-            model.firstkeycode = keycode;
-        }
         if(view.inited){
             view.show()
         } else{
             view.init()
         }
-    })
-    window.addEventListener("keypress",function(event){
+    }
+    function keypressListener(event){
         var keycode = event.which;
         if(event.target.tagName.toLowerCase() != "body" ) return;
         strCon = String.fromCharCode(keycode);
+    }
+    function addKeyListener(){
+        window.addEventListener("keydown",keydownListener);
+        window.addEventListener("keypress",keypressListener);
+    }
+    function removeKeyListener(){
+        window.removeEventListener("keydown",keydownListener);
+        window.removeEventListener("keypress",keypressListener);
+    }
+    var SwooshOn = true;
+    addKeyListener();
+    function toggleSwoosh(){
+        SwooshOn = !SwooshOn;
+        if(SwooshOn){
+            addKeyListener();
+        }else{
+            removeKeyListener();
+            disappear();
+        }
+    }
+    window.addEventListener("keypress",function(event){
+        var keycode = event.which;
+        if(keycode == 59 && event.ctrlKey){
+            toggleSwoosh();
+            return;
+        }
     })
 })(gl.swoosh);
