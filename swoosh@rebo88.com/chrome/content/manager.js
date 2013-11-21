@@ -1,5 +1,6 @@
 var browserSearchService = window.arguments[0];
 var installedEngines = browserSearchService.getEngines();
+var prefs = window.arguments[1];
 var currentIndex = -1;
 var currentEngine = null;
 var engineList=document.getElementById("engineList");
@@ -19,6 +20,7 @@ function buildSettedList(){
 function init(){
   buildSettedList();
   bindEvents();
+  document.getElementById("showTips").checked = prefs.showTips;
 }
 var listTrriger = false;
 function bindEvents(){
@@ -47,6 +49,9 @@ function bindEvents(){
     }
 
   })
+}
+function setShowTips(){
+  prefs.showTips = !prefs.showTips;
 }
 function moveUp(){
   var engineList = document.getElementById("engineList");

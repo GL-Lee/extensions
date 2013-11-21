@@ -13,3 +13,5 @@
 <!ENTITY  manager.remove  "Remove">
 
 <!ENTITY  manager.getMoreEngine "Get more search engines...">
+<!ENTITY  manager.showTipsLabel "Show Engine Tips">
+<!ENTITY  manager.showTipsDescription "When ';' is inputed, a search engines infornation panel with indexes and keywords of engines showed">

@@ -19,6 +19,9 @@ if(typeof gl.swoosh == "undefined"){
     var engineAlia="";
     var engineFlg=false;
     var tipPanel=null;
+    var prefs = {
+        showTips: true
+    };
     var view = {
         inited: false,
         panel: null,
@@ -158,10 +161,15 @@ if(typeof gl.swoosh == "undefined"){
                 var engineCount = 0;
                 browserSearchService.init();
                 installedEngines = browserSearchService.getEngines();
-                window.openDialog("chrome://swoosh/content/manager.xul","manager" ,"chrome,centerscreen,all,modal" ,browserSearchService);
+                window.openDialog("chrome://swoosh/content/manager.xul","manager" ,"chrome,centerscreen,all,modal" ,browserSearchService,prefs);
                 installedEngines = browserSearchService.getEngines();
                 view.buildEngineList();
                 view.buildTipPanel();
+                if(prefs.showTips){
+                    document.getElementById("swoosh-textbox").addEventListener("keypress",showTips);
+                }else{
+                    document.getElementById("swoosh-textbox").removeEventListener("keypress",showTips);
+                }
                 return;
            }
            if(eventTarget.tagName.toLowerCase() == "menuitem"){
@@ -213,43 +221,49 @@ if(typeof gl.swoosh == "undefined"){
         }
     }
     swoosh.search = search;
-    window.addEventListener("load",function(){
-        browserSearchService = Components.classes["@mozilla.org/browser/search-service;1"].getService(Components.interfaces.nsIBrowserSearchService); 
-        browserSearchService.init();
-        installedEngines = browserSearchService.getEngines();
-        tipPanel = document.getElementById("swoosh-tip-panel");
-        document.getElementById("swoosh-textbox").addEventListener("keypress",function(event){
-            var keycode = event.which;
-            if(engineFlg){
-                setTimeout(function(){
-                    var searchStr = view.textbox.value;
-                    var index = searchStr.lastIndexOf(";");
-                    if(index > 0){
-                        engineAlia = searchStr.substr(index+1);
-                    }else{
-                        engineAlia = "";
-                    }
-                    var listbox = tipPanel.children[0];
-                    if(engineAlia.match(/\d+/)){
-                        listbox.selectItem( tipItems[parseInt(engineAlia)] );
-                    }else{
-                        for(var i = 0;i < tipItems.length; i++){
-                            var listitem = tipItems[i].children[2];
-                            if(listitem.getAttribute("label") == engineAlia){
-                                listbox.selectItem( tipItems[i] );
-                            }
+    function initPrefs(){
+        var prefService = Components.classes["@mozilla.org/preferences-service;1"]
+            .getService(Components.interfaces.nsIPrefService);
+        var branch = prefService.getBranch("extensions.swoosher.");
+        prefs.showTips = branch.getBoolPref("showTips");
+    }
+    function savePrefs(){
+        var prefService = Components.classes["@mozilla.org/preferences-service;1"]
+            .getService(Components.interfaces.nsIPrefService);
+        var branch = prefService.getBranch("extensions.swoosher.");
+        branch.setBoolPref("showTips",prefs.showTips);
+    }
+    function showTips(event){
+        var keycode = event.which;
+        if(engineFlg){
+            setTimeout(function(){
+                var searchStr = view.textbox.value;
+                var index = searchStr.lastIndexOf(";");
+                if(index > 0){
+                    engineAlia = searchStr.substr(index+1);
+                }else{
+                    engineAlia = "";
+                }
+                var listbox = tipPanel.children[0];
+                if(engineAlia.match(/\d+/)){
+                    listbox.selectItem( tipItems[parseInt(engineAlia)] );
+                }else{
+                    for(var i = 0;i < tipItems.length; i++){
+                        var listitem = tipItems[i].children[2];
+                        if(listitem.getAttribute("label") == engineAlia){
+                            listbox.selectItem( tipItems[i] );
                         }
                     }
-                },20)
-            }
-            if(keycode == 59){//';'=59
-                document.getElementById("swoosh-tip-panel").openPopup(event.currentTarget,"after_start");
-                event.currentTarget.inputField.focus();
-                engineFlg = true;
-                engineAlia="";
-            }
-        })
-    })
+                }
+            },20)
+        }
+        if(keycode == 59){//';'=59
+            document.getElementById("swoosh-tip-panel").openPopup(event.currentTarget,"after_start");
+            event.currentTarget.inputField.focus();
+            engineFlg = true;
+            engineAlia="";
+        }
+    }
     function keydownListener(event){
         if(!SwooshOn) return;
         var keycode = event.which;
@@ -303,5 +317,18 @@ if(typeof gl.swoosh == "undefined"){
             toggleSwoosh();
             return;
         }
+    })
+    window.addEventListener("load",function(){
+        browserSearchService = Components.classes["@mozilla.org/browser/search-service;1"].getService(Components.interfaces.nsIBrowserSearchService); 
+        browserSearchService.init();
+        installedEngines = browserSearchService.getEngines();
+        tipPanel = document.getElementById("swoosh-tip-panel");
+        initPrefs();
+        if(prefs.showTips){
+            document.getElementById("swoosh-textbox").addEventListener("keypress",showTips);
+        }
+    })
+    window.addEventListener("unload",function(){
+        savePrefs();
     })
 })(gl.swoosh);
