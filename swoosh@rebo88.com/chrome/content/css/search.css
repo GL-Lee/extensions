@@ -63,3 +63,18 @@
 	width: 100px;
 	height: 80px;
 }
+#swoosh-switch-button{
+	list-style-image: 
+}
+#swoosh-switch-button {
+	list-style-image: url('chrome://swoosh/content/image/swoosh24.png');
+}
+toolbar[iconsize="small"] #swoosh-switch-button {
+	list-style-image: url('chrome://swoosh/content/image/swoosh16.png');
+}
+#swoosh-switch-button[swooshstate="off"] {
+	list-style-image: url('chrome://swoosh/content/image/swoosh24-grey.png');
+}
+toolbar[iconsize="small"] #swoosh-switch-button[swooshstate="off"] {
+	list-style-image: url('chrome://swoosh/content/image/swoosh16-grey.png');
+}

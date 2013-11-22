@@ -18,17 +18,19 @@ if(typeof gl.swoosh == "undefined"){
     var tipItems=[];
     var engineAlia="";
     var engineFlg=false;
-    var tipPanel=null;
     var prefs = {
         showTips: true
     };
     var view = {
         inited: false,
         panel: null,
+        tipPanel: null,
         position: {},
+        showed: false,
         init: function(){
             this.model = model;
             this.panel = document.getElementById("swoosh-panel");
+            this.tipPanel = document.getElementById("swoosh-tip-panel");
             this.textbox = this.panel.firstChild.firstChild;
             this.textbox.value = "";
             this.menupopup = this.textbox.firstChild.firstChild;
@@ -36,7 +38,6 @@ if(typeof gl.swoosh == "undefined"){
             this.buildTipPanel();
             this.inited = true;
             this.setPosition();
-            this.show();
             this.bindEvents();
         },
         buildEngineList: function(){
@@ -87,6 +88,9 @@ if(typeof gl.swoosh == "undefined"){
           tipItems = document.getElementById("swoosh-tip-panel").children[0].children;
         },
         show: function(){
+            if(!view.inited){
+                view.init()
+            }
             initVar();
             this.panel.openPopup(null,"",this.position.left, this.position.top);
             // this.textbox.value = model.inputStr;
@@ -100,8 +104,16 @@ if(typeof gl.swoosh == "undefined"){
                     _this.textbox.value = strCon;
                 }
             },20);
+            this.showed = true;
+        },
+        hide: function(){
+            this.panel.hidePopup();
+            this.tipPanel.hidePopup();
         },
         bindEvents: function(){
+            view.panel.addEventListener("popuphiding",function(){
+                view.showed = false;
+            })
         },
         setPosition: function(){
             var left = 0;
@@ -142,14 +154,10 @@ if(typeof gl.swoosh == "undefined"){
     function initVar(){
         engineAlia="";
         engineFlg=false;
-        tipPanel.children[0].clearSelection();
+        view.tipPanel.children[0].clearSelection();
     }
     function destroy(){
 
-    }
-    function disappear(){
-        view.panel.hidePopup();
-        tipPanel.hidePopup();
     }
     function search(eventTarget){
         var str = view.textbox.value;
@@ -184,7 +192,7 @@ if(typeof gl.swoosh == "undefined"){
             success = searchStr(str,alia);
         }
         if(success){
-            disappear();
+            view.hide();
         }
     }
     function openSite(url){
@@ -244,7 +252,7 @@ if(typeof gl.swoosh == "undefined"){
                 }else{
                     engineAlia = "";
                 }
-                var listbox = tipPanel.children[0];
+                var listbox = view.tipPanel.children[0];
                 if(engineAlia.match(/\d+/)){
                     listbox.selectItem( tipItems[parseInt(engineAlia)] );
                 }else{
@@ -257,8 +265,8 @@ if(typeof gl.swoosh == "undefined"){
                 }
             },20)
         }
-        if(keycode == 59){//';'=59
-            document.getElementById("swoosh-tip-panel").openPopup(event.currentTarget,"after_start");
+        if(keycode == 59 && !event.ctrlKey && !event.shiftKey){//';'=59
+            view.tipPanel.openPopup(event.currentTarget,"after_start");
             event.currentTarget.inputField.focus();
             engineFlg = true;
             engineAlia="";
@@ -281,13 +289,10 @@ if(typeof gl.swoosh == "undefined"){
         // }else{
         //     strCon = String.fromCharCode(keycode);
         // }
-        if(view.inited){
-            view.show()
-        } else{
-            view.init()
-        }
+        view.show();
     }
     function keypressListener(event){
+        if(event.ctrlKey || event.altKey) return;
         var keycode = event.which;
         if(event.target.tagName.toLowerCase() != "body" ) return;
         strCon = String.fromCharCode(keycode);
@@ -306,23 +311,28 @@ if(typeof gl.swoosh == "undefined"){
         SwooshOn = !SwooshOn;
         if(SwooshOn){
             addKeyListener();
+            document.getElementById("swoosh-switch-button").setAttribute("swooshstate","on")
         }else{
             removeKeyListener();
-            disappear();
+            document.getElementById("swoosh-switch-button").setAttribute("swooshstate","off")
+            view.hide();
         }
     }
-    window.addEventListener("keypress",function(event){
+    swoosh.toggleSwoosh = toggleSwoosh;
+    window.addEventListener("keydown",function(event){
         var keycode = event.which;
         if(keycode == 59 && event.ctrlKey){
-            toggleSwoosh();
-            return;
+            if(event.shiftKey){
+                toggleSwoosh();
+            }else{
+                view.show();
+            }
         }
     })
     window.addEventListener("load",function(){
         browserSearchService = Components.classes["@mozilla.org/browser/search-service;1"].getService(Components.interfaces.nsIBrowserSearchService); 
         browserSearchService.init();
         installedEngines = browserSearchService.getEngines();
-        tipPanel = document.getElementById("swoosh-tip-panel");
         initPrefs();
         if(prefs.showTips){
             document.getElementById("swoosh-textbox").addEventListener("keypress",showTips);

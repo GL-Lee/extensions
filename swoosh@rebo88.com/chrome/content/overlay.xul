@@ -1,11 +1,19 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://swoosh/content/css/search.css"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://swoosh/locale/swoosh.dtd">
 <overlay id="menueditOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="overlay.js"/>
   <stringbundleset>
     <stringbundle id="swoosh-stringbundle" src="chrome://swoosh/locale/swoosh.properties"/>
   </stringbundleset>
+  <toolbarpalette id="BrowserToolbarPalette">
+    <toolbarbutton id="swoosh-switch-button"
+      class="toolbarbutton-1 chromeclass-toolbar-additional" 
+      label="&swoosh.switchButtonLabel;"
+      tooltiptext="&swoosh.switchButtonTip;"
+      oncommand="gl.swoosh.toggleSwoosh()" />
+  </toolbarpalette>
   <popupset id="mainPopupSet">
     <panel id="swoosh-panel">
       <hbox id="swoosh-box" xmlns:html="http://www.w3.org/1999/xhtml">

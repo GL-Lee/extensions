@@ -1,3 +1,5 @@
+<!ENTITY  swoosh.switchButtonLabel  "开关">
+<!ENTITY  swoosh.switchButtonTip  "Swoosher开关">
 <!ENTITY  manager.title  "搜索引擎设置">
 
 <!ENTITY  manager.restoreButton  "恢复默认值">

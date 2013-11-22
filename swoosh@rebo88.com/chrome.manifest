@@ -2,6 +2,7 @@ content swoosh chrome/content/
 
 overlay	chrome://browser/content/browser.xul	chrome://swoosh/content/overlay.xul
 resource swoosh modules/
+style	chrome://global/content/customizeToolbar.xul	chrome://swoosh/content/css/search.css
 
 locale swoosh en-US chrome/locale/en-US/
 locale swoosh zh-CN chrome/locale/zh-CN/
