@@ -21,6 +21,7 @@ if(typeof gl.swoosh == "undefined"){
     var prefs = {
         showTips: true
     };
+    var IMEflg = false;
     var view = {
         inited: false,
         panel: null,
@@ -100,7 +101,7 @@ if(typeof gl.swoosh == "undefined"){
             this.textbox.focus();
             var _this = this;
             setTimeout(function(){
-                if(!_this.textbox.value){
+                if(!_this.textbox.value && !IMEflg){
                     _this.textbox.value = strCon;
                 }
             },20);
@@ -152,6 +153,7 @@ if(typeof gl.swoosh == "undefined"){
         }
     }
     function initVar(){
+        IMEflg = false;
         engineAlia="";
         engineFlg=false;
         view.tipPanel.children[0].clearSelection();
@@ -297,9 +299,14 @@ if(typeof gl.swoosh == "undefined"){
         if(event.target.tagName.toLowerCase() != "body" ) return;
         strCon = String.fromCharCode(keycode);
     }
+    function compositionlistener(event){
+        IMEflg = true;
+    }
     function addKeyListener(){
         window.addEventListener("keydown",keydownListener);
         window.addEventListener("keypress",keypressListener);
+        window.addEventListener("compositionstart",function(){IMEflg = true});
+        window.addEventListener("compositionend",function(){IMEflg = false});
     }
     function removeKeyListener(){
         window.removeEventListener("keydown",keydownListener);
