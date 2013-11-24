@@ -86,15 +86,6 @@ if(typeof gl.swoosh == "undefined"){
             }
             var engineList = document.getElementById("swoosh-tip-panel").children[0];
             engineList.innerHTML = innerHtml;
-            var sep = document.createElement("menuseparator");
-            menupopup.appendChild(sep);
-            var managerItem = document.createElement("menuitem");
-            var stringsBundle = document.getElementById("swoosh-stringbundle");
-            var manageEngines = stringsBundle.getString('swoosh.manageEngines') + " ";
-            managerItem.setAttribute("label", manageEngines);
-            managerItem.setAttribute("alia", "manager");
-            // managerItem.setAttribute("oncommand", 'window.open("chrome://swoosh/content/manager.xul",null ,"modal" ,modal.engineInfos)');
-            menupopup.appendChild(managerItem);
             tipItems = document.getElementById("swoosh-tip-panel").children[0].children;
         },
         show: function(){
@@ -125,6 +116,28 @@ if(typeof gl.swoosh == "undefined"){
             view.panel.addEventListener("popuphiding",function(){
                 view.showed = false;
             })
+            view.textbox.addEventListener("keypress",function(event){
+                if(event.which == 13){//enter key
+                    search();
+                }
+            })
+            view.tipPanel.addEventListener("popupshowing", function(){
+                document.getElementById('PopupAutoCompleteRichResult').hidePopup();
+            });
+            view.tipPanel.addEventListener("dblclick", function(){
+                window.openDialog("chrome://swoosh/content/manager.xul","manager" ,"chrome,centerscreen,all,modal" ,browserSearchService,prefs);
+                installedEngines = browserSearchService.getEngines();
+                view.buildTipPanel();
+                // if(prefs.showTips){
+                //     document.getElementById("swoosh-textbox").removeEventListener("keypress",showTips);
+                //     document.getElementById("swoosh-textbox").addEventListener("keypress",showTips);
+                // }else{
+                //     document.getElementById("swoosh-textbox").removeEventListener("keypress",showTips);
+                // }
+            });
+            document.getElementById('PopupAutoCompleteRichResult').addEventListener("popupshowing", function(){
+                view.tipPanel.hidePopup();
+            });
         },
         setPosition: function(){
             var left = 0;
@@ -185,11 +198,11 @@ if(typeof gl.swoosh == "undefined"){
                 installedEngines = browserSearchService.getEngines();
                 view.buildEngineList();
                 view.buildTipPanel();
-                if(prefs.showTips){
-                    document.getElementById("swoosh-textbox").addEventListener("keypress",showTips);
-                }else{
-                    document.getElementById("swoosh-textbox").removeEventListener("keypress",showTips);
-                }
+                // if(prefs.showTips){
+                //     document.getElementById("swoosh-textbox").addEventListener("keypress",showTips);
+                // }else{
+                //     document.getElementById("swoosh-textbox").removeEventListener("keypress",showTips);
+                // }
                 return;
            }
            if(eventTarget.tagName.toLowerCase() == "menuitem"){
@@ -362,7 +375,7 @@ if(typeof gl.swoosh == "undefined"){
             document.getElementById("swoosh-textbox").addEventListener("keypress",showTips);
         }
     })
-    window.addEventListener("unload",function(){
-        savePrefs();
-    })
+    // window.addEventListener("unload",function(){
+    //     savePrefs();
+    // })
 })(gl.swoosh);

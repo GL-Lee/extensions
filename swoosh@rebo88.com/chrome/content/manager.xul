@@ -37,7 +37,7 @@
       <html:a target="_blank" href="https://addons.mozilla.org/zh-CN/firefox/search/?atype=4" style="color:#0066CC;padding-left:4px;">&manager.getMoreEngine;</html:a>
     </hbox>
     <hbox class="module">
-      <checkbox id="showTips" label="&manager.showTipsLabel;" checked="true" tooltip="showTipsDescription" oncommand="setShowTips()"/>
+      <checkbox id="showTips" label="&manager.showTipsLabel;" checked="true" tooltip="showTipsDescription" disabled="true" oncommand="setShowTips()"/>
     </hbox>
     <tooltip id="showTipsDescription" class="swoosh-tooltip">
       <description value="&manager.showTipsDescription;"/>
