@@ -12,12 +12,12 @@
       class="toolbarbutton-1 chromeclass-toolbar-additional" 
       label="&swoosh.switchButtonLabel;"
       tooltiptext="&swoosh.switchButtonTip;"
-      oncommand="gl.swoosh.toggleSwoosh()" />
+      oncommand="swooshOverlay.toggleSwoosh()" />
   </toolbarpalette>
   <popupset id="mainPopupSet">
     <panel id="swoosh-panel">
       <hbox id="swoosh-box" xmlns:html="http://www.w3.org/1999/xhtml">
-        <textbox id="swoosh-textbox" dir="rtl" flex="1" placeholder="搜索或输入网址" type="autocomplete" autocompletesearch="urlinline history" autocompletesearchparam="enable-actions" autocompletepopup="PopupAutoCompleteRichResult" completeselectedindex="true" tabscrolling="true" showcommentcolumn="true" showimagecolumn="true" enablehistory="true" maxrows="6" newlines="stripsurroundingwhitespace"  ontextentered="this.handleCommand(param);" ontextreverted="return this.handleRevert();" pageproxystate="invalid" onfocus="document.getElementById('identity-box').style.MozUserFocus= 'normal'" onblur="setTimeout(function() document.getElementById('identity-box').style.MozUserFocus = '', 0);" sizetopopup="pref" clickSelectsAll="true" completedefaultindex="true" timeout="50">
+        <textbox id="swoosh-textbox" dir="rtl" flex="1" placeholder="&swoosh.inputPlacehoder;" type="autocomplete" autocompletesearch="urlinline history" autocompletesearchparam="enable-actions" autocompletepopup="PopupAutoCompleteRichResult" completeselectedindex="true" tabscrolling="true" showcommentcolumn="true" showimagecolumn="true" enablehistory="true" maxrows="6" newlines="stripsurroundingwhitespace" pageproxystate="invalid" onfocus="document.getElementById('identity-box').style.MozUserFocus= 'normal'" onblur="setTimeout(function() document.getElementById('identity-box').style.MozUserFocus = '', 0);" sizetopopup="pref" clickSelectsAll="true" completedefaultindex="true" timeout="50">
         </textbox>
       </hbox>
     </panel>

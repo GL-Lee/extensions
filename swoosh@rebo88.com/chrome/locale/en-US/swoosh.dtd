@@ -1,4 +1,5 @@
 <!ENTITY  swoosh.switchButtonLabel "Switch">
+<!ENTITY  swoosh.inputPlacehoder  "Search or input Address">
 <!ENTITY  swoosh.switchButtonTip "Switch Swoosher">
 <!ENTITY  manager.title  "Manage Search Engine List">
 <!ENTITY  manager.title  "Manage Search Engine List">
