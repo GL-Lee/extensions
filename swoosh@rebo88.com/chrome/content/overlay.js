@@ -4,7 +4,7 @@ if(typeof gl == "undefined"){
 if(typeof gl.swoosh == "undefined"){
     gl.swoosh={};
 }
-(function(swoosh){
+gl.swoosh.fun = function(swoosh){
     Components.utils.import("resource://gre/modules/FileUtils.jsm");
     Components.utils.import("resource://gre/modules/NetUtil.jsm");
     //utils
@@ -19,7 +19,7 @@ if(typeof gl.swoosh == "undefined"){
     var engineAlia="";
     var engineFlg=false;
     var prefs = {
-        showTips: true
+        showTips:  true
     };
     var IMEflg = false;
     var view = {
@@ -43,12 +43,15 @@ if(typeof gl.swoosh == "undefined"){
         },
         buildEngineList: function(){
             var menupopup = view.menupopup;
-            var innerHtml = "";
             for(var i = 0; i < installedEngines.length; i++){
                 if(installedEngines[i].hidden) continue;
-                innerHtml+=("<menuitem class='menuitem-iconic menuitem-with-favicon' label='"+installedEngines[i].name+"' image= '"+installedEngines[i].iconURI.asciiSpec+"' engineIndex='"+i+"'/>");
+                var item = document.createElement("menuitem");
+                item.className = "menuitem-iconic menuitem-with-favicon";
+                item.setAttribute("label", installedEngines[i].name);
+                item.setAttribute("image", installedEngines[i].iconURI.asciiSpec);
+                item.setAttribute("engineIndex", i);
+                menupopup.appendChild(item);
             }
-            menupopup.innerHTML = innerHtml;
             var sep = document.createElement("menuseparator");
             menupopup.appendChild(sep);
             var managerItem = document.createElement("menuitem");
@@ -60,15 +63,28 @@ if(typeof gl.swoosh == "undefined"){
             menupopup.appendChild(managerItem);
         },
         buildTipPanel:function(){
-            var innerHtml =   "<listcols>"+
-                                "<listcol/>"+
-                                "<listcol/>"+
-                                "<listcol/>"+
-                            "</listcols>";
             var j = 0;
             var row = "";
+            var tipPanel = document.getElementById("swoosh-tip-panel");
+            for(var i = 0; i< tipPanel.children.length; i++){
+                tipPanel.removeChild(tipPanel.children[i]);
+            }
+            var listbox = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","listbox");
+            var cols = document.createElement("listcols");
+
+            var col = document.createElement("listcol");
+            cols.appendChild(col);
+
+           col = document.createElement("listcol");
+            cols.appendChild(col);
+
+           col = document.createElement("listcol");
+            cols.appendChild(col);
+
+            listbox.appendChild(cols);
+
             for(var i = 0; i < installedEngines.length; i++){
-            if(installedEngines[i].hidden) continue;
+                if(installedEngines[i].hidden) continue;
                 if(j == 0){
                     row = "swoosh-even";
                     j++;
@@ -77,16 +93,24 @@ if(typeof gl.swoosh == "undefined"){
                     j--;
                 }
                 var alia = installedEngines[i].alias?installedEngines[i].alias:"";
-                var str = "<listitem class='"+row+"'>"+
-                            "<listcell label='"+(i+1)+"'/>"+
-                            "<listcell class='listcell-iconic menuitem-with-favicon' image='"+installedEngines[i].iconURI.asciiSpec+"' label='"+installedEngines[i].name+"'/>"+
-                            "<listcell class='swoosh-alias' label='"+alia+"'/>"+
-                          "</listitem>";
-                innerHtml+= str;
+                var item = document.createElement("listitem");
+                item.className = row;
+                var cell1 = document.createElement("listcell");
+                cell1.setAttribute("label", i+1);
+                var cell2 = document.createElement("listcell");
+                cell2.className = 'listcell-iconic menuitem-with-favicon';
+                cell2.setAttribute("image", installedEngines[i].iconURI.asciiSpec);
+                cell2.setAttribute("label", installedEngines[i].name);
+                var cell3 = document.createElement("listcell");
+                cell3.className = "swoosh-alias";
+                cell3.setAttribute("label", alia);
+                item.appendChild(cell1);
+                item.appendChild(cell2);
+                item.appendChild(cell3);
+                listbox.appendChild(item);
             }
-            var engineList = document.getElementById("swoosh-tip-panel").children[0];
-            engineList.innerHTML = innerHtml;
-            tipItems = document.getElementById("swoosh-tip-panel").children[0].children;
+            tipPanel.appendChild(listbox);
+            tipItems = listbox.children;
         },
         show: function(){
             if(!view.inited){
@@ -179,7 +203,7 @@ if(typeof gl.swoosh == "undefined"){
         IMEflg = false;
         engineAlia="";
         engineFlg=false;
-        view.tipPanel.children[0].clearSelection();
+        // document.getElementById("swoosh-tip-panel").children[0].clearSelection();
     }
     function destroy(){
 
@@ -196,7 +220,7 @@ if(typeof gl.swoosh == "undefined"){
                 installedEngines = browserSearchService.getEngines();
                 window.openDialog("chrome://swoosh/content/manager.xul","manager" ,"chrome,centerscreen,all,modal" ,browserSearchService,prefs);
                 installedEngines = browserSearchService.getEngines();
-                view.buildEngineList();
+                // view.buildEngineList();
                 view.buildTipPanel();
                 // if(prefs.showTips){
                 //     document.getElementById("swoosh-textbox").addEventListener("keypress",showTips);
@@ -255,15 +279,15 @@ if(typeof gl.swoosh == "undefined"){
     }
     swoosh.search = search;
     function initPrefs(){
-        var prefService = Components.classes["@mozilla.org/preferences-service;1"]
+            var prefService = Components.classes["@mozilla.org/preferences-service;1"]
             .getService(Components.interfaces.nsIPrefService);
-        var branch = prefService.getBranch("extensions.swoosher.");
-        prefs.showTips = branch.getBoolPref("showTips");
+            var branch = prefService.getBranch("extensions.swoosh.");
+            prefs.showTips = branch.getBoolPref("showTips");
     }
     function savePrefs(){
         var prefService = Components.classes["@mozilla.org/preferences-service;1"]
             .getService(Components.interfaces.nsIPrefService);
-        var branch = prefService.getBranch("extensions.swoosher.");
+        var branch = prefService.getBranch("extensions.swoosh.");
         branch.setBoolPref("showTips",prefs.showTips);
     }
     function showTips(event){
@@ -295,6 +319,7 @@ if(typeof gl.swoosh == "undefined"){
             }
             if(keycode == 59 && !event.ctrlKey && !event.shiftKey){//';'=59
                 view.tipPanel.openPopup(view.textbox,"after_start");
+                view.tipPanel.children[0].clearSelection();
                 view.textbox.focus();
                 var len = view.textbox.value.length;
                 view.textbox.setSelectionRange(len,len);
@@ -378,4 +403,5 @@ if(typeof gl.swoosh == "undefined"){
     // window.addEventListener("unload",function(){
     //     savePrefs();
     // })
-})(gl.swoosh);
+};
+window.addEventListener("load",gl.swoosh.fun(gl.swoosh));

@@ -5,17 +5,20 @@ var currentIndex = -1;
 var currentEngine = null;
 var engineList=document.getElementById("engineList");
 function buildSettedList(){
-  var innerHtml = "";
+  var list = document.getElementById("engineList");
   for(var i = 0; i < installedEngines.length; i++){
     if(installedEngines[i].hidden) continue;
-    var str = "<listitem>"+
-                "<listcell class='listcell-iconic menuitem-with-favicon' image='"+installedEngines[i].iconURI.asciiSpec+"' label='"+installedEngines[i].name+"'/>"+
-                "<listcell label='"+(installedEngines[i].alias?installedEngines[i].alias:"")+"'/>"+
-              "</listitem>";
-    innerHtml+= str;
+    var item = document.createElement("listitem");
+    var cell1 = document.createElement("listcell");
+    cell1.className = "listcell-iconic menuitem-with-favicon";
+    cell1.setAttribute("image", installedEngines[i].iconURI.asciiSpec);
+    cell1.setAttribute("label", installedEngines[i].name);
+    var  cell2 = document.createElement("listcell");
+    cell2.setAttribute("label", installedEngines[i].alias ? installedEngines[i].alias : "");
+    item.appendChild(cell1);
+    item.appendChild(cell2);
+    list.appendChild(item);
   }
-  var engineList = document.getElementById("engineList");
-  engineList.innerHTML = engineList.innerHTML + innerHtml;
 }
 function init(){
   buildSettedList();

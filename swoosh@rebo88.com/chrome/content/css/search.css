@@ -63,9 +63,6 @@
 	width: 100px;
 	height: 80px;
 }
-#swoosh-switch-button{
-	list-style-image: 
-}
 #swoosh-switch-button {
 	list-style-image: url('chrome://swoosh/content/image/swoosh24.png');
 }
