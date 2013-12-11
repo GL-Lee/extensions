@@ -1,0 +1,17 @@
+#fullscreen-navigator-panel{
+	border:0;
+	background-color: #B1CFEB;
+	padding: 0px;
+}
+#gl-fullscreen-switch-button {
+	list-style-image: url('chrome://fullscreen/content/image/fullscreen24.png');
+}
+toolbar[iconsize="small"] #gl-fullscreen-switch-button {
+	list-style-image: url('chrome://fullscreen/content/image/fullscreen16.png');
+}
+menuitem.gl-fullscreen{
+	list-style-image: url('chrome://fullscreen/content/image/fullscreen16.png');
+}
+menuitem.gl-maxmodeFull{
+	list-style-image: url('chrome://fullscreen/content/image/maxmodefull16.png');
+}
