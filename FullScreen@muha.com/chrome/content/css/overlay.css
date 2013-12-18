@@ -2,6 +2,13 @@
 	border:0;
 	background-color: #B1CFEB;
 	padding: 0px;
+	margin: 0px;
+}
+.gl-navigator-bottom{
+	-moz-box-direction: reverse;
+}
+.gl-navigator-bottom #window-controls{
+	margin-top: 10px;
 }
 #gl-fullscreen-switch-button {
 	list-style-image: url('chrome://fullscreen/content/image/fullscreen24.png');

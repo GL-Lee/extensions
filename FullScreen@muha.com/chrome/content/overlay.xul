@@ -9,15 +9,15 @@
       class="toolbarbutton-1 chromeclass-toolbar-additional" 
       label="FULL SCREEN"
       tooltiptext="FULL SCREEN"
-      oncommand="GLFullScreen.maxmodeFlg = false;window.fullScreen = !window.fullScreen">
+      oncommand="window.fullScreen = !window.fullScreen">
 	  <menupopup>
-	    <menuitem class="menuitem-iconic gl-fullscreen" label="&fullscreen.full;" fullItem="true" oncommand="GLFullScreen.fullscreen(event)"/>
-	    <menuitem class="menuitem-iconic gl-maxmodeFull" label="&fullscreen.maxmodeFull;" fullItem="true" oncommand="GLFullScreen.maxmodeFullscreen(event)"/>
+	    <menuitem class="menuitem-iconic gl-fullscreen gl-full" label="&fullscreen.full;" fullItem="true" oncommand="GLFullScreen.fullscreen(event)"/>
+	    <menuitem class="menuitem-iconic gl-maxmodeFull gl-full" label="&fullscreen.maxmodeFull;" fullItem="true" oncommand="GLFullScreen.maxmodeFullscreen(event)"/>
 	  </menupopup>
 	</toolbarbutton>
   </toolbarpalette>
   <vbox id="browser-panel">
-  	<panel id="fullscreen-navigator-panel"/>
+  	<panel id="fullscreen-navigator-panel" consumeoutsideclicks="false"  style="-moz-window-shadow: none;"/>
   </vbox>
 </overlay>
 
