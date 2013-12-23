@@ -1,0 +1,22 @@
+{
+	"en-US":{
+		"features":
+			[
+				{
+					"version":"1.2.0",
+					"desc":"Now you can change focused tab by moveing mouse when one button of the mouse is held and you can choose your preferred button at the setting dialog!"
+				}
+			]
+		
+	},
+	"zh-CN":{
+		"features":
+			[
+				{
+					"version":"1.2.0",
+					"desc":"你可以在按住鼠标的某个键不放的状态下通过在向左或向右移动鼠标来切换tab页，你可以在设置对话框里来设置具体按住哪个键。"
+				}
+			]
+		
+	}
+}

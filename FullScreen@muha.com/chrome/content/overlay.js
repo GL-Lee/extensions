@@ -3,6 +3,90 @@ if(typeof GLFullScreen == "undefined"){
         navigatorPanel: null,
         navigator: null,
         position:{left:0,top:0},
+        nav:{
+            navStart: false,
+            pixH:50,
+            pixV:5,
+            startPosition:{
+                x:0,
+                y:0
+            },
+            mouse_button:2,
+            on_fullscreen:false,
+            mouseheld:false,
+            init:function(){
+                var prefService = Components.classes["@mozilla.org/preferences-service;1"]
+                .getService(Components.interfaces.nsIPrefService);
+                var branch = prefService.getBranch("extensions.fullscreen.");
+                this.on_fullscreen = branch.getBoolPref("on_fullscreen");
+                this.mouse_button = branch.getIntPref("mouse_button");
+                this.turnOn();
+            },
+            navTab: function(nowPoint){
+                if(nowPoint.x - this.startPosition.x > this.pixH){
+                    gBrowser.tabContainer.advanceSelectedTab(1, true);
+                    this.startPosition.x = nowPoint.x;
+                    this.startPosition.y = nowPoint.y;
+                }
+                if(nowPoint.x - this.startPosition.x < -this.pixH){
+                    gBrowser.tabContainer.advanceSelectedTab(-1, true);
+                    this.startPosition.x = nowPoint.x;
+                    this.startPosition.y = nowPoint.y;
+                }
+            },
+            mousedown:function(){
+                var nav = GLFullScreen.nav;
+                console.log("fullScreen mousedown");
+                var event = arguments[0];
+                console.log("fullScreen mouse_button:"+ nav.mouse_button)
+                if(event.button != nav.mouse_button || (nav.on_fullscreen && !window.fullScreen) ) return;
+                nav.startPosition.x = event.clientX;
+                nav.startPosition.y = event.clientY;
+                nav.mouseheld = true;
+                setTimeout(function(){
+                    if(nav.mouseheld && event.button == nav.mouse_button && !window.getBrowserSelection()){
+                        if(window.fullScreen){
+                            GLFullScreen.showNav();                    
+                        }
+                        // document.getElementById("main-window").style.cursor = "url(image/tabNav.png) 2 2, pointer";
+                        window.addEventListener("mousemove", nav.mousemove);
+                    }
+                },300);
+            },
+            mouseup:function(){
+                var nav = GLFullScreen.nav;
+                nav.mouseheld = false;
+                nav.navStart = false;
+                GLFullScreen.navigatorPanel.hidePopup();
+                window.removeEventListener("mousemove", nav.mousemove);
+            },
+            mouseclick:function(){
+                var nav = GLFullScreen.nav;
+                var event = arguments[0];
+                if(event.button != nav.mouse_button) return;
+                if(nav.navStart){
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
+            },
+            mousemove: function(){
+                var nav = GLFullScreen.nav;
+                var event = arguments[0];
+                var nowPoint = {x:event.clientX,y:event.clientY};
+                nav.navStart = true;
+                nav.navTab(nowPoint);
+            },
+            turnOn:function(){
+                window.addEventListener("mousedown",this.mousedown);
+                window.addEventListener("mouseup", this.mouseup, true)
+                window.addEventListener("click", this.mouseclick)
+            },
+            turnOff:function(){
+                window.removeEventListener("mousedown",this.mousedown);
+                window.removeEventListener("mouseup", this.mouseup, true)
+                window.removeEventListener("click", this.mouseclick)
+            }
+        },
         init: function(){
             this.navigatorPanel = document.getElementById("fullscreen-navigator-panel");
             this.navigator = document.getElementById("navigator-toolbox");
@@ -27,6 +111,57 @@ if(typeof GLFullScreen == "undefined"){
                 className = className.replace(/ *gl-navigator-(top|right|bottom|left)/g,'');
                 GLFullScreen.navigator.className = className;
             })
+            this.nav.init();
+            this.checkUpdate();
+            function PrefListener(branch_name, callback) {
+              // Keeping a reference to the observed preference branch or it will get
+              // garbage collected.
+              var prefService = Components.classes["@mozilla.org/preferences-service;1"]
+                .getService(Components.interfaces.nsIPrefService);
+              this._branch = prefService.getBranch(branch_name);
+              this._branch.QueryInterface(Components.interfaces.nsIPrefBranch2);
+              this._callback = callback;
+            }
+
+            PrefListener.prototype.observe = function(subject, topic, data) {
+              if (topic == 'nsPref:changed')
+                this._callback(this._branch, data);
+            };
+
+            /**
+             * @param {boolean=} trigger if true triggers the registered function
+             *   on registration, that is, when this method is called.
+             */
+            PrefListener.prototype.register = function(trigger) {
+              this._branch.addObserver('', this, false);
+              if (trigger) {
+                let that = this;
+                this._branch.getChildList('', {}).
+                  forEach(function (pref_leaf_name)
+                    { that._callback(that._branch, pref_leaf_name); });
+              }
+            };
+
+            PrefListener.prototype.unregister = function() {
+              if (this._branch)
+                this._branch.removeObserver('', this);
+            };
+
+            var myListener = new PrefListener(
+              "extensions.fullscreen.",
+              function(branch, name) {
+                switch (name) {
+                  case "on_fullscreen":
+                    GLFullScreen.nav.on_fullscreen = branch.getBoolPref("on_fullscreen");
+                    break;
+                  case "mouse_button":
+                    GLFullScreen.nav.mouse_button = branch.getIntPref("mouse_button");
+                    break;
+                }
+              }
+            );
+
+            myListener.register(true);
         },
         showNav: function(anchor,position){
             document.getElementById("navigator-toolbox").style.marginTop = "0px";
@@ -78,7 +213,44 @@ if(typeof GLFullScreen == "undefined"){
             GLFullScreen.navigatorPanel.hidePopup();
             event.stopPropagation();
             event.preventDefault();
+        },
+        checkUpdate: function(){
+            var version = 999;
+            try{
+                var prefService = Components.classes["@mozilla.org/preferences-service;1"]
+                .getService(Components.interfaces.nsIPrefService);
+                var branch = prefService.getBranch("extensions.fullscreen.");
+                version = branch.getIntPref("version");
+            }
+            catch(ex){}
+            var newVersion = 100;
+            try {
+                // Firefox 4 and later; Mozilla 2 and later
+                Components.utils.import("resource://gre/modules/AddonManager.jsm");
+                AddonManager.getAddonByID("FullScreen@muha.com", function(addon) {
+                    newVersion = parseInt(addon.version.replace(/\./g,''));
+                    if(!version || version < newVersion){
+                        GLFullScreen.showFeaturesPage();
+                        branch.setIntPref("version",newVersion);
+                    }
+              });
+            }
+            catch (ex) {
+                // Firefox 3.6 and before; Mozilla 1.9.2 and before
+                var em = Components.classes["@mozilla.org/extensions/manager;1"]
+                         .getService(Components.interfaces.nsIExtensionManager);
+                var addon = em.getItemForID("FullScreen@muha.com");
+                newVersion = parseInt(addon.version.replace(/\./g,''));
+                if(!version || version < newVersion){
+                    GLFullScreen.showFeaturesPage();
+                    branch.setIntPref("version",newVersion);
+                }
+            }
+        },
+        showFeaturesPage: function(){
+            window.openDialog("chrome://fullscreen/content/newFeatures.xul","features" ,"chrome,centerscreen,all,modal" );
         }
+
     }
     window.addEventListener("load",function(){
         GLFullScreen.init();
@@ -135,7 +307,7 @@ if(typeof GLFullScreen == "undefined"){
         GLFullScreen.navigatorPanel.addEventListener("mouseout",function(){
             GLFullScreen.inPanel = false;
             GLFullScreen.timer = setTimeout(function(){
-                if(!GLFullScreen.inPanel){
+                if(!GLFullScreen.inPanel && !GLFullScreen.nav.navStart){
                     GLFullScreen.navigatorPanel.hidePopup();
                 }
             },1000)

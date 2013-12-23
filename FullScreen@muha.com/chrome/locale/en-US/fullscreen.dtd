@@ -1,3 +1,12 @@
 <!ENTITY  fullscreen.full  "Full Scrren">
 <!ENTITY  fullscreen.maxmodeFull  "Max Mode Full Scrren">
 <!ENTITY  fullscreen.richFull  "Rich Full Scrren">
+<!ENTITY  fullscreen.set.title  "Full screen+ setting">
+<!ENTITY  fullscreen.set.tab_nav_cap  "Tab Navigator">
+<!ENTITY  fullscreen.set.on_fullscreen  "Turn on this only when in full screen">
+<!ENTITY  fullscreen.set.mouse_button  "Change focused tab by moving mouse when the button is held">
+<!ENTITY  fullscreen.set.mouse_left  "Left">
+<!ENTITY  fullscreen.set.mouse_middle  "Middle">
+<!ENTITY  fullscreen.set.mouse_right  "Right">
+<!ENTITY  fullscreen.fea.title  "New features of Full screen+">
+<!ENTITY  fullscreen.fea.openSet  "Set">

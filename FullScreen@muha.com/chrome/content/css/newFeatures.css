@@ -1,0 +1,13 @@
+dialog{
+}
+#wrapper{
+	width: 450px;
+	height: 400px;
+	background-color: white;
+}
+.version{
+	font-size: 18px;
+}
+.features{
+	white-space: wrap;
+}
