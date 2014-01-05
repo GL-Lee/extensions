@@ -19,5 +19,9 @@
   <vbox id="browser-panel">
   	<panel id="fullscreen-navigator-panel" consumeoutsideclicks="false"  style="-moz-window-shadow: none;"/>
   </vbox>
+  <popupset id="mainPopupSet">
+    <panel id="gl-fullscreen-tab-nav">
+    </panel>
+  </popupset>
 </overlay>
 

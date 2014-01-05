@@ -4,8 +4,8 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
   <Description about="urn:mozilla:install-manifest">
-    <em:id>FullScreen@muha.com</em:id>
-    <em:version>1.2.2</em:version>
+    <em:id>MenuManager@muha.com</em:id>
+    <em:version>1.0.0</em:version>
 
     <!-- Firefox -->
     <em:targetApplication>
@@ -15,15 +15,15 @@
         <em:maxVersion>27.0.*</em:maxVersion>
       </Description>
     </em:targetApplication>
-    <em:name>FullScreen+</em:name>
-    <em:description>Full screen with tab and other navigator tools which you want</em:description>
+    <em:name>Context Menu Manager+</em:name>
+    <em:description>Manage your menu item, show or hide; When hidden, you can show them easily!</em:description>
     <em:creator>GL-Lee</em:creator>
     <em:developer>GL-Lee</em:developer>
     <em:homepageURL>http://www.cnblogs.com/muha/p/3430363.html</em:homepageURL>
-    <em:optionsURL>chrome://fullscreen/content/set.xul</em:optionsURL>
+    <em:optionsURL>chrome://menumanager/content/set.xul</em:optionsURL>
     <em:type>2</em:type> <!-- extension -->
     <em:unpack>true</em:unpack>
-    <em:iconURL>chrome://fullscreen/content/image/view-fullscreen.png</em:iconURL>
+    <em:iconURL>chrome://menumanager/content/image/view-fullscreen.png</em:iconURL>
 
   </Description>      
 </RDF>

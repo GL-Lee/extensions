@@ -14,12 +14,15 @@ if(typeof GLFullScreen == "undefined"){
             mouse_button:2,
             on_fullscreen:false,
             mouseheld:false,
+            navPanel:null,
+            navPanelWidth:24,
             init:function(){
                 var prefService = Components.classes["@mozilla.org/preferences-service;1"]
                 .getService(Components.interfaces.nsIPrefService);
                 var branch = prefService.getBranch("extensions.fullscreen.");
                 this.on_fullscreen = branch.getBoolPref("on_fullscreen");
                 this.mouse_button = branch.getIntPref("mouse_button");
+                this.navPanel = document.getElementById("gl-fullscreen-tab-nav");
                 this.turnOn();
             },
             navTab: function(nowPoint){
@@ -36,35 +39,47 @@ if(typeof GLFullScreen == "undefined"){
             },
             mousedown:function(){
                 var nav = GLFullScreen.nav;
-                console.log("fullScreen mousedown");
                 var event = arguments[0];
-                console.log("fullScreen mouse_button:"+ nav.mouse_button)
                 if(event.button != nav.mouse_button || (nav.on_fullscreen && !window.fullScreen) ) return;
                 nav.startPosition.x = event.clientX;
                 nav.startPosition.y = event.clientY;
-                nav.mouseheld = true;
-                setTimeout(function(){
-                    if(nav.mouseheld && event.button == nav.mouse_button && !window.getBrowserSelection()){
-                        if(window.fullScreen){
-                            GLFullScreen.showNav();                    
+                nav.mousedowned = true;
+                if(event.button == nav.mouse_button && !window.getBrowserSelection()){
+                    setTimeout(function(){
+                        if(nav.mousedowned){
+                            if(window.fullScreen){
+                                GLFullScreen.showNav();                    
+                            }
+                            // document.getElementById("main-window").style.cursor = "url(image/tabNav.png) 2 2, pointer";
+                            nav.navPanel.openPopupAtScreen( event.screenX - nav.navPanelWidth/2, event.screenY - nav.navPanelWidth/2);
+                            nav.navPanel.className="gl-fullscreen-hovered";
+                            window.addEventListener("mousemove", nav.mousemove);
+                            nav.mouseheld = true;
                         }
-                        // document.getElementById("main-window").style.cursor = "url(image/tabNav.png) 2 2, pointer";
-                        window.addEventListener("mousemove", nav.mousemove);
-                    }
-                },300);
+                    }, 200)
+                }
             },
             mouseup:function(){
                 var nav = GLFullScreen.nav;
-                nav.mouseheld = false;
-                nav.navStart = false;
-                GLFullScreen.navigatorPanel.hidePopup();
+                var event = arguments[0];
+                nav.mousedowned = false;
+                if(nav.mouseheld){
+                    event.stopPropagation();
+                    event.preventDefault();
+                    GLFullScreen.navigatorPanel.hidePopup();
+                }
+                setTimeout(function(){
+                    nav.navPanel.className="";
+                    nav.navPanel.hidePopup();
+                    nav.mouseheld = false;
+                },10)
                 window.removeEventListener("mousemove", nav.mousemove);
             },
             mouseclick:function(){
                 var nav = GLFullScreen.nav;
                 var event = arguments[0];
                 if(event.button != nav.mouse_button) return;
-                if(nav.navStart){
+                if(nav.mouseheld){
                     event.stopPropagation();
                     event.preventDefault();
                 }
@@ -72,13 +87,14 @@ if(typeof GLFullScreen == "undefined"){
             mousemove: function(){
                 var nav = GLFullScreen.nav;
                 var event = arguments[0];
+                // nav.navStart = true;
                 var nowPoint = {x:event.clientX,y:event.clientY};
-                nav.navStart = true;
+                nav.navPanel.moveTo(event.screenX - nav.navPanelWidth/2,event.screenY - nav.navPanelWidth/2);
                 nav.navTab(nowPoint);
             },
             turnOn:function(){
                 window.addEventListener("mousedown",this.mousedown);
-                window.addEventListener("mouseup", this.mouseup, true)
+                window.addEventListener("mouseup", this.mouseup)
                 window.addEventListener("click", this.mouseclick)
             },
             turnOff:function(){
@@ -165,7 +181,10 @@ if(typeof GLFullScreen == "undefined"){
         },
         showNav: function(anchor,position){
             document.getElementById("navigator-toolbox").style.marginTop = "0px";
-            GLFullScreen.navigatorPanel.openPopup(anchor,"",GLFullScreen.position.left, GLFullScreen.position.top);
+            if(GLFullScreen.navigatorPanel.state == "closed"){
+                GLFullScreen.navigatorPanel.openPopup(anchor,"",GLFullScreen.position.left, GLFullScreen.position.top);
+            }
+            
             GLFullScreen.inPanel = true;
             GLFullScreen.position = {left: 0, top: 0};
         },
@@ -248,7 +267,7 @@ if(typeof GLFullScreen == "undefined"){
             }
         },
         showFeaturesPage: function(){
-            window.openDialog("chrome://fullscreen/content/newFeatures.xul","features" ,"chrome,centerscreen,all,modal" );
+            window.openDialog("chrome://fullscreen/content/newFeatures.xul","features" ,"chrome,centerscreen,all" );
         }
 
     }
@@ -280,6 +299,7 @@ if(typeof GLFullScreen == "undefined"){
                     document.getElementById("fullscr-toggler").setAttribute("collapsed", "true");
                     GLFullScreen.changeState();
                     gNavToolbox.palette = GLFullScreen.palette;
+                    GLFullScreen.navigatorPanel.hidePopup();
                 }
 
             })

@@ -1,0 +1,12 @@
+<!ENTITY  fullscreen.full  "全屏">
+<!ENTITY  fullscreen.maxmodeFull  "最大化式全屏">
+<!ENTITY  fullscreen.richFull  "富客户端全屏">
+<!ENTITY  fullscreen.set.title  "Full screen+ 设置">
+<!ENTITY  fullscreen.set.tab_nav_cap  "Tab 切换">
+<!ENTITY  fullscreen.set.on_fullscreen  "只在全屏模式下开启该功能">
+<!ENTITY  fullscreen.set.mouse_button  "按住以下键时移动鼠标进行Tab页切换">
+<!ENTITY  fullscreen.set.mouse_left  "左键">
+<!ENTITY  fullscreen.set.mouse_middle  "滚轮">
+<!ENTITY  fullscreen.set.mouse_right  "右键">
+<!ENTITY  fullscreen.fea.title  "Full screen+ 新特性">
+<!ENTITY  fullscreen.fea.openSet  "设置">

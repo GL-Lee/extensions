@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin" type="text/css"?>
+<?xml-stylesheet href="css/set.css"?>
+<!DOCTYPE window SYSTEM "chrome://fullscreen/locale/fullscreen.dtd">
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  title="&fullscreen.set.title;"
+  buttons="accept,cancel"
+  ondialogaccept="setPref()">
+  <script src="chrome://fullscreen/content/set.js" />
+  <vbox id="wrapper">
+    <groupbox>
+      <caption label="&fullscreen.set.tab_nav_cap;"/>
+      <label value="&fullscreen.set.on_fullscreen;"/>
+      <checkbox id="on_fullscreen"/>
+      <label value="&fullscreen.set.mouse_button;"/>
+      <radiogroup id="mouse_button_group">
+        <radio label="&fullscreen.set.mouse_left;"/>
+        <radio label="&fullscreen.set.mouse_middle;"/>
+        <radio label="&fullscreen.set.mouse_right;"/>
+      </radiogroup>
+    </groupbox>
+  </vbox>
+</dialog>

@@ -1,0 +1,7 @@
+content menumanager chrome/content/
+
+overlay	chrome://browser/content/browser.xul	chrome://menumanager/content/overlay.xul
+style	chrome://global/content/customizeToolbar.xul	chrome://menumanager/content/css/overlay.css
+
+locale menumanager en-US chrome/locale/en-US/
+locale menumanager zh-CN chrome/locale/zh-CN/
