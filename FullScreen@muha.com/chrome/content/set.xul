@@ -20,5 +20,12 @@
         <radio label="&fullscreen.set.mouse_right;"/>
       </radiogroup>
     </groupbox>
+    <groupbox>
+      <caption label="&fullscreen.set.navset;"/>
+      <checkbox id="menubar" label="&fullscreen.set.menubar;" checked="true"/>
+      <checkbox id="navbar" label="&fullscreen.set.navbar;" checked="true"/>
+      <checkbox id="bookmarbar" label="&fullscreen.set.bookmarbar;" checked="true"/>
+      <checkbox id="addonbar" label="&fullscreen.set.addonbar;" checked="true"/>
+    </groupbox>
   </vbox>
 </dialog>

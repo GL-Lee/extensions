@@ -103,13 +103,68 @@ if(typeof GLFullScreen == "undefined"){
                 window.removeEventListener("click", this.mouseclick)
             }
         },
+        toolbarSet:{
+            menubar: false,
+            navbar: false,
+            bookmarbar: false,
+            addonbar: false,
+            menubar_bak: false,
+            navbar_bak: false,
+            bookmarbar_bak: false,
+            addonbar_bak: false,
+            init:function(){
+                var prefService = Components.classes["@mozilla.org/preferences-service;1"]
+                .getService(Components.interfaces.nsIPrefService);
+                var branch = prefService.getBranch("extensions.fullscreen.");
+                this.menubar = branch.getBoolPref("menubar");
+                this.navbar = branch.getBoolPref("navbar");
+                this.bookmarbar = branch.getBoolPref("bookmarbar");
+                this.addonbar = branch.getBoolPref("addonbar");
+                
+                this.menubar_bak = document.getElementById("toolbar-menubar").getAttribute("moz-collapsed");
+                this.menubar_bak === undefined? false: this.menubar_bak;
+
+                this.navbar_bak = document.getElementById("nav-bar").getAttribute("moz-collapsed");
+                this.navbar_bak === undefined? false: this.navbar_bak;
+
+                this.bookmarbar_bak = document.getElementById("PersonalToolbar").getAttribute("moz-collapsed");
+                this.bookmarbar_bak === undefined? false: this.bookmarbar_bak;
+
+                this.addonbar_bak = document.getElementById("addon-bar").getAttribute("moz-collapsed");
+                this.addonbar_bak === undefined? false: this.addonbar_bak;
+
+                setTimeout(function(){GLFullScreen.toolbarSet.set.call(GLFullScreen.toolbarSet)}, 3000);
+            },
+            set: function(){
+                document.getElementById("toolbar-menubar").setAttribute("moz-collapsed", !this.menubar);
+                document.getElementById("nav-bar").setAttribute("moz-collapsed", !this.navbar);
+                document.getElementById("PersonalToolbar").setAttribute("moz-collapsed", !this.bookmarbar);
+                document.getElementById("addon-bar").setAttribute("moz-collapsed", !this.addonbar);
+                if(this.menubar){
+                    var menubar = document.getElementById("toolbar-menubar");
+                    var hbox = document.createElement("hbox");
+                    hbox.className = "gl-hbox-flex";
+                    hbox.setAttribute("flex", 1);
+                    menubar.appendChild(hbox);
+                    menubar.appendChild(document.getElementById("window-controls"));
+                }
+            },
+            unset: function(){
+                var menubar = document.getElementById("toolbar-menubar");
+                if(this.menubar){
+                    menubar.removeChild(document.querySelector("#toolbar-menubar .gl-hbox-flex"));
+                    document.getElementById("TabsToolbar").appendChild(document.getElementById("window-controls"))
+                }
+            }
+        },
         init: function(){
             this.navigatorPanel = document.getElementById("fullscreen-navigator-panel");
             this.navigator = document.getElementById("navigator-toolbox");
             this.palette = gNavToolbox.palette.cloneNode(true);
-            var triggerBottom = document.createElement("hbox");
+            var triggerBottom = this.triggerBottom = document.createElement("hbox");
             triggerBottom.id = "gl-trigger-bottom"
             triggerBottom.height = 1;
+            triggerBottom.collapsed = true;
             triggerBottom.style.backgroudColor = 'red';
             triggerBottom.addEventListener("mouseover",function(event){
                 GLFullScreen.position.left = 0;
@@ -128,6 +183,7 @@ if(typeof GLFullScreen == "undefined"){
                 GLFullScreen.navigator.className = className;
             })
             this.nav.init();
+            this.toolbarSet.init();
             this.checkUpdate();
             function PrefListener(branch_name, callback) {
               // Keeping a reference to the observed preference branch or it will get
@@ -173,7 +229,20 @@ if(typeof GLFullScreen == "undefined"){
                   case "mouse_button":
                     GLFullScreen.nav.mouse_button = branch.getIntPref("mouse_button");
                     break;
+                  case "menubar":
+                    GLFullScreen.toolbarSet.mouse_button = branch.getBoolPref("menubar");
+                    break;
+                  case "navbar":
+                    GLFullScreen.toolbarSet.mouse_button = branch.getBoolPref("navbar");
+                    break;
+                  case "bookmarbar":
+                    GLFullScreen.toolbarSet.mouse_button = branch.getBoolPref("bookmarbar");
+                    break;
+                  case "addonbar":
+                    GLFullScreen.toolbarSet.mouse_button = branch.getBoolPref("addonbar");
+                    break;
                 }
+                GLFullScreen.toolbarSet.set();
               }
             );
 
@@ -249,7 +318,7 @@ if(typeof GLFullScreen == "undefined"){
                 AddonManager.getAddonByID("FullScreen@muha.com", function(addon) {
                     newVersion = parseInt(addon.version.replace(/\./g,''));
                     if(!version || version < newVersion){
-                        GLFullScreen.showFeaturesPage();
+                        // GLFullScreen.showFeaturesPage();
                         branch.setIntPref("version",newVersion);
                     }
               });
@@ -261,7 +330,7 @@ if(typeof GLFullScreen == "undefined"){
                 var addon = em.getItemForID("FullScreen@muha.com");
                 newVersion = parseInt(addon.version.replace(/\./g,''));
                 if(!version || version < newVersion){
-                    GLFullScreen.showFeaturesPage();
+                    // GLFullScreen.showFeaturesPage();
                     branch.setIntPref("version",newVersion);
                 }
             }
@@ -293,6 +362,8 @@ if(typeof GLFullScreen == "undefined"){
                         GLFullScreen.navigatorPanel.width = window.screen.width;
                     }
                     document.getElementById("fullscr-toggler").setAttribute("collapsed", "false");
+                    GLFullScreen.triggerBottom.collapsed = false;
+                    setTimeout(function(){GLFullScreen.toolbarSet.set.call(GLFullScreen.toolbarSet)}, 300);
                 }else{
                     var fullscrtoggler = document.getElementById("fullscr-toggler");
                     document.getElementById("browser-panel").insertBefore(GLFullScreen.navigator, fullscrtoggler);
@@ -300,6 +371,8 @@ if(typeof GLFullScreen == "undefined"){
                     GLFullScreen.changeState();
                     gNavToolbox.palette = GLFullScreen.palette;
                     GLFullScreen.navigatorPanel.hidePopup();
+                    GLFullScreen.triggerBottom.collapsed = true;
+                    GLFullScreen.toolbarSet.unset();
                 }
 
             })

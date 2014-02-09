@@ -8,5 +8,10 @@
 <!ENTITY  fullscreen.set.mouse_left  "左键">
 <!ENTITY  fullscreen.set.mouse_middle  "滚轮">
 <!ENTITY  fullscreen.set.mouse_right  "右键">
+<!ENTITY  fullscreen.set.navset  "是否显示：">
+<!ENTITY  fullscreen.set.menubar  "菜单栏">
+<!ENTITY  fullscreen.set.navbar  "导航工具栏">
+<!ENTITY  fullscreen.set.bookmarbar  "书签工具栏">
+<!ENTITY  fullscreen.set.addonbar  "附件组件栏">
 <!ENTITY  fullscreen.fea.title  "Full screen+ 新特性">
 <!ENTITY  fullscreen.fea.openSet  "设置">
