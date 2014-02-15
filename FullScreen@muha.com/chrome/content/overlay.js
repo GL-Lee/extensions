@@ -3,6 +3,7 @@ if(typeof GLFullScreen == "undefined"){
         navigatorPanel: null,
         navigator: null,
         position:{left:0,top:0},
+        menuToggleFlg: "true",
         nav:{
             navStart: false,
             pixH:50,
@@ -40,7 +41,11 @@ if(typeof GLFullScreen == "undefined"){
             mousedown:function(){
                 var nav = GLFullScreen.nav;
                 var event = arguments[0];
-                if(event.button != nav.mouse_button || (nav.on_fullscreen && !window.fullScreen) ) return;
+                if(event.button != nav.mouse_button || (nav.on_fullscreen && !window.fullScreen) ){
+                    if(!GLFullScreen.inPanel)
+                        GLFullScreen.navigatorPanel.style.display = "none";
+                    return;
+                }
                 nav.startPosition.x = event.clientX;
                 nav.startPosition.y = event.clientY;
                 nav.mousedowned = true;
@@ -66,7 +71,15 @@ if(typeof GLFullScreen == "undefined"){
                 if(nav.mouseheld){
                     event.stopPropagation();
                     event.preventDefault();
-                    GLFullScreen.navigatorPanel.hidePopup();
+                    if(nav.moved){
+                        GLFullScreen.navigatorPanel.style.display = "none";
+                    }else{
+                        setTimeout(function(){
+                            if(!GLFullScreen.inPanel)
+                                GLFullScreen.navigatorPanel.style.display = "none";
+                        }, 4000)
+                    }
+                    
                 }
                 setTimeout(function(){
                     nav.navPanel.className="";
@@ -74,6 +87,7 @@ if(typeof GLFullScreen == "undefined"){
                     nav.mouseheld = false;
                 },10)
                 window.removeEventListener("mousemove", nav.mousemove);
+                nav.moved = false;
             },
             mouseclick:function(){
                 var nav = GLFullScreen.nav;
@@ -87,7 +101,7 @@ if(typeof GLFullScreen == "undefined"){
             mousemove: function(){
                 var nav = GLFullScreen.nav;
                 var event = arguments[0];
-                // nav.navStart = true;
+                nav.moved = true;
                 var nowPoint = {x:event.clientX,y:event.clientY};
                 nav.navPanel.moveTo(event.screenX - nav.navPanelWidth/2,event.screenY - nav.navPanelWidth/2);
                 nav.navTab(nowPoint);
@@ -136,6 +150,7 @@ if(typeof GLFullScreen == "undefined"){
                 setTimeout(function(){GLFullScreen.toolbarSet.set.call(GLFullScreen.toolbarSet)}, 3000);
             },
             set: function(){
+                if(!window.fullScreen) return;
                 document.getElementById("toolbar-menubar").setAttribute("moz-collapsed", !this.menubar);
                 document.getElementById("nav-bar").setAttribute("moz-collapsed", !this.navbar);
                 document.getElementById("PersonalToolbar").setAttribute("moz-collapsed", !this.bookmarbar);
@@ -148,12 +163,24 @@ if(typeof GLFullScreen == "undefined"){
                     menubar.appendChild(hbox);
                     menubar.appendChild(document.getElementById("window-controls"));
                 }
+                if(!this.navbar){
+                    document.getElementById("tabbrowser-tabs").appendChild(document.getElementById("gl-fullscreen-switch-button"));
+                }else{
+                    document.getElementById("nav-bar").appendChild(document.getElementById("gl-fullscreen-switch-button"));
+                }
             },
             unset: function(){
                 var menubar = document.getElementById("toolbar-menubar");
                 if(this.menubar){
                     menubar.removeChild(document.querySelector("#toolbar-menubar .gl-hbox-flex"));
                     document.getElementById("TabsToolbar").appendChild(document.getElementById("window-controls"))
+                }
+                document.getElementById("toolbar-menubar").setAttribute("moz-collapsed", this.menubar_bak);
+                document.getElementById("nav-bar").setAttribute("moz-collapsed", this.navbar_bak);
+                document.getElementById("PersonalToolbar").setAttribute("moz-collapsed", this.bookmarbar_bak);
+                document.getElementById("addon-bar").setAttribute("moz-collapsed", this.addonbar_bak);
+                if(!this.navbar){
+                    document.getElementById("nav-bar").appendChild(document.getElementById("gl-fullscreen-switch-button"));
                 }
             }
         },
@@ -182,6 +209,10 @@ if(typeof GLFullScreen == "undefined"){
                 className = className.replace(/ *gl-navigator-(top|right|bottom|left)/g,'');
                 GLFullScreen.navigator.className = className;
             })
+            var toggler = this.toggler = document.createElement("hbox");
+            toggler.id = "gl-fullscr-toggler";
+            document.getElementById("browser-panel").insertBefore(toggler, document.getElementById("browser"));
+
             this.nav.init();
             this.toolbarSet.init();
             this.checkUpdate();
@@ -230,16 +261,16 @@ if(typeof GLFullScreen == "undefined"){
                     GLFullScreen.nav.mouse_button = branch.getIntPref("mouse_button");
                     break;
                   case "menubar":
-                    GLFullScreen.toolbarSet.mouse_button = branch.getBoolPref("menubar");
+                    GLFullScreen.toolbarSet.menubar = branch.getBoolPref("menubar");
                     break;
                   case "navbar":
-                    GLFullScreen.toolbarSet.mouse_button = branch.getBoolPref("navbar");
+                    GLFullScreen.toolbarSet.navbar = branch.getBoolPref("navbar");
                     break;
                   case "bookmarbar":
-                    GLFullScreen.toolbarSet.mouse_button = branch.getBoolPref("bookmarbar");
+                    GLFullScreen.toolbarSet.bookmarbar = branch.getBoolPref("bookmarbar");
                     break;
                   case "addonbar":
-                    GLFullScreen.toolbarSet.mouse_button = branch.getBoolPref("addonbar");
+                    GLFullScreen.toolbarSet.addonbar = branch.getBoolPref("addonbar");
                     break;
                 }
                 GLFullScreen.toolbarSet.set();
@@ -251,10 +282,14 @@ if(typeof GLFullScreen == "undefined"){
         showNav: function(anchor,position){
             document.getElementById("navigator-toolbox").style.marginTop = "0px";
             if(GLFullScreen.navigatorPanel.state == "closed"){
-                GLFullScreen.navigatorPanel.openPopup(anchor,"",GLFullScreen.position.left, GLFullScreen.position.top);
+                // GLFullScreen.navigatorPanel.openPopup(anchor,"",GLFullScreen.position.left, GLFullScreen.position.top);
+                GLFullScreen.navigatorPanel.style.display = "block";
+                // GLFullScreen.navigatorPanel.style.left = GLFullScreen.position.left;
+                // GLFullScreen.navigatorPanel.style.top = GLFullScreen.position.top;
+                GLFullScreen.navigatorPanel.style.position = "fixed";
             }
             
-            GLFullScreen.inPanel = true;
+            // GLFullScreen.inPanel = true;
             GLFullScreen.position = {left: 0, top: 0};
         },
         changeID: function(ele, preStr){
@@ -284,7 +319,7 @@ if(typeof GLFullScreen == "undefined"){
                 window.fullScreen = true;
             }
             this.changeState(event.target);
-            GLFullScreen.navigatorPanel.hidePopup();
+            GLFullScreen.navigatorPanel.style.display = "none";
             event.stopPropagation();
             event.preventDefault();
         },
@@ -295,32 +330,34 @@ if(typeof GLFullScreen == "undefined"){
                 window.resizeTo(screen.availWidth,screen.availHeight);
                 event.target.setAttribute("disabled", "true");
             }else{
-                window.fullScreen = true;
+                setTimeout(function(){window.fullScreen = true},100)
             }
             this.changeState(event.target);
-            GLFullScreen.navigatorPanel.hidePopup();
+            GLFullScreen.navigatorPanel.style.display = "none";
+
             event.stopPropagation();
             event.preventDefault();
         },
         checkUpdate: function(){
-            var version = 999;
+            var version = 124;
+            var configVersion = 999;
             try{
                 var prefService = Components.classes["@mozilla.org/preferences-service;1"]
                 .getService(Components.interfaces.nsIPrefService);
                 var branch = prefService.getBranch("extensions.fullscreen.");
-                version = branch.getIntPref("version");
+                configVersion = branch.getIntPref("version");
             }
             catch(ex){}
+            if(version > configVersion){
+                GLFullScreen.showFeaturesPage();
+            }
             var newVersion = 100;
             try {
                 // Firefox 4 and later; Mozilla 2 and later
                 Components.utils.import("resource://gre/modules/AddonManager.jsm");
                 AddonManager.getAddonByID("FullScreen@muha.com", function(addon) {
                     newVersion = parseInt(addon.version.replace(/\./g,''));
-                    if(!version || version < newVersion){
-                        // GLFullScreen.showFeaturesPage();
-                        branch.setIntPref("version",newVersion);
-                    }
+                    branch.setIntPref("version",newVersion);
               });
             }
             catch (ex) {
@@ -329,10 +366,7 @@ if(typeof GLFullScreen == "undefined"){
                          .getService(Components.interfaces.nsIExtensionManager);
                 var addon = em.getItemForID("FullScreen@muha.com");
                 newVersion = parseInt(addon.version.replace(/\./g,''));
-                if(!version || version < newVersion){
-                    // GLFullScreen.showFeaturesPage();
-                    branch.setIntPref("version",newVersion);
-                }
+                branch.setIntPref("version",newVersion);
             }
         },
         showFeaturesPage: function(){
@@ -349,7 +383,9 @@ if(typeof GLFullScreen == "undefined"){
             }
             window.addEventListener("fullscreen", function(){
                 if(!window.fullScreen){
-                    GLFullScreen.navigatorPanel.width = window.screen.width;
+                    GLFullScreen.menuToggleFlg = document.getElementById("toolbar-menubar").getAttribute("autohide");
+                    setToolbarVisibility(document.getElementById("toolbar-menubar"), true);
+                    // GLFullScreen.navigatorPanel.width = window.screen.width;
                     GLFullScreen.navigatorPanel.appendChild(GLFullScreen.navigator);
 
                     if(GLFullScreen.maxmodeFlg){
@@ -361,23 +397,28 @@ if(typeof GLFullScreen == "undefined"){
                     }else{
                         GLFullScreen.navigatorPanel.width = window.screen.width;
                     }
-                    document.getElementById("fullscr-toggler").setAttribute("collapsed", "false");
+                    // GLFullScreen.toggler.setAttribute("collapsed", "false");
                     GLFullScreen.triggerBottom.collapsed = false;
                     setTimeout(function(){GLFullScreen.toolbarSet.set.call(GLFullScreen.toolbarSet)}, 300);
                 }else{
+                    setTimeout(function(){
+                        if(GLFullScreen.menuToggleFlg == "true"){
+                            setToolbarVisibility(document.getElementById("toolbar-menubar"), false);
+                       }
+                    },100)
                     var fullscrtoggler = document.getElementById("fullscr-toggler");
                     document.getElementById("browser-panel").insertBefore(GLFullScreen.navigator, fullscrtoggler);
-                    document.getElementById("fullscr-toggler").setAttribute("collapsed", "true");
-                    GLFullScreen.changeState();
                     gNavToolbox.palette = GLFullScreen.palette;
-                    GLFullScreen.navigatorPanel.hidePopup();
+                    // GLFullScreen.toggler.setAttribute("collapsed", "true");
+                    GLFullScreen.changeState();
+                    GLFullScreen.navigatorPanel.style.display = "none";;
                     GLFullScreen.triggerBottom.collapsed = true;
                     GLFullScreen.toolbarSet.unset();
                 }
 
             })
         },3000);
-        document.getElementById("fullscr-toggler").addEventListener("mouseover",function(event){
+        GLFullScreen.toggler.addEventListener("mouseover",function(event){
             var className = GLFullScreen.navigator.className;
             className = className.replace(/ *gl-navigator-(top|right|bottom|left)/g,'');
             className+= " gl-navigator-top";
@@ -387,12 +428,12 @@ if(typeof GLFullScreen == "undefined"){
             GLFullScreen.showNav();
             event.stopPropagation();
             event.preventDefault();
-        },true);
-        document.getElementById("fullscr-toggler").addEventListener("mouseout",function(event){
-            setTimeout(function(){
-                document.getElementById("fullscr-toggler").setAttribute("collapsed", "false");
-            },1);
-        },true);
+        },false);
+        // GLFullScreen.toggler.addEventListener("mouseout",function(event){
+        //     setTimeout(function(){
+        //         document.getElementById("fullscr-toggler").setAttribute("collapsed", "false");
+        //     },1);
+        // },true);
         GLFullScreen.navigatorPanel.addEventListener("mouseover",function(){
             GLFullScreen.inPanel = true;
             GLFullScreen.timer && clearTimeout(GLFullScreen.timer);
@@ -401,7 +442,7 @@ if(typeof GLFullScreen == "undefined"){
             GLFullScreen.inPanel = false;
             GLFullScreen.timer = setTimeout(function(){
                 if(!GLFullScreen.inPanel && !GLFullScreen.nav.navStart){
-                    GLFullScreen.navigatorPanel.hidePopup();
+                    GLFullScreen.navigatorPanel.style.display = "none";;
                 }
             },1000)
         })

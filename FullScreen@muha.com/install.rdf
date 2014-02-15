@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>FullScreen@muha.com</em:id>
-    <em:version>1.2.3</em:version>
+    <em:version>1.2.7</em:version>
 
     <!-- Firefox -->
     <em:targetApplication>
@@ -24,6 +24,13 @@
     <em:type>2</em:type> <!-- extension -->
     <em:unpack>true</em:unpack>
     <em:iconURL>chrome://fullscreen/content/image/view-fullscreen.png</em:iconURL>
+    <em:localized>
+       <Description>
+         <em:locale>zh-CN</em:locale>
+         <em:name>全屏</em:name>
+         <em:description>解决了火狐全屏下鼠标移至顶端时地址栏将网页下压的问题，增加了全屏模式下任务栏的显示，你也可以设置全屏模式下是否显示菜单栏、地址栏、标签栏。</em:description>
+       </Description>
+    </em:localized>
 
   </Description>      
 </RDF>

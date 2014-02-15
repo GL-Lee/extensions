@@ -4,20 +4,20 @@
 <!DOCTYPE overlay SYSTEM "chrome://fullscreen/locale/fullscreen.dtd">
 <overlay id="menueditOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="overlay.js"/>
-  <toolbarpalette id="BrowserToolbarPalette">
+  <toolbar id="nav-bar">
     <toolbarbutton id="gl-fullscreen-switch-button" type="menu-button"
       class="toolbarbutton-1 chromeclass-toolbar-additional" 
-      label="FULL SCREEN"
-      tooltiptext="FULL SCREEN"
+      label="&fullscreen.title;"
+      tooltiptext="&fullscreen.title;"
       oncommand="window.fullScreen = !window.fullScreen">
-	  <menupopup>
-	    <menuitem class="menuitem-iconic gl-fullscreen gl-full" label="&fullscreen.full;" fullItem="true" oncommand="GLFullScreen.fullscreen(event)"/>
-	    <menuitem class="menuitem-iconic gl-maxmodeFull gl-full" label="&fullscreen.maxmodeFull;" fullItem="true" oncommand="GLFullScreen.maxmodeFullscreen(event)"/>
-	  </menupopup>
-	</toolbarbutton>
-  </toolbarpalette>
+    <menupopup>
+      <menuitem class="menuitem-iconic gl-fullscreen gl-full" label="&fullscreen.full;" fullItem="true" oncommand="GLFullScreen.fullscreen(event)"/>
+      <menuitem class="menuitem-iconic gl-maxmodeFull gl-full" label="&fullscreen.maxmodeFull;" fullItem="true" oncommand="GLFullScreen.maxmodeFullscreen(event)"/>
+    </menupopup>
+  </toolbarbutton>
+  </toolbar>
   <vbox id="browser-panel">
-  	<panel id="fullscreen-navigator-panel" consumeoutsideclicks="false"  style="-moz-window-shadow: none;"/>
+    <panel id="fullscreen-navigator-panel" consumeoutsideclicks="false"  style="-moz-window-shadow: none;"/>
   </vbox>
   <popupset id="mainPopupSet">
     <panel id="gl-fullscreen-tab-nav">

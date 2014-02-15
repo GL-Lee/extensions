@@ -1,3 +1,4 @@
+<!ENTITY  fullscreen.title  "Full Scrren">
 <!ENTITY  fullscreen.full  "Full Scrren">
 <!ENTITY  fullscreen.maxmodeFull  "Max Mode Full Scrren">
 <!ENTITY  fullscreen.richFull  "Rich Full Scrren">
@@ -8,10 +9,10 @@
 <!ENTITY  fullscreen.set.mouse_left  "Left">
 <!ENTITY  fullscreen.set.mouse_middle  "Middle">
 <!ENTITY  fullscreen.set.mouse_right  "Right">
-<!ENTITY  fullscreen.set.navset  "是否显示：">
-<!ENTITY  fullscreen.set.menubar  "菜单栏">
-<!ENTITY  fullscreen.set.navbar  "导航工具栏">
-<!ENTITY  fullscreen.set.bookmarbar  "书签工具栏">
-<!ENTITY  fullscreen.set.addonbar  "附件组件栏">
+<!ENTITY  fullscreen.set.navset  "Show or not:">
+<!ENTITY  fullscreen.set.menubar  "Menus Toolbar">
+<!ENTITY  fullscreen.set.navbar  "Navigation Toolbar">
+<!ENTITY  fullscreen.set.bookmarbar  "Bookmars Toolbar">
+<!ENTITY  fullscreen.set.addonbar  "Add-ons Bar">
 <!ENTITY  fullscreen.fea.title  "New features of Full screen+">
 <!ENTITY  fullscreen.fea.openSet  "Set">

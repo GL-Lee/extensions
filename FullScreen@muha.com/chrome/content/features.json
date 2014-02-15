@@ -1,20 +1,20 @@
 {
-	"en-US":{
+	"en-us":{
 		"features":
 			[
 				{
-					"version":"1.2.0",
-					"desc":"Now you can change focused tab by moving mouse when one button of the mouse is held and you can choose your preferred button at the setting dialog, default is the right button!"
+					"version":"1.2.4",
+					"desc":"Now you can set show or not of Menus bar, Navigation Toolbar, Bookmars Toolbar and Add-ons Bar when in fullscreen."
 				}
 			]
 		
 	},
-	"zh-CN":{
+	"zh-cn":{
 		"features":
 			[
 				{
-					"version":"1.2.0",
-					"desc":"你可以在按住鼠标的某个键不放的状态下，通过向左或向右移动鼠标来切换tab页，你可以在设置对话框里来设置具体按住哪个键，默认是右键。"
+					"version":"1.2.4",
+					"desc":"现在你可以设置在全屏模式下是否显示菜单栏、导航工具栏、书签工具栏、附加组件栏。"
 				}
 			]
 		
