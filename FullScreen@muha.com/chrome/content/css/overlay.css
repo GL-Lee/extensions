@@ -1,7 +1,6 @@
 #fullscreen-navigator-panel{
 	position: fixed;
 	background-color: #B1CFEB;
-	top: 0 !important;
 	left: 0 !important;
 	z-index: 2147483647 !important;
 	width: 100% !important;
@@ -40,10 +39,10 @@ menuitem.gl-maxmodeFull{
 	width: 24px;
 	height: 24px;
 }
-#gl-fullscreen-tab-nav.gl-fullscreen-hovered{
+/*#gl-fullscreen-tab-nav.gl-fullscreen-hovered{
 	cursor:url(../image/tabNav24.png) 2 2, pointer;
 }
-#fullscr-toggler{
+*/#fullscr-toggler{
 	display: none;
 }
 #gl-fullscr-toggler{

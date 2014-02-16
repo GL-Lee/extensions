@@ -8,21 +8,26 @@ var tabNav={
   navbar:branch.getBoolPref("navbar"),
   bookmarbar:branch.getBoolPref("bookmarbar"),
   addonbar:branch.getBoolPref("addonbar"),
+  bottomTrigger:branch.getBoolPref("bottom_trigger"),
   init: function(){
-    document.getElementById("on_fullscreen").checked = this.on_fullscreen;
+    // document.getElementById("on_fullscreen").checked = this.on_fullscreen;
     document.getElementById("mouse_button_group").selectedIndex = this.mouse_button;
     document.getElementById("menubar").checked = this.menubar;
     document.getElementById("navbar").checked = this.navbar;
     document.getElementById("bookmarbar").checked = this.bookmarbar;
     document.getElementById("addonbar").checked = this.addonbar;
+    document.getElementById("bottom-trigger").checked = this.bottomTrigger;
   },
   set: function(){
-    branch.setBoolPref("on_fullscreen", document.getElementById("on_fullscreen").checked);
-    branch.setIntPref("mouse_button", document.getElementById("mouse_button_group").selectedIndex);
+    // branch.setBoolPref("on_fullscreen", document.getElementById("on_fullscreen").checked);
+    var button = document.getElementById("mouse_button_group").selectedIndex;
+    if(button == 3) button = 99;
+    branch.setIntPref("mouse_button", button);
     branch.setBoolPref("menubar", document.getElementById("menubar").checked);
     branch.setBoolPref("navbar", document.getElementById("navbar").checked);
     branch.setBoolPref("bookmarbar", document.getElementById("bookmarbar").checked);
     branch.setBoolPref("addonbar", document.getElementById("addonbar").checked);
+    branch.setBoolPref("bottom_trigger", document.getElementById("bottom-trigger").checked);
   }
 }
 function setPref(){

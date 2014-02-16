@@ -6,3 +6,4 @@ pref("extensions.fullscreen.menubar", true);
 pref("extensions.fullscreen.navbar", true);
 pref("extensions.fullscreen.bookmarbar", true);
 pref("extensions.fullscreen.addonbar", true);
+pref("extensions.fullscreen.bottom_trigger", true);

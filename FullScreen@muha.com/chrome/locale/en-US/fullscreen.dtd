@@ -9,10 +9,12 @@
 <!ENTITY  fullscreen.set.mouse_left  "Left">
 <!ENTITY  fullscreen.set.mouse_middle  "Middle">
 <!ENTITY  fullscreen.set.mouse_right  "Right">
+<!ENTITY  fullscreen.set.none  "None(turn this off)">
 <!ENTITY  fullscreen.set.navset  "Show or not:">
 <!ENTITY  fullscreen.set.menubar  "Menus Toolbar">
 <!ENTITY  fullscreen.set.navbar  "Navigation Toolbar">
 <!ENTITY  fullscreen.set.bookmarbar  "Bookmars Toolbar">
 <!ENTITY  fullscreen.set.addonbar  "Add-ons Bar">
+<!ENTITY  fullscreen.set.bottom_trigger  "Turn on Bottom Trigger">
 <!ENTITY  fullscreen.fea.title  "New features of Full screen+">
 <!ENTITY  fullscreen.fea.openSet  "Set">

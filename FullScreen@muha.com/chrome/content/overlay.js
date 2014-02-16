@@ -6,7 +6,7 @@ if(typeof GLFullScreen == "undefined"){
         menuToggleFlg: "true",
         nav:{
             navStart: false,
-            pixH:50,
+            pixH:150,
             pixV:5,
             startPosition:{
                 x:0,
@@ -41,7 +41,7 @@ if(typeof GLFullScreen == "undefined"){
             mousedown:function(){
                 var nav = GLFullScreen.nav;
                 var event = arguments[0];
-                if(event.button != nav.mouse_button || (nav.on_fullscreen && !window.fullScreen) ){
+                if(event.button != nav.mouse_button ){
                     if(!GLFullScreen.inPanel)
                         GLFullScreen.navigatorPanel.style.display = "none";
                     return;
@@ -53,7 +53,7 @@ if(typeof GLFullScreen == "undefined"){
                     setTimeout(function(){
                         if(nav.mousedowned){
                             if(window.fullScreen){
-                                GLFullScreen.showNav();                    
+                                GLFullScreen.showNav("top");                    
                             }
                             // document.getElementById("main-window").style.cursor = "url(image/tabNav.png) 2 2, pointer";
                             nav.navPanel.openPopupAtScreen( event.screenX - nav.navPanelWidth/2, event.screenY - nav.navPanelWidth/2);
@@ -201,7 +201,8 @@ if(typeof GLFullScreen == "undefined"){
                 className+= " gl-navigator-bottom";
 
                 GLFullScreen.navigator.className = className;
-                GLFullScreen.showNav(event.target,"before_start");
+                console.log(event.screenY + ":" + window.getComputedStyle(GLFullScreen.navigatorPanel , null)['height'])
+                GLFullScreen.showNav("bottom");
             })
             document.getElementById("browser-panel").appendChild(triggerBottom);
             this.navigatorPanel.addEventListener("popuphidden",function(){
@@ -212,6 +213,11 @@ if(typeof GLFullScreen == "undefined"){
             var toggler = this.toggler = document.createElement("hbox");
             toggler.id = "gl-fullscr-toggler";
             document.getElementById("browser-panel").insertBefore(toggler, document.getElementById("browser"));
+
+            var prefService = Components.classes["@mozilla.org/preferences-service;1"]
+            .getService(Components.interfaces.nsIPrefService);
+            var branch = prefService.getBranch("extensions.fullscreen.");
+            this.bottomTrigger = branch.getBoolPref("bottom_trigger");
 
             this.nav.init();
             this.toolbarSet.init();
@@ -272,6 +278,10 @@ if(typeof GLFullScreen == "undefined"){
                   case "addonbar":
                     GLFullScreen.toolbarSet.addonbar = branch.getBoolPref("addonbar");
                     break;
+                  case "bottom_trigger":
+                    GLFullScreen.bottomTrigger = branch.getBoolPref("bottom_trigger");
+                    GLFullScreen.triggerBottom.collapsed = !GLFullScreen.bottomTrigger || false;
+                    break;
                 }
                 GLFullScreen.toolbarSet.set();
               }
@@ -279,15 +289,20 @@ if(typeof GLFullScreen == "undefined"){
 
             myListener.register(true);
         },
-        showNav: function(anchor,position){
+        showNav: function(trigger_position){
             document.getElementById("navigator-toolbox").style.marginTop = "0px";
-            if(GLFullScreen.navigatorPanel.state == "closed"){
+            // if(GLFullScreen.navigatorPanel.state == "closed"){
                 // GLFullScreen.navigatorPanel.openPopup(anchor,"",GLFullScreen.position.left, GLFullScreen.position.top);
                 GLFullScreen.navigatorPanel.style.display = "block";
-                // GLFullScreen.navigatorPanel.style.left = GLFullScreen.position.left;
-                // GLFullScreen.navigatorPanel.style.top = GLFullScreen.position.top;
-                GLFullScreen.navigatorPanel.style.position = "fixed";
-            }
+                if(trigger_position == "bottom"){
+                    GLFullScreen.navigatorPanel.style.top = "auto";
+                    GLFullScreen.navigatorPanel.style.bottom = 0;
+                }else{
+                    GLFullScreen.navigatorPanel.style.top = 0;
+                    GLFullScreen.navigatorPanel.style.bottom = "auto";
+                }
+                // GLFullScreen.navigatorPanel.style.position = "fixed";
+            // }
             
             // GLFullScreen.inPanel = true;
             GLFullScreen.position = {left: 0, top: 0};
@@ -310,7 +325,6 @@ if(typeof GLFullScreen == "undefined"){
             }
         },
         fullscreen: function(event){
-            GLFullScreen.maxmodeFlg = false;
             if(window.fullScreen){
                 window.moveTo(0,0);
                 window.resizeTo(screen.width,screen.height);
@@ -322,21 +336,22 @@ if(typeof GLFullScreen == "undefined"){
             GLFullScreen.navigatorPanel.style.display = "none";
             event.stopPropagation();
             event.preventDefault();
+            GLFullScreen.maxmodeFlg = false;
         },
         maxmodeFullscreen: function(event){
-            GLFullScreen.maxmodeFlg = true;
             if(window.fullScreen){
                 window.moveTo(screen.availLeft,screen.availTop);
                 window.resizeTo(screen.availWidth,screen.availHeight);
                 event.target.setAttribute("disabled", "true");
             }else{
-                setTimeout(function(){window.fullScreen = true},100)
+                window.fullScreen = true;
             }
             this.changeState(event.target);
             GLFullScreen.navigatorPanel.style.display = "none";
 
             event.stopPropagation();
             event.preventDefault();
+            GLFullScreen.maxmodeFlg = true;
         },
         checkUpdate: function(){
             var version = 124;
@@ -380,6 +395,7 @@ if(typeof GLFullScreen == "undefined"){
             if(document.getElementById("main-window").getAttribute("sizemode") == "fullscreen"){
                 GLFullScreen.navigatorPanel.appendChild(GLFullScreen.navigator);
                 document.getElementById("fullscr-toggler").setAttribute("collapsed", "false");
+                GLFullScreen.triggerBottom.collapsed = !GLFullScreen.bottomTrigger || false;
             }
             window.addEventListener("fullscreen", function(){
                 if(!window.fullScreen){
@@ -398,7 +414,7 @@ if(typeof GLFullScreen == "undefined"){
                         GLFullScreen.navigatorPanel.width = window.screen.width;
                     }
                     // GLFullScreen.toggler.setAttribute("collapsed", "false");
-                    GLFullScreen.triggerBottom.collapsed = false;
+                    GLFullScreen.triggerBottom.collapsed = !GLFullScreen.bottomTrigger || false;
                     setTimeout(function(){GLFullScreen.toolbarSet.set.call(GLFullScreen.toolbarSet)}, 300);
                 }else{
                     setTimeout(function(){
@@ -425,7 +441,7 @@ if(typeof GLFullScreen == "undefined"){
             GLFullScreen.navigator.className = className;
             GLFullScreen.left = screen.availLeft;
             GLFullScreen.top = event.clientY;
-            GLFullScreen.showNav();
+            GLFullScreen.showNav("top");
             event.stopPropagation();
             event.preventDefault();
         },false);

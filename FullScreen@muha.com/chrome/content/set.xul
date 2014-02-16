@@ -11,13 +11,12 @@
   <vbox id="wrapper">
     <groupbox>
       <caption label="&fullscreen.set.tab_nav_cap;"/>
-      <label value="&fullscreen.set.on_fullscreen;"/>
-      <checkbox id="on_fullscreen"/>
       <label value="&fullscreen.set.mouse_button;"/>
       <radiogroup id="mouse_button_group">
         <radio label="&fullscreen.set.mouse_left;"/>
         <radio label="&fullscreen.set.mouse_middle;"/>
         <radio label="&fullscreen.set.mouse_right;"/>
+        <radio label="&fullscreen.set.none;"/>
       </radiogroup>
     </groupbox>
     <groupbox>
@@ -27,5 +26,6 @@
       <checkbox id="bookmarbar" label="&fullscreen.set.bookmarbar;" checked="true"/>
       <checkbox id="addonbar" label="&fullscreen.set.addonbar;" checked="true"/>
     </groupbox>
+    <checkbox id="bottom-trigger" label="&fullscreen.set.bottom_trigger;" checked="true"/>
   </vbox>
 </dialog>
