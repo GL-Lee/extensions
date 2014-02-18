@@ -221,7 +221,7 @@ if(typeof GLFullScreen == "undefined"){
 
             this.nav.init();
             this.toolbarSet.init();
-            this.checkUpdate();
+            // this.checkUpdate();
             function PrefListener(branch_name, callback) {
               // Keeping a reference to the observed preference branch or it will get
               // garbage collected.
@@ -325,13 +325,10 @@ if(typeof GLFullScreen == "undefined"){
             }
         },
         fullscreen: function(event){
-            if(window.fullScreen){
-                window.moveTo(0,0);
-                window.resizeTo(screen.width,screen.height);
-                event.target.setAttribute("disabled", "true");
-            }else{
-                window.fullScreen = true;
-            }
+            window.fullScreen = true;
+            window.moveTo(0,0);
+            window.resizeTo(screen.width,screen.height);
+            event.target.setAttribute("disabled", "true");
             this.changeState(event.target);
             GLFullScreen.navigatorPanel.style.display = "none";
             event.stopPropagation();
@@ -339,13 +336,10 @@ if(typeof GLFullScreen == "undefined"){
             GLFullScreen.maxmodeFlg = false;
         },
         maxmodeFullscreen: function(event){
-            if(window.fullScreen){
-                window.moveTo(screen.availLeft,screen.availTop);
-                window.resizeTo(screen.availWidth,screen.availHeight);
-                event.target.setAttribute("disabled", "true");
-            }else{
-                window.fullScreen = true;
-            }
+            window.fullScreen = true;
+            window.moveTo(screen.availLeft,screen.availTop);
+            window.resizeTo(screen.availWidth,screen.availHeight);
+            event.target.setAttribute("disabled", "true");
             this.changeState(event.target);
             GLFullScreen.navigatorPanel.style.display = "none";
 
