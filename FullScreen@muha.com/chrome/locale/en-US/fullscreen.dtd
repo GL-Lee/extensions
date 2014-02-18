@@ -1,6 +1,7 @@
 <!ENTITY  fullscreen.title  "Full Scrren">
 <!ENTITY  fullscreen.full  "Full Scrren">
 <!ENTITY  fullscreen.maxmodeFull  "Max Mode Full Scrren">
+<!ENTITY  fullscreen.set  "Set">
 <!ENTITY  fullscreen.richFull  "Rich Full Scrren">
 <!ENTITY  fullscreen.set.title  "Full screen+ setting">
 <!ENTITY  fullscreen.set.tab_nav_cap  "Tab Navigator">

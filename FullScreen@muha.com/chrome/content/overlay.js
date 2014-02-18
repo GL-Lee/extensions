@@ -347,6 +347,11 @@ if(typeof GLFullScreen == "undefined"){
             event.preventDefault();
             GLFullScreen.maxmodeFlg = true;
         },
+        openSet: function(event){
+            window.openDialog("chrome://fullscreen/content/set.xul","set" ,"chrome,centerscreen,all" );
+            event.stopPropagation();
+            event.preventDefault();
+        },
         checkUpdate: function(){
             var version = 124;
             var configVersion = 999;

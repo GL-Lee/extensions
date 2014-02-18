@@ -11,7 +11,9 @@ var tabNav={
   bottomTrigger:branch.getBoolPref("bottom_trigger"),
   init: function(){
     // document.getElementById("on_fullscreen").checked = this.on_fullscreen;
-    document.getElementById("mouse_button_group").selectedIndex = this.mouse_button;
+    var mouse_button = this.mouse_button;
+    if(mouse_button ==99 || mouse_button == -1) mouse_button =3;
+    document.getElementById("mouse_button_group").selectedIndex = mouse_button;
     document.getElementById("menubar").checked = this.menubar;
     document.getElementById("navbar").checked = this.navbar;
     document.getElementById("bookmarbar").checked = this.bookmarbar;

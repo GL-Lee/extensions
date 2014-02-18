@@ -33,6 +33,9 @@ menuitem.gl-fullscreen{
 menuitem.gl-maxmodeFull{
 	list-style-image: url('chrome://fullscreen/content/image/maxmodefull16.png');
 }
+menuitem.gl-fullscreen-set{
+	list-style-image: url('chrome://fullscreen/content/image/set.png');
+}
 #gl-fullscreen-tab-nav{
 	background-color: transparent;
 	border-style: none;
