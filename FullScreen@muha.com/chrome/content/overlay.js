@@ -43,7 +43,7 @@ if(typeof GLFullScreen == "undefined"){
                 var event = arguments[0];
                 if(event.button != nav.mouse_button ){
                     if(!GLFullScreen.inPanel)
-                        GLFullScreen.navigatorPanel.style.display = "none";
+                        GLFullScreen.navigatorPanel.collapsed= true;
                     return;
                 }
                 nav.startPosition.x = event.clientX;
@@ -72,11 +72,11 @@ if(typeof GLFullScreen == "undefined"){
                     event.stopPropagation();
                     event.preventDefault();
                     if(nav.moved){
-                        GLFullScreen.navigatorPanel.style.display = "none";
+                        GLFullScreen.navigatorPanel.collapsed= true;
                     }else{
                         setTimeout(function(){
                             if(!GLFullScreen.inPanel)
-                                GLFullScreen.navigatorPanel.style.display = "none";
+                                GLFullScreen.navigatorPanel.collapsed= true;
                         }, 4000)
                     }
                     
@@ -293,7 +293,7 @@ if(typeof GLFullScreen == "undefined"){
             document.getElementById("navigator-toolbox").style.marginTop = "0px";
             // if(GLFullScreen.navigatorPanel.state == "closed"){
                 // GLFullScreen.navigatorPanel.openPopup(anchor,"",GLFullScreen.position.left, GLFullScreen.position.top);
-                GLFullScreen.navigatorPanel.style.display = "block";
+                GLFullScreen.navigatorPanel.collapsed= false;
                 if(trigger_position == "bottom"){
                     GLFullScreen.navigatorPanel.style.top = "auto";
                     GLFullScreen.navigatorPanel.style.bottom = 0;
@@ -330,7 +330,7 @@ if(typeof GLFullScreen == "undefined"){
             window.resizeTo(screen.width,screen.height);
             event.target.setAttribute("disabled", "true");
             this.changeState(event.target);
-            GLFullScreen.navigatorPanel.style.display = "none";
+            GLFullScreen.navigatorPanel.collapsed= true;
             event.stopPropagation();
             event.preventDefault();
             GLFullScreen.maxmodeFlg = false;
@@ -341,7 +341,7 @@ if(typeof GLFullScreen == "undefined"){
             window.resizeTo(screen.availWidth,screen.availHeight);
             event.target.setAttribute("disabled", "true");
             this.changeState(event.target);
-            GLFullScreen.navigatorPanel.style.display = "none";
+            GLFullScreen.navigatorPanel.collapsed= true;
 
             event.stopPropagation();
             event.preventDefault();
@@ -353,7 +353,7 @@ if(typeof GLFullScreen == "undefined"){
             event.preventDefault();
         },
         checkUpdate: function(){
-            var version = 124;
+            var version = 203;
             var configVersion = 999;
             try{
                 var prefService = Components.classes["@mozilla.org/preferences-service;1"]
@@ -426,7 +426,7 @@ if(typeof GLFullScreen == "undefined"){
                     gNavToolbox.palette = GLFullScreen.palette;
                     // GLFullScreen.toggler.setAttribute("collapsed", "true");
                     GLFullScreen.changeState();
-                    GLFullScreen.navigatorPanel.style.display = "none";;
+                    GLFullScreen.navigatorPanel.collapsed= true;;
                     GLFullScreen.triggerBottom.collapsed = true;
                     GLFullScreen.toolbarSet.unset();
                 }
@@ -457,7 +457,7 @@ if(typeof GLFullScreen == "undefined"){
             GLFullScreen.inPanel = false;
             GLFullScreen.timer = setTimeout(function(){
                 if(!GLFullScreen.inPanel && !GLFullScreen.nav.navStart){
-                    GLFullScreen.navigatorPanel.style.display = "none";;
+                    GLFullScreen.navigatorPanel.collapsed= true;;
                 }
             },1000)
         })

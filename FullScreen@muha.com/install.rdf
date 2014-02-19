@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>FullScreen@muha.com</em:id>
-    <em:version>2.0.2</em:version>
+    <em:version>2.0.3</em:version>
 
     <!-- Firefox -->
     <em:targetApplication>
@@ -19,7 +19,7 @@
     <em:description>Full screen with tab and other navigator tools which you want</em:description>
     <em:creator>GL-Lee</em:creator>
     <em:developer>GL-Lee</em:developer>
-    <em:homepageURL>http://www.cnblogs.com/muha/p/3430363.html</em:homepageURL>
+    <em:homepageURL>https://addons.mozilla.org/zh-CN/firefox/addon/fullscreen-1/?src=api</em:homepageURL>
     <em:optionsURL>chrome://fullscreen/content/set.xul</em:optionsURL>
     <em:type>2</em:type> <!-- extension -->
     <em:unpack>true</em:unpack>

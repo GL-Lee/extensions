@@ -13,7 +13,7 @@
 	border:0;
 	padding: 0;
 	margin: 0;
-	display: none;
+	display: block;
 }
 .gl-navigator-bottom{
 	/*-moz-box-direction: reverse;*/
